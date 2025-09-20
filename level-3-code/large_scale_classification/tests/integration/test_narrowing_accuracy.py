@@ -39,6 +39,11 @@ class NarrowingResult:
     correct_category_found: bool
     processing_time_ms: float
     narrowed_count: int
+    # New fields for hybrid strategy
+    stage1_categories: list[Category] = None  # Embedding stage results (e.g., 14 categories)
+    stage1_processing_time_ms: float = None  # Time for embedding stage
+    stage2_processing_time_ms: float = None  # Time for LLM stage
+    is_hybrid_result: bool = False
 
 
 @dataclass
@@ -88,10 +93,28 @@ class NarrowingAccuracyTester:
         for i, test_case in enumerate(tests, 1):
             start_time = time.time()
 
-            # Run narrowing
-            narrowed_categories = narrower.narrow(test_case["text"], self.categories)
+            # Check if this is a hybrid strategy to capture intermediate results
+            is_hybrid = strategy_name == "Hybrid" and hasattr(narrower, '_narrow_with_embedding')
+            stage1_categories = None
+            stage1_time_ms = None
+            stage2_time_ms = None
 
-            processing_time_ms = (time.time() - start_time) * 1000
+            if is_hybrid:
+                # Capture Stage 1: Embedding narrowing
+                stage1_start = time.time()
+                stage1_categories = narrower._narrow_with_embedding(test_case["text"], self.categories)
+                stage1_time_ms = (time.time() - stage1_start) * 1000
+
+                # Capture Stage 2: LLM refinement
+                stage2_start = time.time()
+                narrowed_categories = narrower._narrow_with_llm_stage(test_case["text"], stage1_categories)
+                stage2_time_ms = (time.time() - stage2_start) * 1000
+                
+                processing_time_ms = stage1_time_ms + stage2_time_ms
+            else:
+                # Regular narrowing for non-hybrid strategies
+                narrowed_categories = narrower.narrow(test_case["text"], self.categories)
+                processing_time_ms = (time.time() - start_time) * 1000
 
             # Check if correct category is in narrowed results
             expected_category_path = test_case["category"]
@@ -103,6 +126,10 @@ class NarrowingAccuracyTester:
                 correct_category_found=correct_category_found,
                 processing_time_ms=processing_time_ms,
                 narrowed_count=len(narrowed_categories),
+                stage1_categories=stage1_categories,
+                stage1_processing_time_ms=stage1_time_ms,
+                stage2_processing_time_ms=stage2_time_ms,
+                is_hybrid_result=is_hybrid,
             )
             results.append(result)
 
@@ -110,7 +137,14 @@ class NarrowingAccuracyTester:
             status = "✅" if correct_category_found else "❌"
             print(f"{i:2d}. {status} {test_case['text'][:CATEGORIES_DISPLAY_CUTOFF]}...")
             print(f"    Expected: {expected_category_path}")
-            print(f"    Narrowed to {len(narrowed_categories)} categories ({processing_time_ms:.1f}ms)")
+            
+            if is_hybrid and stage1_categories:
+                print(f"    Stage 1 (Embedding): {len(stage1_categories)} categories ({stage1_time_ms:.1f}ms)")
+                print(f"    Stage 2 (LLM): {len(narrowed_categories)} categories ({stage2_time_ms:.1f}ms)")
+                print(f"    Total: {processing_time_ms:.1f}ms")
+            else:
+                print(f"    Narrowed to {len(narrowed_categories)} categories ({processing_time_ms:.1f}ms)")
+            
             if not correct_category_found:
                 print("    ⚠️  Correct category NOT found in narrowed results!")
                 print(
@@ -273,7 +307,20 @@ class NarrowingAccuracyTester:
                     "correct_category_found": result.correct_category_found,
                     "processing_time_ms": result.processing_time_ms,
                     "narrowed_count": result.narrowed_count,
+                    "is_hybrid_result": result.is_hybrid_result,
                 }
+                
+                # Add hybrid-specific fields if available
+                if result.is_hybrid_result and result.stage1_categories:
+                    result_dict.update({
+                        "stage1_categories": [
+                            {"path": cat.path, "name": cat.name, "description": cat.llm_description}
+                            for cat in result.stage1_categories
+                        ],
+                        "stage1_processing_time_ms": result.stage1_processing_time_ms,
+                        "stage2_processing_time_ms": result.stage2_processing_time_ms,
+                        "stage1_count": len(result.stage1_categories),
+                    })
                 serializable_results.append(result_dict)
 
             strategy_dict["results"] = serializable_results

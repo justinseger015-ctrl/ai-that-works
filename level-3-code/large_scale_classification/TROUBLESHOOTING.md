@@ -40,7 +40,31 @@ If you're on a corporate network:
 - **Use VPN**: Try connecting through a personal VPN
 - **Configure proxy**: Set HTTP_PROXY and HTTPS_PROXY environment variables
 
-#### 4. API Key Issues
+#### 4. API Key Configuration Issues
+
+**Common Error:** `"Incorrect API key provided: $OPENAI_***_KEY"`
+
+This means the `.env` file is missing or not properly configured.
+
+**Solution - Create .env file:**
+1. Create a file named `.env` in the project root directory
+2. Add your OpenAI API key:
+
+```bash
+# OpenAI API Key - Required for embeddings and LLM classification
+OPENAI_API_KEY=sk-your-actual-api-key-here
+
+# Optional: Anthropic API Key (only needed for Claude models)
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+```
+
+**Important Notes:**
+- Replace `sk-your-actual-api-key-here` with your real API key from https://platform.openai.com/account/api-keys
+- Do NOT include quotes around the API key
+- The API key should start with `sk-` for OpenAI
+- Do NOT commit the `.env` file to version control
+
+**Test your API key:**
 ```bash
 # Check if your API key is valid
 curl -H "Authorization: Bearer YOUR_API_KEY" https://api.openai.com/v1/models

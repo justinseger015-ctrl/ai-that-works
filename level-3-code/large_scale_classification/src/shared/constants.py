@@ -1,7 +1,7 @@
 """Shared constants."""
 
 CATEGORIES = "categories"
-CATEGORIES_TXT = "categories.txt"
+CATEGORIES_TXT = "categories_full.txt"
 COUNT = "count"
 CREATED_AT = "created_at"
 DATA = "data"
