@@ -1,3 +1,24 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#f26e00",
+        "activityBar.background": "#f26e00",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#00ff74",
+        "activityBarBadge.foreground": "#15202b",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#f26e00",
+        "statusBar.background": "#bf5700",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#f26e00",
+        "statusBarItem.remoteBackground": "#bf5700",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#bf5700",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#bf570099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "BF5700",
+    "cursorpyright.analysis.typeCheckingMode": "basic"
 }
