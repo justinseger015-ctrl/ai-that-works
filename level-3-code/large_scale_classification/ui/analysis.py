@@ -1,9 +1,9 @@
-# ruff: noqa: E402
 """Analysis and visualization functions for the Streamlit UI.
 
 This module handles error analysis, performance metrics, and chart generation
 for the classification system results.
 """
+# ruff: noqa: E402
 
 import sys
 from pathlib import Path

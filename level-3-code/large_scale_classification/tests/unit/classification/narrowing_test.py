@@ -18,7 +18,6 @@ with mock.patch.dict(
 ):
     from src.classification.narrowing import (
         CategoryNarrower,
-        EmbeddingBasedNarrowing,
         HybridNarrowing,
         LLMBasedNarrowing,
         NarrowingStrategyBase,
@@ -92,129 +91,6 @@ def mock_embedding_service():
     mock_service.embed_category.return_value = [0.1, 0.2, 0.3, 0.4, 0.5]
     mock_service.compute_similarity.return_value = 0.8
     return mock_service
-
-
-class TestEmbeddingBasedNarrowing:
-    """Test cases for EmbeddingBasedNarrowing class."""
-
-    def test_init_without_vector_store(self, mock_embedding_service: EmbeddingService):
-        """Test EmbeddingBasedNarrowing initialization without vector store."""
-        ###########
-        # ARRANGE #
-        ###########
-
-        #######
-        # ACT #
-        #######
-        narrowing = EmbeddingBasedNarrowing(mock_embedding_service, use_vector_store=False)
-
-        ##########
-        # ASSERT #
-        ##########
-        assert narrowing.embedding_service == mock_embedding_service
-        assert narrowing._vector_store is None
-
-    def test_narrow_empty_categories(self, mock_embedding_service: EmbeddingService):
-        """Test narrow returns empty list when given empty categories."""
-        ###########
-        # ARRANGE #
-        ###########
-        narrowing = EmbeddingBasedNarrowing(mock_embedding_service, use_vector_store=False)
-        test_text = "test text"
-
-        #######
-        # ACT #
-        #######
-        result = narrowing.narrow(test_text, [])
-
-        ##########
-        # ASSERT #
-        ##########
-        assert result == []
-
-    def test_narrow_in_memory(self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]):
-        """Test narrow uses in-memory approach for small category sets."""
-        ###########
-        # ARRANGE #
-        ###########
-        narrowing = EmbeddingBasedNarrowing(mock_embedding_service, use_vector_store=False)
-        test_text = "test text"
-
-        # Mock different similarities for different categories
-        mock_embedding_service.compute_similarity.side_effect = [
-            0.9,
-            0.7,
-            0.5,
-            0.3,
-            0.1,
-        ]
-
-        # Mock _narrow_in_memory directly to test the logic
-        with mock.patch.object(narrowing, "_narrow_in_memory") as mock_narrow_in_memory:
-            expected_result = mock_categories[:3]  # Top 3 categories
-            mock_narrow_in_memory.return_value = expected_result
-
-            #######
-            # ACT #
-            #######
-            result = narrowing.narrow(test_text, mock_categories)
-
-            ##########
-            # ASSERT #
-            ##########
-            assert result == expected_result
-            mock_narrow_in_memory.assert_called_once_with(test_text, mock_categories, 5)
-
-    def test_narrow_in_memory_implementation(
-        self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]
-    ):
-        """Test the actual _narrow_in_memory implementation with sorting."""
-        ###########
-        # ARRANGE #
-        ###########
-        narrowing = EmbeddingBasedNarrowing(mock_embedding_service, use_vector_store=False)
-        test_text = "test text"
-
-        # Mock different similarities for different categories
-        mock_embedding_service.compute_similarity.side_effect = [
-            0.9,
-            0.7,
-            0.5,
-            0.3,
-            0.1,
-        ]
-
-        #######
-        # ACT #
-        #######
-        result = narrowing._narrow_in_memory(test_text, mock_categories, 10)
-
-        ##########
-        # ASSERT #
-        ##########
-        # Should return all categories sorted by similarity (no settings limit in this test)
-        assert len(result) == len(mock_categories)
-        assert result[0] == mock_categories[0]  # Highest similarity (0.9)
-        assert result[1] == mock_categories[1]  # Second highest (0.7)
-        assert result[2] == mock_categories[2]  # Third highest (0.5)
-
-        mock_embedding_service.embed_text.assert_called_once_with(test_text)
-        assert mock_embedding_service.embed_category.call_count == 5
-        assert mock_embedding_service.compute_similarity.call_count == 5
-
-    def test_narrow_with_vector_store_no_vector_store_raises_error(self, mock_embedding_service: EmbeddingService):
-        """Test _narrow_with_vector_store raises error when vector store is None."""
-        ###########
-        # ARRANGE #
-        ###########
-        narrowing = EmbeddingBasedNarrowing(mock_embedding_service, use_vector_store=False)
-        test_text = "test text"
-
-        #######
-        # ACT & ASSERT #
-        #######
-        with pytest.raises(RuntimeError, match="Vector store or embedding service is not available"):
-            narrowing._narrow_with_vector_store(test_text, 10)
 
 
 class TestLLMBasedNarrowing:
@@ -356,7 +232,7 @@ class TestHybridNarrowing:
         ##########
         assert result == final_candidates
         mock_embedding.assert_called_once_with(test_text, mock_categories)
-        mock_llm.assert_called_once_with(test_text, embedding_candidates, 3)
+        mock_llm.assert_called_once_with(test_text, embedding_candidates, 25)
 
     def test_narrow_with_embedding_in_memory(
         self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]
@@ -438,7 +314,7 @@ class TestHybridNarrowing:
             ##########
             assert result == final_result
             mock_embedding.assert_called_once_with(test_text, mock_categories)
-            mock_llm.assert_called_once_with(test_text, embedding_candidates, 3)
+            mock_llm.assert_called_once_with(test_text, embedding_candidates, 25)
 
     def test_narrow_falls_back_when_invalid_settings(
         self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]
@@ -555,34 +431,7 @@ class TestCategoryNarrower:
         # ASSERT #
         ##########
         assert narrower.embedding_service == mock_embedding_service
-        assert NarrowingStrategy.EMBEDDING in narrower._strategy_map
         assert NarrowingStrategy.HYBRID in narrower._strategy_map
-
-    def test_narrow_categories_with_embedding_strategy(
-        self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]
-    ):
-        """Test narrow_categories uses embedding strategy when configured."""
-        ###########
-        # ARRANGE #
-        ###########
-        narrower = CategoryNarrower(mock_embedding_service, use_vector_store=False)
-        test_text = "test text"
-
-        # Mock the narrow_categories method directly
-        with mock.patch.object(narrower, "narrow_categories") as mock_narrow:
-            expected_result = mock_categories[:3]  # Top 3 categories
-            mock_narrow.return_value = expected_result
-
-            #######
-            # ACT #
-            #######
-            result = narrower.narrow_categories(test_text, mock_categories)
-
-            ##########
-            # ASSERT #
-            ##########
-            assert result == expected_result
-            mock_narrow.assert_called_once_with(test_text, mock_categories)
 
     def test_narrow_categories_with_hybrid_strategy(
         self, mock_embedding_service: EmbeddingService, mock_categories: list[Category]

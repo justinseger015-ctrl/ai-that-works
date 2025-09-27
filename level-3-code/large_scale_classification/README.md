@@ -128,34 +128,49 @@ max_narrowed_categories = 5  # Number of candidates to pass to final selection
 
 ## Testing
 
-The system includes comprehensive testing infrastructure:
+The system includes comprehensive testing infrastructure with both unit and integration tests:
 
 ### Run Tests
 
 ```bash
-# Run all tests
+# Run all tests (unit + integration)
 cd tests
 python run_tests.py
 
 # Run specific test types
-python run_tests.py --narrowing-accuracy
-python run_tests.py --all
+python run_tests.py --unit                  # Unit tests only (fast, no API calls)
+python run_tests.py --narrowing-accuracy    # Narrowing accuracy integration test
+python run_tests.py --selection-accuracy    # Selection accuracy integration test
+python run_tests.py --pipeline-accuracy     # Complete pipeline integration test
+python run_tests.py --all                   # All tests explicitly
 ```
 
 ### Test Types
 
+- **Unit Tests**: Fast component testing with mocking (embeddings, narrowing, selection, pipeline, vector store)
 - **Narrowing Accuracy**: Tests how often the correct category is included in narrowed results
-- **Selection Accuracy**: Tests final category selection accuracy
-- **Integration Tests**: End-to-end pipeline testing
-- **Unit Tests**: Individual component testing
+- **Selection Accuracy**: Tests final category selection accuracy  
+- **Pipeline Accuracy**: End-to-end pipeline testing with performance metrics
 
 ### Test Results
 
-Tests automatically save detailed JSON results with timestamps for performance tracking:
+Integration tests automatically save detailed JSON results with timestamps for performance tracking:
 
 ```bash
 # Compare results across test runs
 python tests/compare_results.py --narrowing file1.json file2.json
+```
+
+### Running Individual Tests
+
+```bash
+# Unit tests (from project root)
+uv run pytest tests/unit/classification/pipeline_test.py -v
+uv run pytest tests/unit/classification/selection_test.py -v
+
+# Integration tests (from tests/integration)
+cd tests/integration
+python test_pipeline_accuracy.py
 ```
 
 ## Configuration
@@ -197,7 +212,6 @@ class Settings(BaseSettings):
 
 Configure `narrowing_strategy` in settings.py:
 
-- `NarrowingStrategy.EMBEDDING`: Pure embedding similarity (fastest)
 - `NarrowingStrategy.HYBRID`: Embedding + LLM reasoning (most accurate, default)
 - `NarrowingStrategy.LLM`: Pure LLM-based narrowing (most flexible)
 
@@ -219,6 +233,79 @@ Categories are loaded from `data/categories.txt`. The format supports hierarchic
 /Appliances/Dishwashers/Built-in Dishwashers
 /Appliances/Appliance Parts/Dishwasher Parts
 ```
+
+## 🔄 Development Workflow
+
+### Configuration → Testing → Analysis Workflow
+
+The system supports a complete development workflow for optimizing classification performance:
+
+1. **Update Configuration**: Modify settings in `src/config/settings.py`
+2. **Run Performance Tests**: Execute pipeline tests with version tracking
+3. **Analyze Results**: Use the Streamlit app to compare performance across versions
+
+### Example Workflow
+
+```bash
+# 1. Update configuration settings
+# Edit src/config/settings.py - for example:
+#   max_narrowed_categories = 10  (was 5)
+#   max_embedding_candidates = 50  (was 10)
+
+# 2. Run pipeline test with version tracking
+uv run python tests/integration/test_pipeline_accuracy.py --save-as v7 --description "embedding 50, llm 10, model upgrade"
+
+# 3. View results in Streamlit app
+uv run streamlit run ui/app.py
+
+# 4. Compare with previous versions in the UI
+# The app will show performance comparisons across all saved versions
+```
+
+### Configuration Parameters for Optimization
+
+Key settings in `src/config/settings.py` that affect performance:
+
+```python
+class Settings(BaseSettings):
+    # Strategy Selection
+    narrowing_strategy: NarrowingStrategy = NarrowingStrategy.HYBRID
+    
+    # Performance Tuning
+    max_narrowed_categories: int = 5        # Final candidates passed to LLM
+    max_embedding_candidates: int = 10      # Embedding stage candidates (hybrid only)
+    max_final_categories: int = 3           # LLM stage candidates (hybrid only)
+    
+    # Model Selection
+    embedding_model: str = "text-embedding-3-small"  # or "text-embedding-3-large"
+```
+
+### Streamlit Analysis Dashboard
+
+The Streamlit app (`ui/app.py`) provides:
+
+- **Performance Comparison**: Compare accuracy and timing across test versions
+- **Detailed Analysis**: Drill down into individual test case results
+- **Configuration Tracking**: See what settings were used for each version
+- **Trend Analysis**: Track performance improvements over time
+
+Launch the dashboard:
+```bash
+uv run streamlit run ui/app.py
+```
+
+### Version Management
+
+Pipeline tests support version tracking for systematic performance analysis:
+
+```bash
+# Save test results with version and description
+uv run python tests/integration/test_pipeline_accuracy.py --save-as v6 --description "baseline configuration"
+uv run python tests/integration/test_pipeline_accuracy.py --save-as v7 --description "increased embedding candidates to 50"
+uv run python tests/integration/test_pipeline_accuracy.py --save-as v8 --description "upgraded to text-embedding-3-large"
+```
+
+Results are saved to `tests/results/saved_runs/` with metadata for easy comparison.
 
 ## 🔧 Advanced Usage
 
@@ -243,7 +330,7 @@ print(f"Candidates: {[c.name for c in result.candidates]}")
 
 To use your own category set:
 
-1. Replace `data/categories.txt` with your categories
+1. Replace `data/categories_full.txt` with your categories
 2. Rebuild the vector store: `python scripts/build_vector_store.py --force-rebuild`
 3. Update test cases in `tests/data/test_cases.py` if needed
 
@@ -254,7 +341,6 @@ The system uses [BAML](https://docs.boundaryml.com/) for LLM interactions. BAML 
 - `clients.baml`: LLM client configurations
 - `pick_best_category.baml`: Category selection prompt
 - `generators.baml`: Type definitions
-- `resume.baml`: Additional functionality
 
 ## Development
 

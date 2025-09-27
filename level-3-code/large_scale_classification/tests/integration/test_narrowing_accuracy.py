@@ -1,7 +1,7 @@
 """Test script to evaluate the accuracy of category narrowing strategies.
 
 This script tests how often the correct category is included in the narrowed
-results for each narrowing strategy (embedding, hybrid). It provides detailed
+results for each narrowing strategy (hybrid). It provides detailed
 metrics and analysis to help optimize the narrowing process.
 """
 
@@ -15,7 +15,6 @@ from pathlib import Path
 
 from src.classification.embeddings import EmbeddingService
 from src.classification.narrowing import (
-    EmbeddingBasedNarrowing,
     HybridNarrowing,
 )
 from src.config.settings import settings
@@ -243,7 +242,6 @@ class NarrowingAccuracyTester:
         """
         # Define strategy constructors (not instances) to create fresh services
         strategy_constructors = {
-            "Embedding": lambda: EmbeddingBasedNarrowing(EmbeddingService()),
             "Hybrid": lambda: HybridNarrowing(EmbeddingService()),
         }
 

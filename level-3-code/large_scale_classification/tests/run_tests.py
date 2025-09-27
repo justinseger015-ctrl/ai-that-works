@@ -8,10 +8,12 @@ This script provides an easy way to run different types of tests:
 Usage:
     python tests/run_tests.py --narrowing-accuracy
     python tests/run_tests.py --selection-accuracy
+    python tests/run_tests.py --unit
     python tests/run_tests.py --all
 """
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -52,10 +54,87 @@ def run_pipeline_accuracy_test():
     pipeline_test_main()
 
 
+def run_unit_tests():
+    """Run unit tests using pytest."""
+    print("Running Unit Tests...")
+    print("=" * 60)
+    
+    # Change to project root directory for pytest
+    import os
+    original_dir = os.getcwd()
+    os.chdir(project_root)
+    
+    try:
+        # Run unit tests individually to avoid collection issues
+        unit_test_files = [
+            "tests/unit/classification/embeddings_test.py",
+            "tests/unit/classification/narrowing_test.py", 
+            "tests/unit/classification/vector_store_test.py",
+            "tests/unit/classification/pipeline_test.py",
+            "tests/unit/classification/selection_test.py"
+        ]
+        
+        all_passed = True
+        total_tests = 0
+        total_passed = 0
+        
+        for test_file in unit_test_files:
+            print(f"\n🧪 Running {test_file}...")
+            print("-" * 40)
+            
+            try:
+                # Run pytest for each file individually
+                result = subprocess.run([
+                    sys.executable, "-m", "pytest", test_file, "-v", "--tb=short"
+                ], capture_output=True, text=True, cwd=project_root)
+                
+                if result.returncode == 0:
+                    # Parse output to count tests
+                    lines = result.stdout.split('\n')
+                    for line in lines:
+                        if " passed" in line and "warning" in line:
+                            # Extract number of passed tests
+                            parts = line.split()
+                            for i, part in enumerate(parts):
+                                if "passed" in part and i > 0:
+                                    try:
+                                        passed = int(parts[i-1])
+                                        total_passed += passed
+                                        total_tests += passed
+                                        print(f"✅ {passed} tests passed")
+                                    except (ValueError, IndexError):
+                                        pass
+                                    break
+                    print(result.stdout)
+                else:
+                    all_passed = False
+                    print(f"❌ Tests failed with return code {result.returncode}")
+                    print("STDOUT:", result.stdout)
+                    print("STDERR:", result.stderr)
+                    
+            except Exception as e:
+                all_passed = False
+                print(f"❌ Error running {test_file}: {e}")
+        
+        print("\n" + "=" * 60)
+        if all_passed:
+            print(f"🎉 All unit tests passed! ({total_passed} tests total)")
+        else:
+            print("❌ Some unit tests failed. See output above for details.")
+            
+    finally:
+        os.chdir(original_dir)
+
+
 def run_all_tests():
     """Run all available tests."""
     print("Running All Tests")
     print("=" * 60)
+
+    # Run unit tests first
+    run_unit_tests()
+
+    print("\n" + "=" * 60)
 
     # Run narrowing accuracy test
     run_narrowing_accuracy_test()
@@ -92,6 +171,8 @@ def main():
 
     parser.add_argument("--pipeline-accuracy", action="store_true", help="Run complete pipeline accuracy tests")
 
+    parser.add_argument("--unit", action="store_true", help="Run unit tests")
+
     parser.add_argument("--all", action="store_true", help="Run all available tests")
 
     args = parser.parse_args()
@@ -102,6 +183,8 @@ def main():
         run_selection_accuracy_test()
     elif args.pipeline_accuracy:
         run_pipeline_accuracy_test()
+    elif args.unit:
+        run_unit_tests()
     elif args.all:
         run_all_tests()
     else:

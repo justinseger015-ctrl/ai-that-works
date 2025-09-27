@@ -161,50 +161,6 @@ class NarrowingStrategyBase(ABC):
             return categories[:max_results]
 
 
-class EmbeddingBasedNarrowing(NarrowingStrategyBase):
-    """Uses embedding similarity for narrowing."""
-
-    def __init__(self, embedding_service: EmbeddingService, use_vector_store: bool = True) -> None:
-        """Initialize the embedding-based narrowing strategy.
-
-        Args:
-            embedding_service: The module's embedding service.
-            use_vector_store: Whether to use the ChromaDB vector store for faster search.
-        """
-        super().__init__(embedding_service, use_vector_store)
-
-    def narrow(self, text: str, categories: list[Category]) -> list[Category]:
-        """Narrow using embedding similarity.
-
-        Args:
-            text: The text to narrow categories based on.
-            categories: The categories to narrow.
-
-        Returns:
-            The narrowed categories.
-        """
-        return self._narrow_with_embedding_similarity(text, categories, settings.max_narrowed_categories)
-
-    def narrow_with_stages(self, text: str, categories: list[Category]) -> dict:
-        """Narrow categories using embedding similarity, returning stage information.
-
-        Args:
-            text: The text to narrow categories based on.
-            categories: The categories to narrow.
-
-        Returns:
-            Dictionary containing stage results and final candidates.
-        """
-        embedding_candidates = self._narrow_with_embedding_similarity(
-            text, categories, settings.max_narrowed_categories
-        )
-        return {
-            "embedding_candidates": embedding_candidates,
-            "llm_candidates": [],  # No LLM stage in embedding-only
-            "final_candidates": embedding_candidates,
-        }
-
-
 class LLMBasedNarrowing(NarrowingStrategyBase):
     """Uses LLM for category narrowing."""
 
@@ -225,10 +181,9 @@ class LLMBasedNarrowing(NarrowingStrategyBase):
         try:
             return self._narrow_with_llm(text, categories, settings.max_narrowed_categories)
         except Exception as e:
-            # Fallback to embedding-based if LLM fails
-            self.logger.warning(f"LLM narrowing failed: {e}, falling back to embedding-based")
-            embedding_narrower = EmbeddingBasedNarrowing(EmbeddingService())
-            return embedding_narrower.narrow(text, categories)
+            # Return all categories if LLM fails - let the user handle the failure
+            self.logger.error(f"LLM narrowing failed: {e}, returning all categories")
+            return categories[:settings.max_narrowed_categories]
 
 
 class HybridNarrowing(NarrowingStrategyBase):
@@ -364,7 +319,6 @@ class CategoryNarrower:
         """
         self.embedding_service = embedding_service
         self._strategy_map = {
-            NarrowingStrategy.EMBEDDING: lambda: EmbeddingBasedNarrowing(embedding_service, use_vector_store),
             NarrowingStrategy.HYBRID: lambda: HybridNarrowing(embedding_service, use_vector_store),
         }
 

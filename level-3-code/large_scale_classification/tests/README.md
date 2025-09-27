@@ -18,6 +18,15 @@ tests/
 │   ├── test_narrowing_accuracy.py     # Narrowing strategy accuracy test
 │   ├── test_selection_accuracy.py     # Selection accuracy test
 │   └── test_pipeline_accuracy.py      # Complete pipeline accuracy test
+├── unit/                              # Unit tests
+│   ├── __init__.py
+│   └── classification/                # Classification component tests
+│       ├── __init__.py
+│       ├── embeddings_test.py         # EmbeddingService tests
+│       ├── narrowing_test.py          # Narrowing strategy tests
+│       ├── pipeline_test.py           # Classification pipeline tests
+│       ├── selection_test.py          # Category selection tests
+│       └── vector_store_test.py       # Vector store tests
 └── results/                           # JSON test results (auto-generated)
     ├── narrowing/                     # Narrowing test results
     │   └── narrowing_accuracy_YYYYMMDD_HHMMSS.json
@@ -28,6 +37,23 @@ tests/
 ```
 
 ## Available Tests
+
+### Unit Tests (`unit/classification/`)
+
+**Purpose**: Tests individual components and classes in isolation to ensure they work correctly.
+
+**What they test**:
+- **EmbeddingService** (`embeddings_test.py`): OpenAI embedding generation, caching, similarity computation
+- **Narrowing Strategies** (`narrowing_test.py`): LLM-based, hybrid, and embedding-based narrowing logic
+- **ClassificationPipeline** (`pipeline_test.py`): Main orchestrator component integration
+- **CategorySelector** (`selection_test.py`): LLM-based category selection from candidates
+- **CategoryVectorStore** (`vector_store_test.py`): ChromaDB vector store operations
+
+**Benefits**:
+- Fast execution (no API calls, uses mocking)
+- Comprehensive coverage of edge cases
+- Regression detection for component changes
+- Development-friendly debugging
 
 ### 1. Narrowing Accuracy Test (`integration/test_narrowing_accuracy.py`)
 
@@ -95,23 +121,31 @@ tests/
 ### Using the Test Runner
 
 ```bash
-# Run narrowing accuracy test (default)
+# Run all tests (default - includes unit + integration tests)
 cd tests
 python run_tests.py
 
 # Run specific test types
-python run_tests.py --narrowing-accuracy
-python run_tests.py --selection-accuracy
-python run_tests.py --pipeline-accuracy
+python run_tests.py --unit                  # Unit tests only
+python run_tests.py --narrowing-accuracy    # Narrowing accuracy integration test
+python run_tests.py --selection-accuracy    # Selection accuracy integration test
+python run_tests.py --pipeline-accuracy     # Pipeline accuracy integration test
 
-# Run all tests
+# Run all tests explicitly
 python run_tests.py --all
 ```
 
 ### Running Tests Directly
 
 ```bash
-# Run tests directly
+# Run unit tests directly (from project root)
+uv run pytest tests/unit/classification/embeddings_test.py -v
+uv run pytest tests/unit/classification/narrowing_test.py -v
+uv run pytest tests/unit/classification/pipeline_test.py -v
+uv run pytest tests/unit/classification/selection_test.py -v
+uv run pytest tests/unit/classification/vector_store_test.py -v
+
+# Run integration tests directly
 cd tests/integration
 python test_narrowing_accuracy.py
 python test_selection_accuracy.py
@@ -294,12 +328,12 @@ Hybrid: 355.1ms → 340.2ms (🟢 -14.9ms)
 ## Future Test Types
 
 **Planned test additions**:
-- Unit tests for individual components
 - Performance benchmarks
 - Load testing
 - Category hierarchy validation tests
 - BAML integration tests
 - Regression testing framework
+- End-to-end workflow tests
 
 ## Dependencies
 
