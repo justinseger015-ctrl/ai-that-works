@@ -12,18 +12,14 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Bash vs. MCP - token efficient coding agent tooling</strong></h3>
-<p><strong>Tuesday, September 16, 2025 at 10 AM PST</strong></p>
-<p><em>On this week's AI That Works, we'll explore the great Bash vs. MCP debate - what's better for helping coding agents do more?
+<h3><strong>Anthropic Post Mortem</strong></h3>
+<p><strong>Tuesday, October 7, 2025 at 10 AM PST</strong></p>
+<p><em>In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.
 
-We'll talk about:
-
-- Token efficiency and Downsides of JSON
-- Writing your own drop-ins for MCP tools
-- Other advanced tricks like .shims for forcing uv instead of python or bun instead of npm
+https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
 </em></p>
 
-<a href="https://luma.com/kbjf88pm" target="_blank">
+<a href="https://luma.com/52d6lzpt" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -107,10 +103,54 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-07</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#26</strong>: Anthropic Post Mortem</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2025-10-07-anthropic-post-mortem">code</a> • <a href="https://luma.com/52d6lzpt">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.
+
+https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-09-30</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#25</strong>: Dynamic Schemas</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://youtu.be/bak7-C--azc">watch</a> • <a href="./2025-09-30-dyanmic-schemas">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this episode, Dex and Vaibhav explore the concept of dynamic UIs and how to build systems that can adapt to unknown data structures. They discuss the importance of dynamic schema generation, meta programming with LLMs, and the potential for creating dynamic React components. The conversation also delves into the execution and rendering of these dynamic schemas, highlighting the challenges and opportunities in this evolving field. They conclude with thoughts on future directions and the importance of building robust workflows around schema management.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-09-23</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#24</strong>: Evals for Classification</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://youtu.be/5Fy0hBzyduU">watch</a> • <a href="./2025-09-16-coding-agent-tools-bash-vs-mcp">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">On this week's AI That Works, we'll build custom dashboards for evaluating classification tasks using LLMs.
+
+What do you show to make actionable changes in your code to improve classification accuracy?
+We'll include a primer on how to design a large-scale classifcation system using LLMs.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-09-16</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#23</strong>: Bash vs. MCP - token efficient coding agent tooling</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-09-16-coding-agent-tools-bash-vs-mcp">code</a> • <a href="https://luma.com/kbjf88pm">register</a>
+          <a href="https://www.youtube.com/watch?v=RtXpXIY4sLk">watch</a> • <a href="./2025-09-16-coding-agent-tools-bash-vs-mcp">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">On this week's AI That Works, we'll explore the great Bash vs. MCP debate - what's better for helping coding agents do more?

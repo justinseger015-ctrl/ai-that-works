@@ -1,6 +1,68 @@
 {
   "episodes": [
     {
+      "folder": "2025-10-07-anthropic-post-mortem",
+      "guid": "aitw-026",
+      "title": "Anthropic Post Mortem",
+      "description": "In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.\n\nhttps://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues\n",
+      "event_link": "https://luma.com/52d6lzpt",
+      "eventDate": "2025-10-07T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": null,
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-07-anthropic-post-mortem"
+      },
+      "season": 2,
+      "episode": 26,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-09-30-dyanmic-schemas",
+      "guid": "aitw-025",
+      "title": "Dynamic Schemas",
+      "description": "In this episode, Dex and Vaibhav explore the concept of dynamic UIs and how to build systems that can adapt to unknown data structures. They discuss the importance of dynamic schema generation, meta programming with LLMs, and the potential for creating dynamic React components. The conversation also delves into the execution and rendering of these dynamic schemas, highlighting the challenges and opportunities in this evolving field. They conclude with thoughts on future directions and the importance of building robust workflows around schema management.\n",
+      "event_link": "https://luma.com/baml",
+      "eventDate": "2025-09-30T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://youtu.be/bak7-C--azc",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://youtu.be/bak7-C--azc",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-30-dyanmic-schemas"
+      },
+      "season": 2,
+      "episode": 25,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-09-23-evals-for-classification",
+      "guid": "aitw-024",
+      "title": "Evals for Classification",
+      "description": "On this week's AI That Works, we'll build custom dashboards for evaluating classification tasks using LLMs.\n\nWhat do you show to make actionable changes in your code to improve classification accuracy?\nWe'll include a primer on how to design a large-scale classifcation system using LLMs.\n",
+      "event_link": "https://luma.com/giwcyp8l",
+      "eventDate": "2025-09-23T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://youtu.be/5Fy0hBzyduU",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://youtu.be/5Fy0hBzyduU",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-16-coding-agent-tools-bash-vs-mcp"
+      },
+      "season": 2,
+      "episode": 24,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
       "folder": "2025-09-16-coding-agent-tools-bash-vs-mcp",
       "guid": "aitw-023",
       "title": "Bash vs. MCP - token efficient coding agent tooling",
@@ -9,15 +71,16 @@
       "eventDate": "2025-09-16T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=RtXpXIY4sLk",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=RtXpXIY4sLk",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-16-coding-agent-tools-bash-vs-mcp"
       },
       "season": 2,
       "episode": 23,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -526,15 +589,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 25,
-    "completedEpisodes": 22,
+    "totalEpisodes": 28,
+    "completedEpisodes": 25,
     "upcomingEpisodes": 1,
     "workshops": 2,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-09-10T15:00:58.469Z",
+    "lastUpdated": "2025-10-04T18:31:32.584Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

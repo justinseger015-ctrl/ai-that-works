@@ -7,33 +7,62 @@ Update the just-completed episode README with YouTube link, thumbnail, and summa
 
 ## Steps
 
-1. **Check current date** - Use bash to verify today's date
+1. **Check current date** - Use bash to verify today's date, run `bash(ls .)` to see the top level of folder structure here
+
 2. **Gather required information** - Ensure you have:
+   - YouTube link to the just-completed recording
+   - Summary of the just-completed episode
+   - Folder for the just-completed episode (dated today or yesterday, in the past) (use List() or Bash(ls) to check if it exists)
    - Next episode signup link (starting with lu.ma/...)
    - Summary/description of the next episode
-   - YouTube link to the just-completed recording
-   - Folder for the just-completed episode (dated today or yesterday) (use List() or Bash(ls) to check if it exists)
-
 
    **STOP and ask the user if ANY of these are missing**
 
-3. **Request episode summary** - When all info is verified, ask the user for the summary of the just-completed episode
+3. **Update past episode meta.md**:
+   - Read at least 3 other past episode meta.mds to understand the format
+   - update the links and youtube url
 
-4. **Update main README.md**:
-   - Add the YouTube link for the just-completed episode
-   - Add link to code in the just-completed episode folder
-   - Add next episode signup link and description at the top of the episodes table
 
-5. **Update episode-specific README**:
-   - Navigate to the just-completed episode folder
-   - Read at least 3 other episode READMEs to understand the format
-   - Update the README with the provided summary
-   - **IMPORTANT**: Add YouTube thumbnail using this exact format (see 2025-07-08-context-engineering/README.md for example):
+
+4. **Update episode-specific README**:
+   - Read 2025-07-08-context-engineering/README.md for example
+   - **IMPORTANT**: Add YouTube thumbnail using this exact format (see ):
      ```markdown
      [![Episode Title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
      ```
      Extract the VIDEO_ID from the YouTube URL (the part after v= or youtu.be/)
    - Leave whiteboards and links sections blank for manual addition
+   - Navigate to the just-completed episode folder
+   - Update the README with the provided summary
+
+4a. Create a new folder for the upcoming episode following the format
+   - create a new folder for the upcoming episode
+   - create a meta.md, omitting the youtube links, setting url to `null` for the media section
+   
+
+```example initial meta.md
+---
+guid: aitw-EPISODENUMBER
+title: ".."
+description: |
+  ..
+event_link: https://luma.com/<something>
+eventDate: YYYY-MM-DDT18:00:00Z
+media:
+  url: null
+  type: video/youtube
+links:
+  code: https://github.com/ai-that-works/ai-that-works/tree/main/YYYY-MM-DD-<folder-name>
+  # no youtube link here yet
+season: 2
+episode: EPISODENUMBER
+event_type: episode
+---
+```
+
+
+5. **Run the tools to regenerate the JSON manifest**
+   - cd tools && bun run readme
 
 ## Important Notes
 - Use TodoWrite to track progress through these steps

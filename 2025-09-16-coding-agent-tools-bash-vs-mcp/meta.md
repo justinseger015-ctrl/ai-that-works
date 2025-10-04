@@ -12,10 +12,11 @@ description: |
 event_link: https://luma.com/kbjf88pm
 eventDate: 2025-09-16T18:00:00Z
 media:
-  url: null
+  url: https://www.youtube.com/watch?v=RtXpXIY4sLk
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-16-coding-agent-tools-bash-vs-mcp
+  youtube: https://www.youtube.com/watch?v=RtXpXIY4sLk
 season: 2
 episode: 23
 event_type: episode
