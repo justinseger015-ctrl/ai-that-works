@@ -1,0 +1,58 @@
+[project]
+name = "large-scale-classification"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "baml-py==0.207.1",
+    "chromadb>=0.5.0",
+    "matplotlib>=3.10.6",
+    "networkx>=3.4.2",
+    "numpy>=2.2.4",
+    "openai>=1.70.0",
+    "pandas>=2.3.2",
+    "plotly>=6.3.0",
+    "pydantic-settings>=2.10.1",
+    "python-dotenv>=1.1.0",
+    "streamlit>=1.49.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyright>=1.1.405",
+    "pytest>=8.4.2",
+    "ruff>=0.4.0",
+]
+
+[tool.ruff]
+line-length = 120
+output-format = "concise"
+exclude = ["tests/"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "D", "C901", "PLR"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.pylint]
+max-branches = 12
+max-returns = 8
+max-args = 20
+max-statements = 50
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["src"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
