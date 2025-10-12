@@ -1,23 +1,86 @@
 {
   "episodes": [
     {
-      "folder": "2025-09-16-coding-agent-tools-bash-vs-mcp",
-      "guid": "aitw-023",
-      "title": "Bash vs. MCP - token efficient coding agent tooling",
-      "description": "On this week's AI That Works, we'll explore the great Bash vs. MCP debate - what's better for helping coding agents do more?\n\nWe'll talk about:\n\n- Token efficiency and Downsides of JSON\n- Writing your own drop-ins for MCP tools\n- Other advanced tricks like .shims for forcing uv instead of python or bun instead of npm\n",
-      "event_link": "https://luma.com/kbjf88pm",
-      "eventDate": "2025-09-16T18:00:00Z",
+      "folder": "2025-10-07-anthropic-post-mortem",
+      "guid": "aitw-026",
+      "title": "Anthropic Post Mortem",
+      "description": "In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.\n\nhttps://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues\n",
+      "event_link": "https://luma.com/52d6lzpt",
+      "eventDate": "2025-10-07T18:00:00Z",
       "event_type": "episode",
       "media": {
         "url": null,
         "type": "video/youtube"
       },
       "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-07-anthropic-post-mortem"
+      },
+      "season": 2,
+      "episode": 26,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-09-30-dyanmic-schemas",
+      "guid": "aitw-025",
+      "title": "Dynamic Schemas",
+      "description": "In this episode, Dex and Vaibhav explore the concept of dynamic UIs and how to build systems that can adapt to unknown data structures. They discuss the importance of dynamic schema generation, meta programming with LLMs, and the potential for creating dynamic React components. The conversation also delves into the execution and rendering of these dynamic schemas, highlighting the challenges and opportunities in this evolving field. They conclude with thoughts on future directions and the importance of building robust workflows around schema management.\n",
+      "event_link": "https://luma.com/baml",
+      "eventDate": "2025-09-30T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://youtu.be/bak7-C--azc",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://youtu.be/bak7-C--azc",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-30-dyanmic-schemas"
+      },
+      "season": 2,
+      "episode": 25,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-09-23-evals-for-classification",
+      "guid": "aitw-024",
+      "title": "Evals for Classification",
+      "description": "In this episode of AI That Works, hosts Vaibhav Gupta and Dex, along with guest Kevin Gregory, explore the intricacies of building AI systems that are ready for production. They discuss the concept of dynamic UIs, the challenges of large-scale classification, and the importance of user experience in AI applications. The conversation delves into the use of LLMs for enhancing classification systems, the evaluation and tuning of these systems, and the subjective nature of what constitutes a 'correct' classification. The episode emphasizes the need for engineers to focus on accuracy and user experience while navigating the complexities of AI engineering. The speakers also discuss model upgrades, user feedback, and the importance of building effective user interfaces, emphasizing iterative development and rapid prototyping for chatbot performance evaluation.\n",
+      "event_link": "https://luma.com/giwcyp8l",
+      "eventDate": "2025-09-23T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://youtu.be/5Fy0hBzyduU",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://youtu.be/5Fy0hBzyduU",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-23-evals-for-classification"
+      },
+      "season": 2,
+      "episode": 24,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-09-16-coding-agent-tools-bash-vs-mcp",
+      "guid": "aitw-023",
+      "title": "Bash vs. MCP - token efficient coding agent tooling",
+      "description": "In this conversation, Dex and Vaibhav delve into the intricacies of coding agents, focusing on the debate between using MCP (Model Control Protocol) and Bash for tool integration. They explore the importance of understanding context windows, token management, and the efficiency of using different tools. The discussion emphasizes the significance of naming conventions, dynamic context engineering, and the engineering efforts required to optimize performance. They also share real-world applications, best practices for using MCPs, and engage with the community through a Q&A session.\n",
+      "event_link": "https://luma.com/kbjf88pm",
+      "eventDate": "2025-09-16T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=RtXpXIY4sLk",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=RtXpXIY4sLk",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-16-coding-agent-tools-bash-vs-mcp"
       },
       "season": 2,
       "episode": 23,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -526,15 +589,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 25,
-    "completedEpisodes": 22,
+    "totalEpisodes": 28,
+    "completedEpisodes": 25,
     "upcomingEpisodes": 1,
     "workshops": 2,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-09-10T15:00:58.469Z",
+    "lastUpdated": "2025-10-04T18:38:49.982Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

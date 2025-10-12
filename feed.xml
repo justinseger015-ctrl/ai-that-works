@@ -16,8 +16,62 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 10 Sep 2025 15:00:58 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Oct 2025 18:38:49 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Dynamic Schemas]]></title>
+      <description><![CDATA[In this episode, Dex and Vaibhav explore the concept of dynamic UIs and how to build systems that can adapt to unknown data structures. They discuss the importance of dynamic schema generation, meta programming with LLMs, and the potential for creating dynamic React components. The conversation also delves into the execution and rendering of these dynamic schemas, highlighting the challenges and opportunities in this evolving field. They conclude with thoughts on future directions and the importance of building robust workflows around schema management.
+
+
+Watch: https://youtu.be/bak7-C--azc
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-30-dyanmic-schemas
+Event: https://luma.com/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://youtu.be/bak7-C--azc</link>
+      <guid isPermaLink="false">aitw-025</guid>
+      <pubDate>Tue, 30 Sep 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://youtu.be/bak7-C--azc" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Evals for Classification]]></title>
+      <description><![CDATA[In this episode of AI That Works, hosts Vaibhav Gupta and Dex, along with guest Kevin Gregory, explore the intricacies of building AI systems that are ready for production. They discuss the concept of dynamic UIs, the challenges of large-scale classification, and the importance of user experience in AI applications. The conversation delves into the use of LLMs for enhancing classification systems, the evaluation and tuning of these systems, and the subjective nature of what constitutes a 'correct' classification. The episode emphasizes the need for engineers to focus on accuracy and user experience while navigating the complexities of AI engineering. The speakers also discuss model upgrades, user feedback, and the importance of building effective user interfaces, emphasizing iterative development and rapid prototyping for chatbot performance evaluation.
+
+
+Watch: https://youtu.be/5Fy0hBzyduU
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-23-evals-for-classification
+Event: https://luma.com/giwcyp8l
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://youtu.be/5Fy0hBzyduU</link>
+      <guid isPermaLink="false">aitw-024</guid>
+      <pubDate>Tue, 23 Sep 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://youtu.be/5Fy0hBzyduU" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Bash vs. MCP - token efficient coding agent tooling]]></title>
+      <description><![CDATA[In this conversation, Dex and Vaibhav delve into the intricacies of coding agents, focusing on the debate between using MCP (Model Control Protocol) and Bash for tool integration. They explore the importance of understanding context windows, token management, and the efficiency of using different tools. The discussion emphasizes the significance of naming conventions, dynamic context engineering, and the engineering efforts required to optimize performance. They also share real-world applications, best practices for using MCPs, and engage with the community through a Q&A session.
+
+
+Watch: https://www.youtube.com/watch?v=RtXpXIY4sLk
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-09-16-coding-agent-tools-bash-vs-mcp
+Event: https://luma.com/kbjf88pm
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=RtXpXIY4sLk</link>
+      <guid isPermaLink="false">aitw-023</guid>
+      <pubDate>Tue, 16 Sep 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=RtXpXIY4sLk" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Generative UIs and Structured Streaming]]></title>
       <description><![CDATA[We'll explore hard problems in building rich UIs that rely on streaming data from LLMs. ​Specifically, we'll talk through techniques for rendering **STRUCTURED** outputs from LLMs, with real-world examples of how to handle partially-streamed outputs over incomplete JSON data. We'll explore advanced needs like * Fields that should be required for stream to start * ​Rendering React Components with partial data ​* Handling nullable fields vs. yet-to-be-streamed fields * ​Building high-quality User feedback * ​Handling errors mid-stream
