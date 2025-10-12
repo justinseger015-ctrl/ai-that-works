@@ -8,5 +8,6 @@ code (round 3) - https://github.com/ai-that-works/ai-that-works/tree/main/2025-1
 
 ### whiteboard
 
-<img width="6372" height="2018" alt="image" src="https://gist.github.com/user-attachments/assets/c0a6d15c-c0fa-43be-a85f-de39d2980a14" />
+
+<img width="6372" height="2018" alt="image" src="https://github.com/user-attachments/assets/796ff230-5831-4d0e-8fdd-eddc0b8ebb5d" />
 
