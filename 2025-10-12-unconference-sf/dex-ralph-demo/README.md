@@ -6,6 +6,8 @@ repomirror project - https://github.com/repomirrorhq/repomirror/blob/main/repomi
 
 code (round 3) - https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-12-unconference-sf/dex-ralph-demo
 
+inspo - https://x.com/dexhorthy/status/1972765717914374156
+
 ### whiteboard
 
 
