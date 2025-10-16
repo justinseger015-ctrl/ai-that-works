@@ -16,8 +16,26 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Thu, 16 Oct 2025 00:34:55 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Oct 2025 00:48:59 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[No Vibes Allowed]]></title>
+      <description><![CDATA[Vaibhav Gupta and Aaron (co-founder, former AWS EC2/Prime Video engineer) dissect Anthropic's detailed post-mortem of three critical bugs that affected their production systems. They explore the technical intricacies of how models select tokens across distributed GPUs, why longer context windows can degrade performance, and how compiler optimizations mixing 16-bit and 32-bit floating-point math led to incorrect token selection. The discussion extends to practical lessons for AI engineers: building observability into AI systems, using "vibe checks" from social media for anomaly detection, and the critical importance of rollback strategies. They also analyze OpenAI's new Agent Builder and the broader trend of visual workflow tools for non-technical users.
+
+
+Watch: https://youtu.be/zNZs19fIDHk
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-14-no-vibes-allowed
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://youtu.be/zNZs19fIDHk</link>
+      <guid isPermaLink="false">aitw-028</guid>
+      <pubDate>Tue, 14 Oct 2025 17:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://youtu.be/zNZs19fIDHk" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Anthropic Post Mortem]]></title>
       <description><![CDATA[In this conversation, Vaibhav Gupta and Aaron discuss various aspects of AI model performance, focusing on the recent downtime experienced by Anthropic and the implications for AI systems. They explore the sensitivity of models to context windows, the challenges of output corruption, and the complexities of token selection mechanisms. The discussion also highlights the importance of debugging and observability in AI systems, as well as the role of user-friendly workflows and integrations in making AI accessible to non-technical users. The conversation concludes with thoughts on the future of AI development and the need for effective metrics to monitor product performance.

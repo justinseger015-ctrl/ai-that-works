@@ -10,6 +10,21 @@
 
 </div>
 
+<div align="center">
+<h2>🦄 <strong>Next Episode</strong></h2>
+<h3><strong>Agentic RAG + Context Engineering</strong></h3>
+<p><strong>Tuesday, October 21, 2025 at 10 AM PST</strong></p>
+<p><em>RAG vs. Agentic RAG is the hot new debate at the forefront of AI Engineering. On this week's episode we'll dive deep on the differences, why it matters, and cut through the buzzword hype with hands-on whiteboarding and live working code. We'll talk about the tradeoffs between deterministic retrieval and curated context engineering vs. the benefits of letting models assemble their context with tools.</em></p>
+
+<a href="https://lu.ma/febfzi72" target="_blank">
+<img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
+</a>
+
+</div>
+
+---
+
+
 ---
 
 ## **What We're About**
@@ -80,6 +95,43 @@ Before joining, get familiar with our toolkit:
 </tr>
 </thead>
 <tbody>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-21</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#29</strong>: Agentic RAG + Context Engineering</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2025-10-21-agentic-rag-context-engineering">code</a> • <a href="https://lu.ma/febfzi72">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">RAG vs. Agentic RAG is the hot new debate at the forefront of AI Engineering. On this week's episode we'll dive deep on the differences, why it matters, and cut through the buzzword hype with hands-on whiteboarding and live working code. We'll talk about the tradeoffs between deterministic retrieval and curated context engineering vs. the benefits of letting models assemble their context with tools.</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-14</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#28</strong>: No Vibes Allowed</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://youtu.be/zNZs19fIDHk">watch</a> • <a href="./2025-10-14-no-vibes-allowed">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Vaibhav Gupta and Aaron (co-founder, former AWS EC2/Prime Video engineer) dissect Anthropic's detailed post-mortem of three critical bugs that affected their production systems. They explore the technical intricacies of how models select tokens across distributed GPUs, why longer context windows can degrade performance, and how compiler optimizations mixing 16-bit and 32-bit floating-point math led to incorrect token selection. The discussion extends to practical lessons for AI engineers: building observability into AI systems, using "vibe checks" from social media for anomaly detection, and the critical importance of rollback strategies. They also analyze OpenAI's new Agent Builder and the broader trend of visual workflow tools for non-technical users.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-12</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#27</strong>: Unconference SF</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2025-10-12-unconference-sf">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Special unconference episode from San Francisco.</div></td></tr>
 <tr><td>
       <div style="padding: 8px 0;">
         <div style="margin-bottom: 2px;">

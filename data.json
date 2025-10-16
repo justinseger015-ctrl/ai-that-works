@@ -1,6 +1,59 @@
 {
   "episodes": [
     {
+      "folder": "2025-10-21-agentic-rag-context-engineering",
+      "guid": "aitw-029",
+      "title": "Agentic RAG + Context Engineering",
+      "description": "RAG vs. Agentic RAG is the hot new debate at the forefront of AI Engineering. On this week's episode we'll dive deep on the differences, why it matters, and cut through the buzzword hype with hands-on whiteboarding and live working code. We'll talk about the tradeoffs between deterministic retrieval and curated context engineering vs. the benefits of letting models assemble their context with tools.",
+      "event_link": "https://lu.ma/febfzi72",
+      "eventDate": "2025-10-21T18:00:00Z",
+      "event_type": "episode",
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-21-agentic-rag-context-engineering"
+      },
+      "season": 2,
+      "episode": 29,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-10-14-no-vibes-allowed",
+      "guid": "aitw-028",
+      "title": "No Vibes Allowed",
+      "description": "Vaibhav Gupta and Aaron (co-founder, former AWS EC2/Prime Video engineer) dissect Anthropic's detailed post-mortem of three critical bugs that affected their production systems. They explore the technical intricacies of how models select tokens across distributed GPUs, why longer context windows can degrade performance, and how compiler optimizations mixing 16-bit and 32-bit floating-point math led to incorrect token selection. The discussion extends to practical lessons for AI engineers: building observability into AI systems, using \"vibe checks\" from social media for anomaly detection, and the critical importance of rollback strategies. They also analyze OpenAI's new Agent Builder and the broader trend of visual workflow tools for non-technical users.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-10-14T17:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://youtu.be/zNZs19fIDHk",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://youtu.be/zNZs19fIDHk",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-14-no-vibes-allowed"
+      },
+      "season": 2,
+      "episode": 28,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-10-12-unconference-sf",
+      "guid": "aitw-027",
+      "title": "Unconference SF",
+      "description": "Special unconference episode from San Francisco.",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-10-12T18:00:00Z",
+      "event_type": "episode",
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-12-unconference-sf"
+      },
+      "season": 2,
+      "episode": 27,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
       "folder": "2025-10-07-anthropic-post-mortem",
       "guid": "aitw-026",
       "title": "Anthropic Post Mortem",
@@ -590,15 +643,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 28,
-    "completedEpisodes": 26,
-    "upcomingEpisodes": 0,
+    "totalEpisodes": 31,
+    "completedEpisodes": 27,
+    "upcomingEpisodes": 1,
     "workshops": 2,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-10-16T00:34:55.959Z",
+    "lastUpdated": "2025-10-16T00:48:59.790Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
