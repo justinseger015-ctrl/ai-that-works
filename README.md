@@ -10,24 +10,6 @@
 
 </div>
 
-<div align="center">
-<h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Anthropic Post Mortem</strong></h3>
-<p><strong>Tuesday, October 7, 2025 at 10 AM PST</strong></p>
-<p><em>In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.
-
-https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
-</em></p>
-
-<a href="https://luma.com/52d6lzpt" target="_blank">
-<img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
-</a>
-
-</div>
-
----
-
-
 ---
 
 ## **What We're About**
@@ -101,17 +83,15 @@ Before joining, get familiar with our toolkit:
 <tr><td>
       <div style="padding: 8px 0;">
         <div style="margin-bottom: 2px;">
-          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-07</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#26</strong>: Anthropic Post Mortem</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-10-07-anthropic-post-mortem">code</a> • <a href="https://luma.com/52d6lzpt">register</a>
+          <a href="https://youtu.be/bLx-UlRTiEw">watch</a> • <a href="./2025-10-07-anthropic-post-mortem">code</a>
         </div>
       </div>
-    </td><td><div style="padding: 8px 0; line-height: 1.5;">In August, Anthropic experienced a bunch of interesting bugs and wrote up a really cool postmortem about it. On this episode, we'll go deep into the problems they hit and why they happened.
-
-https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In this conversation, Vaibhav Gupta and Aaron discuss various aspects of AI model performance, focusing on the recent downtime experienced by Anthropic and the implications for AI systems. They explore the sensitivity of models to context windows, the challenges of output corruption, and the complexities of token selection mechanisms. The discussion also highlights the importance of debugging and observability in AI systems, as well as the role of user-friendly workflows and integrations in making AI accessible to non-technical users. The conversation concludes with thoughts on the future of AI development and the need for effective metrics to monitor product performance.
 </div></td></tr>
 <tr><td>
       <div style="padding: 8px 0;">

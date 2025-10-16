@@ -16,8 +16,26 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 04 Oct 2025 18:38:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Oct 2025 00:34:55 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Anthropic Post Mortem]]></title>
+      <description><![CDATA[In this conversation, Vaibhav Gupta and Aaron discuss various aspects of AI model performance, focusing on the recent downtime experienced by Anthropic and the implications for AI systems. They explore the sensitivity of models to context windows, the challenges of output corruption, and the complexities of token selection mechanisms. The discussion also highlights the importance of debugging and observability in AI systems, as well as the role of user-friendly workflows and integrations in making AI accessible to non-technical users. The conversation concludes with thoughts on the future of AI development and the need for effective metrics to monitor product performance.
+
+
+Watch: https://youtu.be/bLx-UlRTiEw
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-07-anthropic-post-mortem
+Event: https://luma.com/52d6lzpt
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://youtu.be/bLx-UlRTiEw</link>
+      <guid isPermaLink="false">aitw-026</guid>
+      <pubDate>Tue, 07 Oct 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://youtu.be/bLx-UlRTiEw" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Dynamic Schemas]]></title>
       <description><![CDATA[In this episode, Dex and Vaibhav explore the concept of dynamic UIs and how to build systems that can adapt to unknown data structures. They discuss the importance of dynamic schema generation, meta programming with LLMs, and the potential for creating dynamic React components. The conversation also delves into the execution and rendering of these dynamic schemas, highlighting the challenges and opportunities in this evolving field. They conclude with thoughts on future directions and the importance of building robust workflows around schema management.
