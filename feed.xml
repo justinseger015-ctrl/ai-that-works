@@ -16,7 +16,7 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 21 Oct 2025 23:12:42 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Oct 2025 23:53:18 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title><![CDATA[Agentic RAG + Context Engineering]]></title>
@@ -29,7 +29,7 @@ Event: https://lu.ma/febfzi72
 
 AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
       <link>https://youtu.be/grGSFfyejA0</link>
-      <guid isPermaLink="false">aitw-029</guid>
+      <guid isPermaLink="false">aitw-028</guid>
       <pubDate>Tue, 21 Oct 2025 18:00:00 GMT</pubDate>
       <category>Technology</category>
       <category>Software Engineering</category>
@@ -47,7 +47,7 @@ Event: https://lu.ma/baml
 
 AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
       <link>https://youtu.be/zNZs19fIDHk</link>
-      <guid isPermaLink="false">aitw-028</guid>
+      <guid isPermaLink="false">aitw-027</guid>
       <pubDate>Tue, 14 Oct 2025 17:00:00 GMT</pubDate>
       <category>Technology</category>
       <category>Software Engineering</category>

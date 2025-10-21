@@ -2,7 +2,7 @@
   "episodes": [
     {
       "folder": "2025-10-28-ralph-wiggum-coding-agent-power-tools",
-      "guid": "aitw-030",
+      "guid": "aitw-029",
       "title": "Ralph Wiggum under the hood: Coding Agent Power Tools",
       "description": "We've talked a lot about how to use context engineering to get more out of coding agents. In this week's episode, we're going to dive deep on the Ralph Wiggum Technique and why this totally different approach to coding agents can change the way you code. We'll explore using ralph for Greenfield projects, Refactoring projects, Generating specifications. Surprise surprise, the answer is better context engineering.",
       "event_link": "https://lu.ma/ralphloop",
@@ -12,13 +12,13 @@
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-28-ralph-wiggum-coding-agent-power-tools"
       },
       "season": 2,
-      "episode": 30,
+      "episode": 29,
       "isPast": false,
       "isWorkshop": false
     },
     {
       "folder": "2025-10-21-agentic-rag-context-engineering",
-      "guid": "aitw-029",
+      "guid": "aitw-028",
       "title": "Agentic RAG + Context Engineering",
       "description": "In this conversation, Vaibhav Gupta and Dex explore the intricacies of building an Agentic Retrieval-Augmented Generation (RAG) system. They discuss the differences between traditional RAG and Agentic RAG, emphasizing the flexibility and decision-making capabilities of the latter. The conversation includes a live demo of a coding agent, insights into the coding architecture, challenges faced during tool implementation, and the iterative process of refining the system. They also touch on the integration of web search functionalities and the evaluation of tool effectiveness, providing a comprehensive overview of the development process and the underlying principles of Agentic RAG systems. In this conversation, Vaibhav Gupta and Dex discuss the intricacies of building dynamic AI systems, focusing on tool implementation, user interface optimization, and model performance. They explore the importance of reinforcement learning in training models, the challenges of debugging AI systems, and the significance of writing code to enhance understanding and efficiency in AI development. The dialogue emphasizes the balance between different AI approaches and the necessity of real use cases in building effective solutions.\n",
       "event_link": "https://lu.ma/febfzi72",
@@ -33,13 +33,13 @@
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-21-agentic-rag-context-engineering"
       },
       "season": 2,
-      "episode": 29,
+      "episode": 28,
       "isPast": true,
       "isWorkshop": false
     },
     {
       "folder": "2025-10-14-no-vibes-allowed",
-      "guid": "aitw-028",
+      "guid": "aitw-027",
       "title": "No Vibes Allowed - Live Coding with AI Agents",
       "description": "Vaibhav Gupta and Dex demonstrate the power of AI-assisted coding by implementing a complex timeout feature for BAML (a programming language for AI applications) in a live coding session. Starting from a GitHub issue that had been open since March, they showcase a systematic workflow: specification refinement, codebase research, implementation planning, and phased execution. Using Claude and specialized coding agents, they navigate a 400,000+ line codebase, implementing timeout configurations for HTTP clients including connection timeouts, request timeouts, idle timeouts, and time-to-first-token for streaming responses. The session highlights key practices like context engineering, frequent plan validation, breaking complex features into testable phases, and the importance of reading AI-generated code. In under 3 hours of live coding, they achieve what would typically take 1-2 days of engineering time, successfully implementing parsing, validation, error handling, and Python integration tests.\n",
       "event_link": "https://lu.ma/baml",
@@ -54,25 +54,25 @@
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-14-no-vibes-allowed"
       },
       "season": 2,
-      "episode": 28,
+      "episode": 27,
       "isPast": true,
       "isWorkshop": false
     },
     {
       "folder": "2025-10-12-unconference-sf",
-      "guid": "aitw-027",
+      "guid": "aitw-unconference-sf",
       "title": "Unconference SF",
       "description": "Special unconference episode from San Francisco.",
       "event_link": "https://lu.ma/baml",
       "eventDate": "2025-10-12T18:00:00Z",
-      "event_type": "episode",
+      "event_type": "workshop",
       "links": {
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-10-12-unconference-sf"
       },
       "season": 2,
-      "episode": 27,
+      "episode": null,
       "isPast": true,
-      "isWorkshop": false
+      "isWorkshop": true
     },
     {
       "folder": "2025-10-07-anthropic-post-mortem",
@@ -667,12 +667,12 @@
     "totalEpisodes": 32,
     "completedEpisodes": 28,
     "upcomingEpisodes": 1,
-    "workshops": 2,
+    "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-10-21T23:12:42.671Z",
+    "lastUpdated": "2025-10-21T23:53:18.951Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

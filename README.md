@@ -101,7 +101,7 @@ Before joining, get familiar with our toolkit:
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-28</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#30</strong>: Ralph Wiggum under the hood: Coding Agent Power Tools</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#29</strong>: Ralph Wiggum under the hood: Coding Agent Power Tools</div>
         <div style="font-size: 13px; color: #666;">
           <a href="./2025-10-28-ralph-wiggum-coding-agent-power-tools">code</a> • <a href="https://lu.ma/ralphloop">register</a>
         </div>
@@ -113,7 +113,7 @@ Before joining, get familiar with our toolkit:
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-21</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#29</strong>: Agentic RAG + Context Engineering</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#28</strong>: Agentic RAG + Context Engineering</div>
         <div style="font-size: 13px; color: #666;">
           <a href="https://youtu.be/grGSFfyejA0">watch</a> • <a href="./2025-10-21-agentic-rag-context-engineering">code</a>
         </div>
@@ -126,7 +126,7 @@ Before joining, get familiar with our toolkit:
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-14</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#28</strong>: No Vibes Allowed - Live Coding with AI Agents</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#27</strong>: No Vibes Allowed - Live Coding with AI Agents</div>
         <div style="font-size: 13px; color: #666;">
           <a href="https://youtu.be/zNZs19fIDHk">watch</a> • <a href="./2025-10-14-no-vibes-allowed">code</a>
         </div>
@@ -139,7 +139,7 @@ Before joining, get familiar with our toolkit:
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-10-12</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#27</strong>: Unconference SF</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>SF Workshop</strong>: Unconference SF</div>
         <div style="font-size: 13px; color: #666;">
           <a href="./2025-10-12-unconference-sf">code</a>
         </div>
