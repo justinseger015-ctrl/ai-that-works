@@ -3,12 +3,14 @@ class Message {
   message string | AgentTools
 }
 
-class ReplyToUser {
-  action "reply_to_user"
-  message string
-}
+// class ReplyToUser {
+//   action "reply_to_user"
+//   message string
+// }
 
-function AgentLoop(state: Message[]) -> AgentTools[] | ReplyToUser {
+type ReplyString = string @assert({{ this[0] != "[" and this[0] != "{" }})
+
+function AgentLoop(state: Message[]) -> AgentTools[] | ReplyString {
   client "openai/gpt-4o-mini"
   prompt #"
     {{ _.role("system") }}
