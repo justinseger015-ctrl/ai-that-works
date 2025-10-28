@@ -1876,3 +1876,571 @@ test "Validator: Strategy field is not an array" {
     }
     try std.testing.expect(found_error);
 }
+
+// ============================================================================
+// INTEGRATION TESTS for Phase 28: Client Strategies
+// ============================================================================
+// These tests validate the complete end-to-end flow: parsing + validation
+
+const lexer = @import("lexer.zig");
+const parser = @import("parser.zig");
+
+test "Integration: Complete retry_policy with exponential backoff" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\retry_policy AggressiveRetry {
+        \\  max_retries 5
+        \\  strategy {
+        \\    type exponential_backoff
+        \\    delay_ms 100
+        \\    multiplier 2.0
+        \\    max_delay_ms 5000
+        \\  }
+        \\}
+        \\
+        \\client<llm> MyClient {
+        \\  provider "openai"
+        \\  retry_policy AggressiveRetry
+        \\  options {
+        \\    model "gpt-4"
+        \\    api_key env.OPENAI_KEY
+        \\  }
+        \\}
+    ;
+
+    // Lex and parse
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    // Validate
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+
+    // Verify declarations were registered
+    try std.testing.expect(validator.retry_policy_registry.isDefined("AggressiveRetry"));
+    try std.testing.expect(validator.client_registry.isDefined("MyClient"));
+}
+
+test "Integration: Fallback client with valid strategy" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\client<llm> PrimaryClient {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> SecondaryClient {
+        \\  provider "anthropic"
+        \\  options {
+        \\    model "claude-sonnet-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> ResilientClient {
+        \\  provider fallback
+        \\  options {
+        \\    strategy [
+        \\      PrimaryClient
+        \\      SecondaryClient
+        \\    ]
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+
+    // Verify all clients registered
+    try std.testing.expect(validator.client_registry.isDefined("PrimaryClient"));
+    try std.testing.expect(validator.client_registry.isDefined("SecondaryClient"));
+    try std.testing.expect(validator.client_registry.isDefined("ResilientClient"));
+}
+
+test "Integration: Round-robin client with valid strategy" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\client<llm> ClientA {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> ClientB {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-3.5-turbo"
+        \\  }
+        \\}
+        \\
+        \\client<llm> LoadBalancer {
+        \\  provider round_robin
+        \\  options {
+        \\    strategy [ClientA ClientB]
+        \\    start 0
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+}
+
+test "Integration: Fallback with undefined client in strategy" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\client<llm> ClientA {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> FallbackClient {
+        \\  provider fallback
+        \\  options {
+        \\    strategy [ClientA ClientB]
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(validator.hasErrors());
+
+    // Check error mentions undefined client
+    const diagnostics = validator.getDiagnostics();
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Undefined client") != null and
+            std.mem.indexOf(u8, diag.message, "ClientB") != null)
+        {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
+}
+
+test "Integration: Client with undefined retry_policy" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\client<llm> MyClient {
+        \\  provider "openai"
+        \\  retry_policy NonExistentPolicy
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(validator.hasErrors());
+
+    // Check error mentions undefined retry_policy
+    const diagnostics = validator.getDiagnostics();
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Undefined retry_policy") != null) {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
+}
+
+test "Integration: Complete test_strategies.baml scenario" {
+    const allocator = std.testing.allocator;
+
+    // This mimics the complete test_strategies.baml file
+    const source =
+        \\retry_policy MyRetryPolicy {
+        \\  max_retries 3
+        \\  strategy {
+        \\    type exponential_backoff
+        \\    delay_ms 200
+        \\    multiplier 1.5
+        \\    max_delay_ms 10000
+        \\  }
+        \\}
+        \\
+        \\client<llm> ClientA {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-4"
+        \\    api_key env.OPENAI_API_KEY
+        \\  }
+        \\}
+        \\
+        \\client<llm> ClientB {
+        \\  provider "anthropic"
+        \\  options {
+        \\    model "claude-sonnet-4"
+        \\    api_key env.ANTHROPIC_API_KEY
+        \\  }
+        \\}
+        \\
+        \\client<llm> ClientC {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-3.5-turbo"
+        \\    api_key env.OPENAI_API_KEY
+        \\  }
+        \\}
+        \\
+        \\client<llm> ResilientClient {
+        \\  provider fallback
+        \\  retry_policy MyRetryPolicy
+        \\  options {
+        \\    strategy [
+        \\      ClientA
+        \\      ClientB
+        \\      ClientC
+        \\    ]
+        \\  }
+        \\}
+        \\
+        \\client<llm> LoadBalancedClient {
+        \\  provider round_robin
+        \\  options {
+        \\    strategy [ClientA ClientB]
+        \\    start 0
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+
+    // Should have NO errors - everything is valid
+    if (validator.hasErrors()) {
+        const diagnostics = validator.getDiagnostics();
+        for (diagnostics) |diag| {
+            std.debug.print("Unexpected error: {s} at line {d}:{d}\n", .{ diag.message, diag.line, diag.column });
+        }
+    }
+    try std.testing.expect(!validator.hasErrors());
+
+    // Verify all components registered
+    try std.testing.expect(validator.retry_policy_registry.isDefined("MyRetryPolicy"));
+    try std.testing.expect(validator.client_registry.isDefined("ClientA"));
+    try std.testing.expect(validator.client_registry.isDefined("ClientB"));
+    try std.testing.expect(validator.client_registry.isDefined("ClientC"));
+    try std.testing.expect(validator.client_registry.isDefined("ResilientClient"));
+    try std.testing.expect(validator.client_registry.isDefined("LoadBalancedClient"));
+}
+
+test "Integration: Constant delay retry_policy" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\retry_policy SimpleRetry {
+        \\  max_retries 2
+        \\  strategy {
+        \\    type constant_delay
+        \\    delay_ms 500
+        \\  }
+        \\}
+        \\
+        \\client<llm> MyClient {
+        \\  provider "openai"
+        \\  retry_policy SimpleRetry
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+}
+
+test "Integration: Duplicate retry_policy detection" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\retry_policy MyPolicy {
+        \\  max_retries 3
+        \\}
+        \\
+        \\retry_policy MyPolicy {
+        \\  max_retries 5
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(validator.hasErrors());
+
+    // Check for duplicate definition error
+    const diagnostics = validator.getDiagnostics();
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Duplicate retry_policy") != null) {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
+}
+
+test "Integration: Duplicate client detection" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\client<llm> MyClient {
+        \\  provider "openai"
+        \\  options {
+        \\    model "gpt-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> MyClient {
+        \\  provider "anthropic"
+        \\  options {
+        \\    model "claude-sonnet-4"
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+    try std.testing.expect(validator.hasErrors());
+
+    // Check for duplicate client error
+    const diagnostics = validator.getDiagnostics();
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Duplicate client") != null) {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
+}
+
+test "Integration: Nested strategies - fallback with retry policies" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\retry_policy FastRetry {
+        \\  max_retries 1
+        \\  strategy {
+        \\    type constant_delay
+        \\    delay_ms 100
+        \\  }
+        \\}
+        \\
+        \\retry_policy SlowRetry {
+        \\  max_retries 5
+        \\  strategy {
+        \\    type exponential_backoff
+        \\    delay_ms 1000
+        \\    multiplier 2.0
+        \\    max_delay_ms 30000
+        \\  }
+        \\}
+        \\
+        \\client<llm> FastClient {
+        \\  provider "openai"
+        \\  retry_policy FastRetry
+        \\  options {
+        \\    model "gpt-3.5-turbo"
+        \\  }
+        \\}
+        \\
+        \\client<llm> ReliableClient {
+        \\  provider "anthropic"
+        \\  retry_policy SlowRetry
+        \\  options {
+        \\    model "claude-sonnet-4"
+        \\  }
+        \\}
+        \\
+        \\client<llm> SmartFallback {
+        \\  provider fallback
+        \\  retry_policy FastRetry
+        \\  options {
+        \\    strategy [FastClient ReliableClient]
+        \\  }
+        \\}
+    ;
+
+    var lex = lexer.Lexer.init(source);
+    var tokens = try lex.tokenize(allocator);
+    defer {
+        for (tokens.items) |*token| {
+            token.deinit(allocator);
+        }
+        tokens.deinit(allocator);
+    }
+
+    var parse = parser.Parser.init(allocator, tokens.items);
+    var tree = try parse.parse();
+    defer tree.deinit();
+
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    try validator.validate(&tree);
+
+    // All should be valid - nested strategies with their own retry policies
+    if (validator.hasErrors()) {
+        const diagnostics = validator.getDiagnostics();
+        for (diagnostics) |diag| {
+            std.debug.print("Unexpected error: {s} at line {d}:{d}\n", .{ diag.message, diag.line, diag.column });
+        }
+    }
+    try std.testing.expect(!validator.hasErrors());
+
+    // Verify all registered
+    try std.testing.expect(validator.retry_policy_registry.isDefined("FastRetry"));
+    try std.testing.expect(validator.retry_policy_registry.isDefined("SlowRetry"));
+    try std.testing.expect(validator.client_registry.isDefined("FastClient"));
+    try std.testing.expect(validator.client_registry.isDefined("ReliableClient"));
+    try std.testing.expect(validator.client_registry.isDefined("SmartFallback"));
+}

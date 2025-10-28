@@ -2413,12 +2413,30 @@ minibaml gen baml_src --zig > generated.zig
     - Strategy field is not an array
   - All tests pass (2/2 test suites passed)
 
+#### Tasks Completed:
+- [x] 28.14: Add integration tests with validation
+  - Added 11 comprehensive integration tests to validator.zig
+  - Tests cover complete end-to-end parsing + validation flow
+  - Integration test scenarios:
+    - Complete retry_policy with exponential_backoff
+    - Fallback client with valid strategy
+    - Round-robin client with valid strategy
+    - Fallback with undefined client in strategy (error detection)
+    - Client with undefined retry_policy (error detection)
+    - Complete test_strategies.baml scenario (mimics actual file)
+    - Constant delay retry_policy
+    - Duplicate retry_policy detection
+    - Duplicate client detection
+    - Nested strategies with multiple retry policies
+  - All integration tests pass (11 new tests added)
+  - Verified test_strategies.baml validates correctly via CLI
+  - Total test results: 5/5 build steps succeeded; 2/2 test suites passed
+
 #### Tasks Remaining:
-- [ ] 28.14: Add integration tests with validation
 - [ ] 28.15: Update code generators to handle retry policies
 - [ ] 28.16: Update documentation
 
-**Progress**: Tasks 28.10, 28.11, 28.12, and 28.13 complete! Parser supports fallback and round_robin providers with strategy arrays. Validator now validates retry_policy references in clients AND validates that all client names in strategy lists are defined. Detects undefined clients, duplicate clients, invalid strategy types. All tests pass. Next steps: integration tests and code generation.
+**Progress**: Tasks 28.10, 28.11, 28.12, 28.13, and 28.14 complete! Parser supports fallback and round_robin providers with strategy arrays. Validator validates retry_policy references, client strategy lists, and all declarations. Integration tests verify end-to-end functionality. test_strategies.baml parses and validates successfully. All tests pass. Next steps: code generation and documentation.
 
 **Implementation Details (Completed)**:
 - Added `keyword_retry_policy` to TokenTag enum in lexer
@@ -2455,6 +2473,21 @@ minibaml gen baml_src --zig > generated.zig
   - Updated `validateTypeReferences()` to call validateStrategyList for fallback/round_robin providers
   - Added 8 comprehensive tests covering all validation scenarios
   - All tests pass (2/2 test suites, 5/5 build steps)
+- **Task 28.14 (Integration tests)**:
+  - Added 11 integration tests at end of validator.zig (lines 1880-2446)
+  - Tests import lexer and parser modules for complete end-to-end testing
+  - Each test performs: tokenization → parsing → validation
+  - Tests verify both success and error cases with proper diagnostic messages
+  - Integration tests cover:
+    - retry_policy with both strategy types (constant_delay, exponential_backoff)
+    - fallback clients with valid/invalid strategy lists
+    - round_robin clients with valid strategies
+    - Client references to retry_policy (valid and undefined)
+    - Duplicate detection (retry_policy and client)
+    - Complex nested strategies (fallback using clients that each have their own retry_policy)
+    - Complete test_strategies.baml file scenario
+  - All integration tests pass
+  - CLI validation confirmed: `minibaml check test_strategies.baml` succeeds
 
 **Sample BAML Syntax** (from specs):
 ```baml
