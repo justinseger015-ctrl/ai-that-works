@@ -11,6 +11,7 @@ pub const version = "0.1.0";
 pub const lexer = @import("lexer.zig");
 pub const ast = @import("ast.zig");
 pub const parser = @import("parser.zig");
+pub const validator = @import("validator.zig");
 
 // Convenience exports for common types
 pub const Token = lexer.Token;
@@ -20,6 +21,9 @@ pub const Parser = parser.Parser;
 pub const Ast = ast.Ast;
 pub const TypeExpr = ast.TypeExpr;
 pub const Declaration = ast.Declaration;
+pub const Validator = validator.Validator;
+pub const TypeRegistry = validator.TypeRegistry;
+pub const Diagnostic = validator.Diagnostic;
 
 pub fn getVersion() []const u8 {
     return version;
