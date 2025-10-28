@@ -2,7 +2,7 @@
 
 A BAML language implementation in Zig.
 
-## Project Status: PHASE 27 - Advanced Jinja Filter Validation ✅ COMPLETED
+## Project Status: PHASE 28 - Client Strategies (retry_policy, fallback, round-robin) 🚧 IN PROGRESS
 
 ---
 
@@ -2342,6 +2342,109 @@ minibaml gen baml_src --zig > generated.zig
 {{ text|regex_match }}  // Error: regex_match requires 1 argument
 {{ items|map }}  // Error: map requires 'attribute' argument
 {{ data|unknown }}  // Warning: unknown filter
+```
+
+**Test Results**: ✅ All tests pass - Build Summary: 5/5 steps succeeded; 2/2 tests passed
+
+---
+
+### 🚧 PHASE 28: Client Strategies (retry_policy, fallback, round-robin)
+**Status**: 🚧 IN PROGRESS
+**Goal**: Implement BAML client strategies for resilience and load balancing
+
+#### Tasks Completed:
+- [x] 28.1: Add retry_policy keyword to lexer
+- [x] 28.2: Add RetryPolicyDecl to AST with strategy types
+  - [x] RetryStrategy union (constant_delay, exponential_backoff)
+  - [x] ConstantDelayStrategy struct
+  - [x] ExponentialBackoffStrategy struct
+- [x] 28.3: Add retry_policy field to ClientDecl
+- [x] 28.4: Implement parseRetryPolicyDecl() in parser
+  - [x] Parse max_retries field
+  - [x] Parse strategy block with type and parameters
+  - [x] Support constant_delay strategy
+  - [x] Support exponential_backoff strategy
+- [x] 28.5: Add retry_policy_decl to all parser dispatch switches
+- [x] 28.6: Implement formatRetryPolicyDecl() in formatter
+- [x] 28.7: Update all switch statements to handle retry_policy_decl
+- [x] 28.8: Verify build succeeds and all tests pass
+
+#### Tasks Remaining:
+- [ ] 28.9: Update parseClientDecl() to parse retry_policy field
+- [ ] 28.10: Parse fallback provider with strategy list
+- [ ] 28.11: Parse round-robin provider with strategy list
+- [ ] 28.12: Update validator to validate retry_policy references
+- [ ] 28.13: Validate fallback and round-robin strategy lists
+- [ ] 28.14: Add comprehensive tests for retry_policy parsing
+- [ ] 28.15: Add tests for fallback provider
+- [ ] 28.16: Add tests for round-robin provider
+- [ ] 28.17: Add integration tests with validation
+- [ ] 28.18: Update code generators to handle retry policies
+- [ ] 28.19: Update documentation
+
+**Progress**: Parser infrastructure for retry_policy declarations is complete. Basic AST structures are in place. Next steps: parse retry_policy references in clients, implement fallback/round-robin provider parsing, and add validation.
+
+**Implementation Details (Completed)**:
+- Added `keyword_retry_policy` to TokenTag enum in lexer
+- Created `RetryPolicyDecl` struct with max_retries and optional strategy
+- Created strategy types: `RetryStrategyTag`, `ConstantDelayStrategy`, `ExponentialBackoffStrategy`, `RetryStrategy` union
+- Added `retry_policy: ?[]const u8` field to ClientDecl for policy references
+- Implemented `parseRetryPolicyDecl()` with full support for strategy parsing:
+  - Parses max_retries as u32
+  - Parses strategy block with type field
+  - Supports constant_delay with delay_ms parameter
+  - Supports exponential_backoff with delay_ms, multiplier, and max_delay_ms parameters
+- Added retry_policy_decl case to all parser dispatch switches (multifile.zig, main.zig)
+- Implemented formatRetryPolicyDecl() with proper indentation and formatting
+- All tests pass (2/2 test suites, 5/5 build steps)
+
+**Sample BAML Syntax** (from specs):
+```baml
+// Retry policy declaration
+retry_policy MyRetryPolicy {
+  max_retries 3
+  strategy {
+    type exponential_backoff
+    delay_ms 200
+    multiplier 1.5
+    max_delay_ms 10000
+  }
+}
+
+// Client with retry policy reference (to be implemented)
+client<llm> MyClient {
+  provider anthropic
+  retry_policy MyRetryPolicy
+  options {
+    model "claude-sonnet-4"
+    api_key env.ANTHROPIC_API_KEY
+  }
+}
+
+// Fallback provider (to be implemented)
+client<llm> ResilientClient {
+  provider fallback
+  retry_policy MyRetryPolicy
+  options {
+    strategy [
+      ClientA
+      ClientB
+      ClientC
+    ]
+  }
+}
+
+// Round-robin provider (to be implemented)
+client<llm> LoadBalancedClient {
+  provider round-robin
+  options {
+    strategy [
+      ClientA
+      ClientB
+    ]
+    start 0
+  }
+}
 ```
 
 **Test Results**: ✅ All tests pass - Build Summary: 5/5 steps succeeded; 2/2 tests passed
