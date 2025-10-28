@@ -158,16 +158,18 @@ Testing generated types...
 ✓ All expected types found
 
 Testing Status enum values:
-  - active
-  - inactive
+  - Active
+  - Inactive
+  - Pending
 
 Testing Priority enum values:
-  - high
-  - medium
-  - low
+  - Low
+  - Medium
+  - High
+  - Urgent
 
 Testing class instantiation...
-✓ Created Address: San Francisco, CA
+✓ Created Address: San Francisco, USA
 ✓ Created Person: John Doe, age 30
 
 Testing Pydantic validation...

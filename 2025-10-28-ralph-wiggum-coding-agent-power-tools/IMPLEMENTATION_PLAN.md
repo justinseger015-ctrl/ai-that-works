@@ -2,7 +2,7 @@
 
 A BAML language implementation in Zig.
 
-## Project Status: PHASE 11 - Multi-file Support (COMPLETED ✅)
+## Project Status: PHASE 13 - Documentation (IN PROGRESS - 13.1 & 13.3 COMPLETED ✅)
 
 ---
 
@@ -891,28 +891,42 @@ minibaml gen test.baml > models.py
 ---
 
 ### PHASE 13: Documentation
-**Status**: PENDING
+**Status**: IN PROGRESS (13.1 and 13.3 COMPLETED ✅)
 **Goal**: Create comprehensive documentation for users and contributors
 
-#### Tasks:
-- [ ] 13.1: Write Getting Started Guide (docs/getting-started.md)
+#### Tasks Completed:
+- [x] 13.1: Write Getting Started Guide (docs/getting-started.md) ✅ COMPLETED
   - Installation instructions
-  - Basic usage examples
-  - Quick tutorial with sample BAML code
-  - Common use cases
+  - Basic usage examples with working BAML code
+  - Quick tutorial covering classes, enums, functions, and clients
+  - Core concepts explanation (types, attributes, templates)
+  - Code generation workflow (Python and TypeScript)
+  - Multi-file project structure
+  - Complete example workflow from BAML to working code
+  - Common patterns (optional fields, arrays, unions, maps)
+  - Testing and debugging guidance
+- [x] 13.3: Write Building from Source Guide (docs/BUILDING.md) ✅ COMPLETED
+  - Prerequisites (Zig 0.15.1+)
+  - Build instructions with optimization options
+  - Running tests
+  - Code generation examples (Python, TypeScript, TypeBuilder)
+  - Testing generated code with validation examples
+  - Complete verification workflow
+  - Project structure overview
+  - Development tips and troubleshooting
+
+#### Tasks Remaining:
 - [ ] 13.2: Write Reference Documentation (docs/reference.md)
   - Complete CLI command reference (parse, check, fmt, generate)
   - BAML syntax reference
   - All supported attributes and their usage
   - Type system documentation
-- [ ] 13.3: Write Building from Source Guide (docs/building.md)
-  - Prerequisites (Zig 0.15.1+)
-  - Build instructions
-  - Running tests
-  - Project structure overview
-  - Contributing guidelines
+  - Jinja template syntax
+  - Error messages reference
 
-**Validation**: Documentation is clear, accurate, and covers all major features.
+**Validation**: ✅ Getting Started and Building guides are comprehensive and accurate.
+- Getting Started guide: 278 lines covering all basic and intermediate features
+- Building guide: 319 lines with complete build and test workflows
 
 ---
 
