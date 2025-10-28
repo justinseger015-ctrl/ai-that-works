@@ -2387,14 +2387,22 @@ minibaml gen baml_src --zig > generated.zig
   - Formatter outputs arrays with commas (both styles are valid)
   - Full integration test with round_robin and fallback providers
 
+#### Tasks Completed:
+- [x] 28.12: Update validator to validate retry_policy references
+  - Added RetryPolicyRegistry to track retry_policy declarations
+  - Updated Validator.init() and deinit() to include retry_policy_registry
+  - Updated registerDeclarations() to register retry_policy declarations
+  - Added validation in validateTypeReferences() for retry_policy references in clients
+  - Added 4 comprehensive tests for retry_policy validation
+  - All tests pass (2/2 test suites passed)
+
 #### Tasks Remaining:
-- [ ] 28.12: Update validator to validate retry_policy references
 - [ ] 28.13: Validate fallback and round_robin strategy lists
 - [ ] 28.14: Add integration tests with validation
 - [ ] 28.15: Update code generators to handle retry policies
 - [ ] 28.16: Update documentation
 
-**Progress**: Tasks 28.10 and 28.11 complete! Parser now supports fallback and round_robin providers with strategy arrays. Providers can be identifiers (fallback, round_robin) or strings. Strategy arrays contain unquoted client names. Commas are optional in BAML arrays. All tests pass. Next steps: add validation for retry_policy references and strategy lists.
+**Progress**: Tasks 28.10, 28.11, and 28.12 complete! Parser supports fallback and round_robin providers with strategy arrays. Validator now validates retry_policy references in clients, detecting undefined retry_policy errors and duplicate retry_policy definitions. All tests pass. Next steps: validate strategy lists in fallback/round_robin clients.
 
 **Implementation Details (Completed)**:
 - Added `keyword_retry_policy` to TokenTag enum in lexer

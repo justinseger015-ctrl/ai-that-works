@@ -140,11 +140,40 @@ pub const FunctionRegistry = struct {
     }
 };
 
+/// Retry policy registry for tracking all declared retry policies
+pub const RetryPolicyRegistry = struct {
+    policies: std.StringHashMap(ast.Location),
+    allocator: std.mem.Allocator,
+
+    pub fn init(allocator: std.mem.Allocator) RetryPolicyRegistry {
+        return RetryPolicyRegistry{
+            .policies = std.StringHashMap(ast.Location).init(allocator),
+            .allocator = allocator,
+        };
+    }
+
+    pub fn deinit(self: *RetryPolicyRegistry) void {
+        self.policies.deinit();
+    }
+
+    pub fn registerRetryPolicy(self: *RetryPolicyRegistry, name: []const u8, location: ast.Location) !void {
+        if (self.policies.contains(name)) {
+            return ValidationError.DuplicateDefinition;
+        }
+        try self.policies.put(name, location);
+    }
+
+    pub fn isDefined(self: *const RetryPolicyRegistry, name: []const u8) bool {
+        return self.policies.contains(name);
+    }
+};
+
 /// Validator for BAML AST
 pub const Validator = struct {
     allocator: std.mem.Allocator,
     type_registry: TypeRegistry,
     function_registry: FunctionRegistry,
+    retry_policy_registry: RetryPolicyRegistry,
     diagnostics: std.ArrayList(Diagnostic),
 
     pub fn init(allocator: std.mem.Allocator) Validator {
@@ -152,6 +181,7 @@ pub const Validator = struct {
             .allocator = allocator,
             .type_registry = TypeRegistry.init(allocator),
             .function_registry = FunctionRegistry.init(allocator),
+            .retry_policy_registry = RetryPolicyRegistry.init(allocator),
             .diagnostics = std.ArrayList(Diagnostic){},
         };
     }
@@ -163,6 +193,7 @@ pub const Validator = struct {
         self.diagnostics.deinit(self.allocator);
         self.type_registry.deinit();
         self.function_registry.deinit();
+        self.retry_policy_registry.deinit();
     }
 
     /// Validate an entire AST
@@ -214,6 +245,15 @@ pub const Validator = struct {
                         }
                     };
                 },
+                .retry_policy_decl => |policy| {
+                    self.retry_policy_registry.registerRetryPolicy(policy.name, policy.location) catch |err| {
+                        if (err == ValidationError.DuplicateDefinition) {
+                            try self.addError("Duplicate retry_policy definition: {s}", .{policy.name}, policy.location);
+                        } else {
+                            return err;
+                        }
+                    };
+                },
                 else => {},
             }
         }
@@ -247,6 +287,14 @@ pub const Validator = struct {
                     for (test_decl.functions.items) |func_name| {
                         if (!self.function_registry.isDefined(func_name)) {
                             try self.addError("Undefined function in test: {s}", .{func_name}, test_decl.location);
+                        }
+                    }
+                },
+                .client_decl => |client| {
+                    // Validate retry_policy references in clients
+                    if (client.retry_policy) |policy_name| {
+                        if (!self.retry_policy_registry.isDefined(policy_name)) {
+                            try self.addError("Undefined retry_policy in client: {s}", .{policy_name}, client.location);
                         }
                     }
                 },
@@ -1447,4 +1495,77 @@ test "Validator: Jinja validation - BAML built-ins are valid" {
 
     try validator.validate(&tree);
     try std.testing.expect(!validator.hasErrors());
+}
+
+test "Validator: RetryPolicyRegistry" {
+    const allocator = std.testing.allocator;
+    var registry = RetryPolicyRegistry.init(allocator);
+    defer registry.deinit();
+
+    try registry.registerRetryPolicy("MyRetryPolicy", .{ .line = 1, .column = 1 });
+    try std.testing.expect(registry.isDefined("MyRetryPolicy"));
+    try std.testing.expect(!registry.isDefined("OtherPolicy"));
+}
+
+test "Validator: Detect duplicate retry_policy" {
+    const allocator = std.testing.allocator;
+    var registry = RetryPolicyRegistry.init(allocator);
+    defer registry.deinit();
+
+    try registry.registerRetryPolicy("MyRetryPolicy", .{ .line = 1, .column = 1 });
+    const result = registry.registerRetryPolicy("MyRetryPolicy", .{ .line = 10, .column = 1 });
+    try std.testing.expectError(ValidationError.DuplicateDefinition, result);
+}
+
+test "Validator: Valid retry_policy reference in client" {
+    const allocator = std.testing.allocator;
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    var tree = ast.Ast.init(allocator);
+    defer tree.deinit();
+
+    // Create a retry_policy declaration
+    const retry_policy = ast.RetryPolicyDecl.init(allocator, "MyRetryPolicy", 3, .{ .line = 1, .column = 1 });
+    try tree.declarations.append(allocator, ast.Declaration{ .retry_policy_decl = retry_policy });
+
+    // Create a client that references the retry_policy
+    var client = ast.ClientDecl.init(allocator, "MyClient", "llm", .{ .line = 5, .column = 1 });
+    client.provider = "openai";
+    client.retry_policy = "MyRetryPolicy";
+    try tree.declarations.append(allocator, ast.Declaration{ .client_decl = client });
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+}
+
+test "Validator: Undefined retry_policy in client" {
+    const allocator = std.testing.allocator;
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    var tree = ast.Ast.init(allocator);
+    defer tree.deinit();
+
+    // Create a client that references an undefined retry_policy
+    var client = ast.ClientDecl.init(allocator, "MyClient", "llm", .{ .line = 1, .column = 1 });
+    client.provider = "openai";
+    client.retry_policy = "UndefinedPolicy";
+    try tree.declarations.append(allocator, ast.Declaration{ .client_decl = client });
+
+    try validator.validate(&tree);
+    try std.testing.expect(validator.hasErrors());
+
+    // Check that the error message mentions the undefined retry_policy
+    const diagnostics = validator.getDiagnostics();
+    try std.testing.expect(diagnostics.len > 0);
+
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Undefined retry_policy") != null) {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
 }
