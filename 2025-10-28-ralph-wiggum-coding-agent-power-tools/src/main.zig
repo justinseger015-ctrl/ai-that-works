@@ -43,6 +43,7 @@ pub fn main() !void {
         var use_typescript = false;
         var use_go = false;
         var use_ruby = false;
+        var use_rust = false;
         var typebuilder_only = false;
 
         // Check for flags
@@ -53,12 +54,14 @@ pub fn main() !void {
                 use_go = true;
             } else if (std.mem.eql(u8, args[3], "--ruby")) {
                 use_ruby = true;
+            } else if (std.mem.eql(u8, args[3], "--rust")) {
+                use_rust = true;
             } else if (std.mem.eql(u8, args[3], "--typebuilder") or std.mem.eql(u8, args[3], "-tb")) {
                 typebuilder_only = true;
             }
         }
 
-        try generateCommand(allocator, path, use_typescript, use_go, use_ruby, typebuilder_only);
+        try generateCommand(allocator, path, use_typescript, use_go, use_ruby, use_rust, typebuilder_only);
     } else if (std.mem.eql(u8, command, "parse")) {
         if (args.len < 3) {
             try printError("parse command requires a file argument", "minibaml parse <file.baml>");
@@ -94,6 +97,7 @@ fn printUsage() void {
         \\  --typescript, -ts                 Generate TypeScript code
         \\  --go                              Generate Go code
         \\  --ruby                            Generate Ruby code
+        \\  --rust                            Generate Rust code
         \\  --typebuilder, -tb                Generate Python TypeBuilder module only
         \\
         \\Global Options:
@@ -110,6 +114,7 @@ fn printUsage() void {
         \\  minibaml gen baml_src --typescript # Generate TypeScript code
         \\  minibaml gen baml_src --go        # Generate Go code
         \\  minibaml gen baml_src --ruby      # Generate Ruby code
+        \\  minibaml gen baml_src --rust      # Generate Rust code
         \\  minibaml gen baml_src --typebuilder > type_builder.py # Generate TypeBuilder
         \\
     ) catch {};
@@ -411,7 +416,7 @@ fn formatCommand(allocator: std.mem.Allocator, filename: []const u8) !void {
     try std.fs.File.stdout().writeAll(buffer.items);
 }
 
-fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescript: bool, use_go: bool, use_ruby: bool, typebuilder_only: bool) !void {
+fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescript: bool, use_go: bool, use_ruby: bool, use_rust: bool, typebuilder_only: bool) !void {
     var buffer = std.ArrayList(u8){};
     defer buffer.deinit(allocator);
 
@@ -447,6 +452,21 @@ fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescrip
         }
     } else if (use_ruby) {
         var gen = minibaml.RubyGenerator.init(allocator, &buffer);
+
+        if (isDirectory(path)) {
+            var project = minibaml.MultiFileProject.init(allocator);
+            defer project.deinit();
+
+            try project.loadDirectory(path);
+            const merged_ast = project.getMergedAst();
+            try gen.generate(merged_ast);
+        } else {
+            var result = try parseFile(allocator, path);
+            defer result.deinit();
+            try gen.generate(&result.tree);
+        }
+    } else if (use_rust) {
+        var gen = minibaml.RustGenerator.init(allocator, &buffer);
 
         if (isDirectory(path)) {
             var project = minibaml.MultiFileProject.init(allocator);
