@@ -50,6 +50,12 @@ test TestGreet {
   }
 }
 
+generator PythonGenerator {
+  output_type "python/pydantic"
+  output_dir "./baml_client"
+  version "0.60.0"
+}
+
 {# This is a
    multiline
    block comment #}

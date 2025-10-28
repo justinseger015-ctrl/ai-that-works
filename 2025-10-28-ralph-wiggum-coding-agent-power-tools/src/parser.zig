@@ -1045,6 +1045,163 @@ pub const Parser = struct {
 
         return template_decl;
     }
+
+    /// Parse test declaration: test Name { functions [...] args { ... } }
+    pub fn parseTestDecl(self: *Parser) ParseError!ast.TestDecl {
+        self.skipTrivia();
+
+        const test_token = try self.expect(.keyword_test);
+        const location = ast.Location{
+            .line = test_token.line,
+            .column = test_token.column,
+        };
+
+        self.skipTrivia();
+        const name_token = try self.expect(.identifier);
+
+        var test_decl = ast.TestDecl.init(self.allocator, name_token.lexeme, location);
+        errdefer test_decl.deinit(self.allocator);
+
+        // Parse test body: { functions [...] args { ... } }
+        self.skipTrivia();
+        _ = try self.expect(.lbrace);
+
+        while (!self.check(.rbrace) and !self.isAtEnd()) {
+            self.skipTrivia();
+
+            if (self.check(.rbrace)) break;
+
+            // Check for test-level attribute (@@)
+            if (self.check(.double_at)) {
+                const attr = try self.parseAttribute();
+                try test_decl.attributes.append(attr);
+                continue;
+            }
+
+            // Check for 'functions' or 'args' keywords
+            if (self.match(.identifier)) |field_token| {
+                if (std.mem.eql(u8, field_token.lexeme, "functions")) {
+                    // Parse functions list: functions [Func1, Func2]
+                    self.skipTrivia();
+                    _ = try self.expect(.lbracket);
+                    self.skipTrivia();
+
+                    while (!self.check(.rbracket) and !self.isAtEnd()) {
+                        self.skipTrivia();
+
+                        if (self.check(.rbracket)) break;
+
+                        const func_name = try self.expect(.identifier);
+                        try test_decl.functions.append(func_name.lexeme);
+
+                        self.skipTrivia();
+                        if (self.match(.comma)) |_| {
+                            continue;
+                        } else if (self.check(.rbracket)) {
+                            break;
+                        } else {
+                            const current = self.peek() orelse {
+                                try self.addError("Expected ',' or ']' in functions list", .{}, 0, 0);
+                                return ParseError.UnexpectedEof;
+                            };
+                            try self.addError("Expected ',' or ']' in functions list", .{}, current.line, current.column);
+                            return ParseError.UnexpectedToken;
+                        }
+                    }
+
+                    self.skipTrivia();
+                    _ = try self.expect(.rbracket);
+                    continue;
+                } else if (std.mem.eql(u8, field_token.lexeme, "args")) {
+                    // Parse args block: args { key value, ... }
+                    self.skipTrivia();
+                    _ = try self.expect(.lbrace);
+
+                    while (!self.check(.rbrace) and !self.isAtEnd()) {
+                        self.skipTrivia();
+
+                        if (self.check(.rbrace)) break;
+
+                        // Parse key
+                        const key_token = try self.expect(.identifier);
+                        const key = key_token.lexeme;
+
+                        self.skipTrivia();
+
+                        // Parse value (can be string, number, object, array, etc.)
+                        const value = try self.parseValue();
+                        try test_decl.args.put(key, value);
+
+                        self.skipTrivia();
+                    }
+
+                    self.skipTrivia();
+                    _ = try self.expect(.rbrace);
+                    continue;
+                } else {
+                    // Unknown field in test body
+                    try self.addError("Unknown field in test declaration: {s}", .{field_token.lexeme}, field_token.line, field_token.column);
+                    return ParseError.UnexpectedToken;
+                }
+            }
+
+            const current = self.peek() orelse {
+                try self.addError("Expected 'functions', 'args', or '@@' in test body", .{}, 0, 0);
+                return ParseError.UnexpectedEof;
+            };
+            try self.addError("Expected 'functions', 'args', or '@@' in test body, got {s}", .{@tagName(current.tag)}, current.line, current.column);
+            return ParseError.UnexpectedToken;
+        }
+
+        self.skipTrivia();
+        _ = try self.expect(.rbrace);
+
+        return test_decl;
+    }
+
+    /// Parse generator declaration: generator Name { ... }
+    pub fn parseGeneratorDecl(self: *Parser) ParseError!ast.GeneratorDecl {
+        self.skipTrivia();
+
+        const generator_token = try self.expect(.keyword_generator);
+        const location = ast.Location{
+            .line = generator_token.line,
+            .column = generator_token.column,
+        };
+
+        self.skipTrivia();
+        const name_token = try self.expect(.identifier);
+
+        var generator_decl = ast.GeneratorDecl.init(self.allocator, name_token.lexeme, location);
+        errdefer generator_decl.deinit(self.allocator);
+
+        // Parse generator body: { key value, ... }
+        self.skipTrivia();
+        _ = try self.expect(.lbrace);
+
+        while (!self.check(.rbrace) and !self.isAtEnd()) {
+            self.skipTrivia();
+
+            if (self.check(.rbrace)) break;
+
+            // Parse key
+            const key_token = try self.expect(.identifier);
+            const key = key_token.lexeme;
+
+            self.skipTrivia();
+
+            // Parse value (can be string, number, etc.)
+            const value = try self.parseValue();
+            try generator_decl.options.put(key, value);
+
+            self.skipTrivia();
+        }
+
+        self.skipTrivia();
+        _ = try self.expect(.rbrace);
+
+        return generator_decl;
+    }
 };
 
 /// Parser error information
@@ -2475,4 +2632,323 @@ test "Parser: Integration - Parse complete template_string from validation examp
     try std.testing.expectEqualStrings("msgs", template_decl.parameters.items[0].name);
     try std.testing.expect(std.mem.indexOf(u8, template_decl.template, "for m in msgs") != null);
     try std.testing.expect(std.mem.indexOf(u8, template_decl.template, "_.role(m.role)") != null);
+}
+
+test "Parser: Parse simple test with functions list" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestGreet {
+        \\  functions [Greet]
+        \\  args {
+        \\    name "Alice"
+        \\  }
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestGreet", test_decl.name);
+    try std.testing.expect(test_decl.functions.items.len == 1);
+    try std.testing.expectEqualStrings("Greet", test_decl.functions.items[0]);
+    try std.testing.expect(test_decl.args.count() == 1);
+
+    const name = test_decl.args.get("name").?;
+    try std.testing.expect(name == .string);
+    try std.testing.expectEqualStrings("Alice", name.string);
+}
+
+test "Parser: Parse test with multiple functions" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestMultiple {
+        \\  functions [Greet, ExtractData, Process]
+        \\  args {
+        \\    text "test"
+        \\  }
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestMultiple", test_decl.name);
+    try std.testing.expect(test_decl.functions.items.len == 3);
+    try std.testing.expectEqualStrings("Greet", test_decl.functions.items[0]);
+    try std.testing.expectEqualStrings("ExtractData", test_decl.functions.items[1]);
+    try std.testing.expectEqualStrings("Process", test_decl.functions.items[2]);
+}
+
+test "Parser: Parse test with nested args" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestNested {
+        \\  functions [ExtractPerson]
+        \\  args {
+        \\    p {
+        \\      name "Alice"
+        \\      age 30
+        \\    }
+        \\  }
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestNested", test_decl.name);
+    try std.testing.expect(test_decl.functions.items.len == 1);
+    try std.testing.expect(test_decl.args.count() == 1);
+
+    const p = test_decl.args.get("p").?;
+    try std.testing.expect(p == .object);
+    try std.testing.expect(p.object.count() == 2);
+
+    const name = p.object.get("name").?;
+    try std.testing.expectEqualStrings("Alice", name.string);
+
+    const age = p.object.get("age").?;
+    try std.testing.expect(age.int == 30);
+}
+
+test "Parser: Parse test with array args" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestArray {
+        \\  functions [Process]
+        \\  args {
+        \\    items [1, 2, 3]
+        \\    names ["Alice", "Bob"]
+        \\  }
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestArray", test_decl.name);
+    try std.testing.expect(test_decl.args.count() == 2);
+
+    const items = test_decl.args.get("items").?;
+    try std.testing.expect(items == .array);
+    try std.testing.expect(items.array.items.len == 3);
+    try std.testing.expect(items.array.items[0].int == 1);
+
+    const names = test_decl.args.get("names").?;
+    try std.testing.expect(names == .array);
+    try std.testing.expect(names.array.items.len == 2);
+    try std.testing.expectEqualStrings("Alice", names.array.items[0].string);
+}
+
+test "Parser: Parse test with attributes" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestWithAttrs {
+        \\  functions [Greet]
+        \\  args {
+        \\    name "Alice"
+        \\  }
+        \\  @@check(output, "length > 0")
+        \\  @@assert(output, "contains 'hello'")
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestWithAttrs", test_decl.name);
+    try std.testing.expect(test_decl.attributes.items.len == 2);
+
+    const attr1 = test_decl.attributes.items[0];
+    try std.testing.expectEqualStrings("check", attr1.name);
+    try std.testing.expect(attr1.is_class_level);
+    try std.testing.expect(attr1.args.items.len == 2);
+
+    const attr2 = test_decl.attributes.items[1];
+    try std.testing.expectEqualStrings("assert", attr2.name);
+    try std.testing.expect(attr2.is_class_level);
+}
+
+test "Parser: Integration - Parse complete test from test.baml" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\test TestGreet {
+        \\  functions [Greet]
+        \\  args {
+        \\    p {
+        \\      name "Alice"
+        \\      age 30
+        \\    }
+        \\  }
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var test_decl = try parser.parseTestDecl();
+    defer test_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TestGreet", test_decl.name);
+    try std.testing.expect(test_decl.functions.items.len == 1);
+    try std.testing.expectEqualStrings("Greet", test_decl.functions.items[0]);
+
+    const p = test_decl.args.get("p").?;
+    try std.testing.expect(p == .object);
+    const name = p.object.get("name").?;
+    try std.testing.expectEqualStrings("Alice", name.string);
+}
+
+test "Parser: Parse simple generator" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\generator MyGenerator {
+        \\  output_type "python/pydantic"
+        \\  output_dir "./generated"
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var generator_decl = try parser.parseGeneratorDecl();
+    defer generator_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("MyGenerator", generator_decl.name);
+    try std.testing.expect(generator_decl.options.count() == 2);
+
+    const output_type = generator_decl.options.get("output_type").?;
+    try std.testing.expect(output_type == .string);
+    try std.testing.expectEqualStrings("python/pydantic", output_type.string);
+
+    const output_dir = generator_decl.options.get("output_dir").?;
+    try std.testing.expectEqualStrings("./generated", output_dir.string);
+}
+
+test "Parser: Parse generator with version" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\generator PythonGenerator {
+        \\  output_type "python/pydantic"
+        \\  output_dir "./baml_client"
+        \\  version "0.60.0"
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var generator_decl = try parser.parseGeneratorDecl();
+    defer generator_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("PythonGenerator", generator_decl.name);
+    try std.testing.expect(generator_decl.options.count() == 3);
+
+    const version = generator_decl.options.get("version").?;
+    try std.testing.expectEqualStrings("0.60.0", version.string);
+}
+
+test "Parser: Parse generator with multiple options" {
+    const allocator = std.testing.allocator;
+
+    const source =
+        \\generator TypeScriptGenerator {
+        \\  output_type "typescript"
+        \\  output_dir "../client/baml"
+        \\  version "0.60.0"
+        \\  on_generate "npm install"
+        \\}
+    ;
+
+    var lex = Lexer.init(allocator, source);
+    defer lex.deinit();
+
+    const tokens = try lex.tokenize();
+    defer allocator.free(tokens);
+
+    var parser = Parser.init(allocator, tokens);
+    defer parser.deinit();
+
+    var generator_decl = try parser.parseGeneratorDecl();
+    defer generator_decl.deinit(allocator);
+
+    try std.testing.expectEqualStrings("TypeScriptGenerator", generator_decl.name);
+    try std.testing.expect(generator_decl.options.count() == 4);
+
+    const output_type = generator_decl.options.get("output_type").?;
+    try std.testing.expectEqualStrings("typescript", output_type.string);
+
+    const on_generate = generator_decl.options.get("on_generate").?;
+    try std.testing.expectEqualStrings("npm install", on_generate.string);
 }

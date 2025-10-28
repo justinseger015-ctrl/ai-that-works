@@ -2,7 +2,7 @@
 
 A BAML language implementation in Zig.
 
-## Project Status: PHASE 6 - Test & Generator Parsing
+## Project Status: PHASE 7 - Type System & Validation
 
 ---
 
@@ -322,21 +322,67 @@ template_string FormatMessages(msgs: Message[]) #"
 
 ---
 
-### 🔵 PHASE 6: Test & Generator Parsing
-**Status**: NOT STARTED
+### ✅ PHASE 6: Test & Generator Parsing
+**Status**: ✅ COMPLETED
 **Goal**: Parse test and generator declarations
 
-#### Tasks:
-- [ ] 6.1: Parse test declaration header
-- [ ] 6.2: Parse functions list
-- [ ] 6.3: Parse args block with nested values
-- [ ] 6.4: Parse test attributes (@@check, @@assert)
-- [ ] 6.5: Parse generator declaration
-- [ ] 6.6: Parse generator options
-- [ ] 6.7: Add test parsing tests
-- [ ] 6.8: Add generator parsing tests
+#### Tasks Completed:
+- [x] 6.1: Parse test declaration header
+- [x] 6.2: Parse functions list
+- [x] 6.3: Parse args block with nested values
+- [x] 6.4: Parse test attributes (@@check, @@assert)
+- [x] 6.5: Parse generator declaration
+- [x] 6.6: Parse generator options
+- [x] 6.7: Add test parsing tests
+- [x] 6.8: Add generator parsing tests
 
-**Validation**: Successfully parse complete test and generator blocks
+**Validation**: ✅ PASSED - Successfully parses all test and generator features.
+
+**Implementation Details**:
+- Added `parseTestDecl()` function to parse complete test declarations
+  - Parses test name and header
+  - Parses functions list: `functions [Func1, Func2]`
+  - Parses args block with key-value pairs supporting all value types
+  - Supports nested objects and arrays in args
+  - Supports test-level attributes (@@check, @@assert)
+- Added `parseGeneratorDecl()` function to parse complete generator declarations
+  - Parses generator name and header
+  - Parses generator options block with key-value pairs
+  - Supports all value types (strings, numbers, etc.)
+- Comprehensive test suite with 10 new test cases covering:
+  - Simple test declarations with function lists
+  - Tests with multiple functions
+  - Tests with nested args objects
+  - Tests with array args
+  - Tests with test-level attributes (@@check, @@assert)
+  - Integration test matching test.baml structure
+  - Simple generator declarations
+  - Generators with version field
+  - Generators with multiple options
+- All tests pass (`zig build test --summary all`)
+- Updated test.baml with generator declaration example
+
+**Sample Successfully Parsed**:
+```baml
+test TestGreet {
+  functions [Greet]
+  args {
+    p {
+      name "Alice"
+      age 30
+    }
+  }
+  @@check(output, "length > 0")
+}
+
+generator PythonGenerator {
+  output_type "python/pydantic"
+  output_dir "./baml_client"
+  version "0.60.0"
+}
+```
+
+**Test Results**: ✅ All tests pass - Build Summary: 5/5 steps succeeded; 2/2 tests passed
 
 ---
 
