@@ -2,7 +2,7 @@
 
 A BAML language implementation in Zig.
 
-## Project Status: PHASE 26 - Zig Code Generation ✅ COMPLETED
+## Project Status: PHASE 27 - Advanced Jinja Filter Validation ✅ COMPLETED
 
 ---
 
@@ -1744,7 +1744,7 @@ minibaml gen baml_src --kotlin > generated.kt
 
 ---
 
-## Current Milestone: PHASE 26 - COMPLETED ✅
+## Current Milestone: PHASE 27 - COMPLETED ✅
 
 **Achievements**:
 - ✅ Complete lexer with 150+ test cases
@@ -1811,6 +1811,13 @@ minibaml gen baml_src --kotlin > generated.kt
   - Unclosed block detection
   - 16 comprehensive tests for loops and conditionals
   - 545 lines of enhanced Jinja implementation
+- ✅ Advanced Jinja Filter Validation (Phase 27)
+  - Parse filter arguments (positional and named)
+  - Validate 7 common BAML filters (length, abs, lower, upper, sum, regex_match, map)
+  - Support for chained filters (e.g., lower|regex_match("test"))
+  - Argument count and type validation
+  - Unknown filter warnings
+  - 15 comprehensive filter tests
 - ✅ TypeBuilder code generation for @@dynamic types (Phase 12.2)
   - Detects @@dynamic attribute on classes and enums
   - Generates DynamicClassBuilder with add_property()
@@ -2261,9 +2268,88 @@ minibaml gen baml_src --zig > generated.zig
 
 ---
 
+### ✅ PHASE 27: Advanced Jinja Filter Validation
+**Status**: ✅ COMPLETED
+**Goal**: Parse and validate Jinja filters with arguments
+
+#### Tasks Completed:
+- [x] 27.1: Design filter validation system with supported filters
+- [x] 27.2: Add JinjaFilter and JinjaFilterArg structs
+- [x] 27.3: Add equals token to lexer for named arguments
+- [x] 27.4: Implement parseFilter() function for parsing filter arguments
+- [x] 27.5: Parse filter arguments (positional and named)
+- [x] 27.6: Implement validateFilter() function with validation rules
+- [x] 27.7: Add validation for supported filters:
+  - [x] length (no arguments)
+  - [x] abs (no arguments)
+  - [x] lower (no arguments)
+  - [x] upper (no arguments)
+  - [x] sum (no arguments)
+  - [x] regex_match (1 positional argument)
+  - [x] map (requires 'attribute' named argument)
+- [x] 27.8: Add comprehensive tests (15+ test cases)
+  - [x] Parse filter without arguments
+  - [x] Parse filter with positional argument
+  - [x] Parse filter with named argument
+  - [x] Parse chained filters
+  - [x] Validate correct filter usage
+  - [x] Detect invalid filter arguments
+  - [x] Warn on unknown filters
+- [x] 27.9: Verify all tests pass
+
+**Validation**: ✅ PASSED - All filters parse and validate correctly
+
+**Implementation Details**:
+- Added JinjaFilterArg struct for filter arguments (named or positional)
+- Added JinjaFilter struct with name, args, line, and column
+- Extended JinjaVariable.filters from ArrayList([]const u8) to ArrayList(JinjaFilter)
+- Added equals token to JinjaTokenType for parsing named arguments (attribute="value")
+- Implemented parseFilter() to parse filter arguments including:
+  - Named arguments: map(attribute="price")
+  - Positional arguments: regex_match("[a-z]+")
+  - Multiple arguments with comma separation
+- Implemented validateFilter() with validation rules for all BAML filters
+- Comprehensive test suite with 15 new tests covering:
+  - Filter parsing without arguments
+  - Filter parsing with positional arguments
+  - Filter parsing with named arguments
+  - Chained filters (e.g., lower|regex_match("test"))
+  - Valid filter usage validation
+  - Invalid argument count detection
+  - Missing required argument detection
+  - Unknown filter warnings
+  - Complex examples from BAML specs
+
+**Supported Filters**:
+- `length` - Get length of string/array (no arguments)
+- `abs` - Absolute value (no arguments)
+- `lower` - Convert to lowercase (no arguments)
+- `upper` - Convert to uppercase (no arguments)
+- `sum` - Sum numeric values (no arguments)
+- `regex_match(pattern)` - Match against regex (1 positional argument)
+- `map(attribute="field")` - Map over arrays (requires 'attribute' named argument)
+
+**Sample Validated Templates**:
+```baml
+// Valid filter usage
+{{ name|length }}
+{{ value|abs }}
+{{ text|lower|regex_match("test") }}
+{{ items|map(attribute="price")|sum }}
+
+// Detected errors
+{{ name|length(5) }}  // Error: length takes no arguments
+{{ text|regex_match }}  // Error: regex_match requires 1 argument
+{{ items|map }}  // Error: map requires 'attribute' argument
+{{ data|unknown }}  // Warning: unknown filter
+```
+
+**Test Results**: ✅ All tests pass - Build Summary: 5/5 steps succeeded; 2/2 tests passed
+
+---
+
 **Next Steps** (Optional Future Enhancements):
 - Full runtime TypeBuilder integration with function execution
 - Streaming support for LLM function calls
 - Client registry for managing multiple LLM providers
-- Advanced Jinja filter validation and execution
 - Additional language generators (Dart, Haskell, etc.)

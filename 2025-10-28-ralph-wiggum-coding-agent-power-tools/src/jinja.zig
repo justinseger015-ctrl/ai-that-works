@@ -15,6 +15,7 @@ pub const JinjaTokenType = enum {
     lparen, // (
     rparen, // )
     comma, // ,
+    equals, // = for named arguments
     string_literal, // "..." or '...'
     number, // Integer or float
     eof,
@@ -161,6 +162,7 @@ pub const JinjaLexer = struct {
         if (c == '(') return self.makeToken(.lparen, 1);
         if (c == ')') return self.makeToken(.rparen, 1);
         if (c == ',') return self.makeToken(.comma, 1);
+        if (c == '=') return self.makeToken(.equals, 1);
 
         // String literals
         if (c == '"' or c == '\'') return self.scanString(c);
@@ -347,10 +349,28 @@ pub const JinjaNode = union(JinjaNodeType) {
     }
 };
 
+/// A filter argument (named or positional)
+pub const JinjaFilterArg = struct {
+    name: ?[]const u8, // null for positional args
+    value: []const u8, // Raw string value
+};
+
+/// A Jinja filter with optional arguments
+pub const JinjaFilter = struct {
+    name: []const u8,
+    args: std.ArrayList(JinjaFilterArg),
+    line: usize,
+    column: usize,
+
+    pub fn deinit(self: *JinjaFilter, allocator: std.mem.Allocator) void {
+        self.args.deinit(allocator);
+    }
+};
+
 /// A variable expression: {{ x.y.z }}
 pub const JinjaVariable = struct {
     path: std.ArrayList([]const u8), // e.g., ["p", "name"]
-    filters: std.ArrayList([]const u8),
+    filters: std.ArrayList(JinjaFilter),
     line: usize,
     column: usize,
 
@@ -358,7 +378,7 @@ pub const JinjaVariable = struct {
         _ = allocator;
         return JinjaVariable{
             .path = std.ArrayList([]const u8){},
-            .filters = std.ArrayList([]const u8){},
+            .filters = std.ArrayList(JinjaFilter){},
             .line = line,
             .column = column,
         };
@@ -366,6 +386,9 @@ pub const JinjaVariable = struct {
 
     pub fn deinit(self: *JinjaVariable, allocator: std.mem.Allocator) void {
         self.path.deinit(allocator);
+        for (self.filters.items) |*filter| {
+            filter.deinit(allocator);
+        }
         self.filters.deinit(allocator);
     }
 };
@@ -501,11 +524,9 @@ pub const JinjaParser = struct {
                 }
             } else if (token.type == .pipe) {
                 self.advance(); // consume pipe
-                // Parse filter name
+                // Parse filter
                 if (self.pos < self.tokens.len and self.peek().type == .identifier) {
-                    const filter_token = self.peek();
-                    try variable.filters.append(allocator, filter_token.lexeme);
-                    self.advance();
+                    try self.parseFilter(allocator, &variable);
                 }
             } else {
                 self.advance(); // skip unknown tokens
@@ -513,6 +534,64 @@ pub const JinjaParser = struct {
         }
 
         return JinjaNode{ .variable = variable };
+    }
+
+    fn parseFilter(self: *JinjaParser, allocator: std.mem.Allocator, variable: *JinjaVariable) !void {
+        const filter_token = self.peek();
+        var filter = JinjaFilter{
+            .name = filter_token.lexeme,
+            .args = std.ArrayList(JinjaFilterArg){},
+            .line = filter_token.line,
+            .column = filter_token.column,
+        };
+        errdefer filter.deinit(allocator);
+        self.advance(); // consume filter name
+
+        // Check for arguments: filter(arg1, name=arg2)
+        if (self.pos < self.tokens.len and self.peek().type == .lparen) {
+            self.advance(); // consume '('
+
+            while (self.pos < self.tokens.len and self.peek().type != .rparen) {
+                const token = self.peek();
+
+                // Check for named argument (name=value)
+                if (token.type == .identifier and
+                    self.pos + 1 < self.tokens.len and
+                    self.tokens[self.pos + 1].type == .equals) {
+                    // Named argument
+                    const arg_name = token.lexeme;
+                    self.advance(); // consume name
+                    self.advance(); // consume '='
+
+                    if (self.pos < self.tokens.len) {
+                        const value_token = self.peek();
+                        try filter.args.append(allocator, JinjaFilterArg{
+                            .name = arg_name,
+                            .value = value_token.lexeme,
+                        });
+                        self.advance(); // consume value
+                    }
+                } else if (token.type == .string_literal or token.type == .number or token.type == .identifier) {
+                    // Positional argument
+                    try filter.args.append(allocator, JinjaFilterArg{
+                        .name = null,
+                        .value = token.lexeme,
+                    });
+                    self.advance();
+                }
+
+                // Skip commas
+                if (self.pos < self.tokens.len and self.peek().type == .comma) {
+                    self.advance();
+                }
+            }
+
+            if (self.pos < self.tokens.len and self.peek().type == .rparen) {
+                self.advance(); // consume ')'
+            }
+        }
+
+        try variable.filters.append(allocator, filter);
     }
 
     fn parseStatement(self: *JinjaParser, allocator: std.mem.Allocator) !JinjaNode {
@@ -847,11 +926,19 @@ pub const JinjaValidator = struct {
         // Check for BAML built-ins
         if (std.mem.eql(u8, root, "ctx") or std.mem.eql(u8, root, "_")) {
             // Built-in variables are always valid
+            // Validate filters
+            for (variable.filters.items) |*filter| {
+                try self.validateFilter(filter);
+            }
             return;
         }
 
         // Check if it's a loop variable
         if (self.loop_vars.contains(root)) {
+            // Validate filters
+            for (variable.filters.items) |*filter| {
+                try self.validateFilter(filter);
+            }
             return; // Loop variables are valid in their scope
         }
 
@@ -863,6 +950,100 @@ pub const JinjaValidator = struct {
                 .{root},
             );
             try self.addError(msg, variable.line, variable.column);
+        }
+
+        // Validate filters
+        for (variable.filters.items) |*filter| {
+            try self.validateFilter(filter);
+        }
+    }
+
+    fn validateFilter(self: *JinjaValidator, filter: *const JinjaFilter) !void {
+        const name = filter.name;
+
+        // Define supported filters with their validation rules
+        if (std.mem.eql(u8, name, "length")) {
+            // length filter takes no arguments
+            if (filter.args.items.len > 0) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'length' takes no arguments, but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "abs")) {
+            // abs filter takes no arguments
+            if (filter.args.items.len > 0) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'abs' takes no arguments, but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "lower")) {
+            // lower filter takes no arguments
+            if (filter.args.items.len > 0) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'lower' takes no arguments, but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "upper")) {
+            // upper filter takes no arguments
+            if (filter.args.items.len > 0) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'upper' takes no arguments, but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "sum")) {
+            // sum filter takes no arguments
+            if (filter.args.items.len > 0) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'sum' takes no arguments, but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "regex_match")) {
+            // regex_match filter requires exactly 1 argument (the pattern)
+            if (filter.args.items.len != 1) {
+                const msg = try std.fmt.allocPrint(
+                    self.allocator,
+                    "Filter 'regex_match' requires exactly 1 argument (pattern), but {d} provided",
+                    .{filter.args.items.len},
+                );
+                try self.addError(msg, filter.line, filter.column);
+            }
+        } else if (std.mem.eql(u8, name, "map")) {
+            // map filter requires 'attribute' named argument
+            var has_attribute = false;
+            for (filter.args.items) |arg| {
+                if (arg.name) |arg_name| {
+                    if (std.mem.eql(u8, arg_name, "attribute")) {
+                        has_attribute = true;
+                        break;
+                    }
+                }
+            }
+            if (!has_attribute) {
+                try self.addError("Filter 'map' requires 'attribute' named argument", filter.line, filter.column);
+            }
+        } else {
+            // Unknown filter - warn but don't error
+            const msg = try std.fmt.allocPrint(
+                self.allocator,
+                "Unknown filter '{s}' - may not be supported",
+                .{name},
+            );
+            try self.addError(msg, filter.line, filter.column);
         }
     }
 
@@ -1406,6 +1587,214 @@ test "JinjaValidator: complete example with loops and conditionals" {
         \\{% endfor %}
         \\{{ ctx.output_format }}
     ,
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 0), errors.len);
+}
+
+// ===== Filter Tests =====
+
+test "JinjaParser: parse filter without arguments" {
+    var lexer = JinjaLexer.init("{{ name|length }}");
+    var tokens = try lexer.tokenize(std.testing.allocator);
+    defer tokens.deinit(std.testing.allocator);
+
+    var parser = JinjaParser.init(tokens.items);
+    var nodes = try parser.parse(std.testing.allocator);
+    defer {
+        for (nodes.items) |*node| {
+            node.deinit(std.testing.allocator);
+        }
+        nodes.deinit(std.testing.allocator);
+    }
+
+    try std.testing.expectEqual(@as(usize, 1), nodes.items.len);
+    try std.testing.expect(nodes.items[0] == .variable);
+
+    const variable = nodes.items[0].variable;
+    try std.testing.expectEqual(@as(usize, 1), variable.filters.items.len);
+    try std.testing.expectEqualStrings("length", variable.filters.items[0].name);
+    try std.testing.expectEqual(@as(usize, 0), variable.filters.items[0].args.items.len);
+}
+
+test "JinjaParser: parse filter with positional argument" {
+    var lexer = JinjaLexer.init("{{ name|regex_match(\"[a-z]+\") }}");
+    var tokens = try lexer.tokenize(std.testing.allocator);
+    defer tokens.deinit(std.testing.allocator);
+
+    var parser = JinjaParser.init(tokens.items);
+    var nodes = try parser.parse(std.testing.allocator);
+    defer {
+        for (nodes.items) |*node| {
+            node.deinit(std.testing.allocator);
+        }
+        nodes.deinit(std.testing.allocator);
+    }
+
+    try std.testing.expectEqual(@as(usize, 1), nodes.items.len);
+    const variable = nodes.items[0].variable;
+    try std.testing.expectEqual(@as(usize, 1), variable.filters.items.len);
+    try std.testing.expectEqualStrings("regex_match", variable.filters.items[0].name);
+    try std.testing.expectEqual(@as(usize, 1), variable.filters.items[0].args.items.len);
+    try std.testing.expect(variable.filters.items[0].args.items[0].name == null);
+}
+
+test "JinjaParser: parse filter with named argument" {
+    var lexer = JinjaLexer.init("{{ items|map(attribute=\"price\") }}");
+    var tokens = try lexer.tokenize(std.testing.allocator);
+    defer tokens.deinit(std.testing.allocator);
+
+    var parser = JinjaParser.init(tokens.items);
+    var nodes = try parser.parse(std.testing.allocator);
+    defer {
+        for (nodes.items) |*node| {
+            node.deinit(std.testing.allocator);
+        }
+        nodes.deinit(std.testing.allocator);
+    }
+
+    try std.testing.expectEqual(@as(usize, 1), nodes.items.len);
+    const variable = nodes.items[0].variable;
+    try std.testing.expectEqual(@as(usize, 1), variable.filters.items.len);
+    try std.testing.expectEqualStrings("map", variable.filters.items[0].name);
+    try std.testing.expectEqual(@as(usize, 1), variable.filters.items[0].args.items.len);
+
+    const arg = variable.filters.items[0].args.items[0];
+    try std.testing.expect(arg.name != null);
+    try std.testing.expectEqualStrings("attribute", arg.name.?);
+}
+
+test "JinjaParser: parse chained filters" {
+    var lexer = JinjaLexer.init("{{ name|lower|length }}");
+    var tokens = try lexer.tokenize(std.testing.allocator);
+    defer tokens.deinit(std.testing.allocator);
+
+    var parser = JinjaParser.init(tokens.items);
+    var nodes = try parser.parse(std.testing.allocator);
+    defer {
+        for (nodes.items) |*node| {
+            node.deinit(std.testing.allocator);
+        }
+        nodes.deinit(std.testing.allocator);
+    }
+
+    try std.testing.expectEqual(@as(usize, 1), nodes.items.len);
+    const variable = nodes.items[0].variable;
+    try std.testing.expectEqual(@as(usize, 2), variable.filters.items.len);
+    try std.testing.expectEqualStrings("lower", variable.filters.items[0].name);
+    try std.testing.expectEqualStrings("length", variable.filters.items[1].name);
+}
+
+test "JinjaValidator: valid filter with no arguments" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|length }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 0), errors.len);
+}
+
+test "JinjaValidator: valid filter with positional argument" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|regex_match(\"[a-z]+\") }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 0), errors.len);
+}
+
+test "JinjaValidator: valid map filter with attribute argument" {
+    const params = [_][]const u8{"items"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ items|map(attribute=\"price\") }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 0), errors.len);
+}
+
+test "JinjaValidator: invalid filter - length with arguments" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|length(5) }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 1), errors.len);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "length") != null);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "no arguments") != null);
+}
+
+test "JinjaValidator: invalid filter - regex_match without argument" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|regex_match }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 1), errors.len);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "regex_match") != null);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "exactly 1 argument") != null);
+}
+
+test "JinjaValidator: invalid filter - map without attribute" {
+    const params = [_][]const u8{"items"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ items|map }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 1), errors.len);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "map") != null);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "attribute") != null);
+}
+
+test "JinjaValidator: unknown filter warning" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|unknown_filter }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 1), errors.len);
+    try std.testing.expect(std.mem.indexOf(u8, errors[0].message, "Unknown filter") != null);
+}
+
+test "JinjaValidator: chained valid filters" {
+    const params = [_][]const u8{"name"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ name|lower|regex_match(\"test\") }}",
+        &params,
+    );
+    defer std.testing.allocator.free(errors);
+
+    try std.testing.expectEqual(@as(usize, 0), errors.len);
+}
+
+test "JinjaValidator: complex example with filters from BAML specs" {
+    const params = [_][]const u8{"items"};
+    const errors = try validateFunctionPrompt(
+        std.testing.allocator,
+        "{{ items|map(attribute=\"price_cents\")|sum }}",
         &params,
     );
     defer std.testing.allocator.free(errors);
