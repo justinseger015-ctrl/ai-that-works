@@ -36,20 +36,23 @@ pub fn main() !void {
         try formatCommand(allocator, args[2]);
     } else if (std.mem.eql(u8, command, "generate") or std.mem.eql(u8, command, "gen")) {
         if (args.len < 3) {
-            try printError("generate command requires a file argument", "minibaml generate <file.baml> [--typescript|--python]");
+            try printError("generate command requires a file argument", "minibaml generate <file.baml> [--typescript|--python|--typebuilder]");
             return;
         }
         const path = args[2];
         var use_typescript = false;
+        var typebuilder_only = false;
 
-        // Check for --typescript flag
+        // Check for flags
         if (args.len >= 4) {
             if (std.mem.eql(u8, args[3], "--typescript") or std.mem.eql(u8, args[3], "-ts")) {
                 use_typescript = true;
+            } else if (std.mem.eql(u8, args[3], "--typebuilder") or std.mem.eql(u8, args[3], "-tb")) {
+                typebuilder_only = true;
             }
         }
 
-        try generateCommand(allocator, path, use_typescript);
+        try generateCommand(allocator, path, use_typescript, typebuilder_only);
     } else if (std.mem.eql(u8, command, "parse")) {
         if (args.len < 3) {
             try printError("parse command requires a file argument", "minibaml parse <file.baml>");
@@ -83,6 +86,7 @@ fn printUsage() void {
         \\Code Generation Options:
         \\  --python                          Generate Python code (default)
         \\  --typescript, -ts                 Generate TypeScript code
+        \\  --typebuilder, -tb                Generate Python TypeBuilder module only
         \\
         \\Global Options:
         \\  --help, -h                        Show this help message
@@ -96,6 +100,7 @@ fn printUsage() void {
         \\  minibaml fmt test.baml            # Format and print
         \\  minibaml generate baml_src        # Generate Python code
         \\  minibaml gen baml_src --typescript # Generate TypeScript code
+        \\  minibaml gen baml_src --typebuilder > type_builder.py # Generate TypeBuilder
         \\
     ) catch {};
 }
@@ -108,10 +113,13 @@ fn printError(message: []const u8, usage: []const u8) !void {
 const ParseResult = struct {
     tree: minibaml.Ast,
     parser: minibaml.Parser,
+    source: []const u8,
+    allocator: std.mem.Allocator,
 
     pub fn deinit(self: *ParseResult) void {
         self.tree.deinit();
         self.parser.deinit();
+        self.allocator.free(self.source);
     }
 };
 
@@ -141,7 +149,7 @@ fn parseFile(allocator: std.mem.Allocator, filename: []const u8) !ParseResult {
         std.debug.print("Error: Cannot read file '{s}': {s}\n", .{ filename, @errorName(err) });
         return err;
     };
-    defer allocator.free(source);
+    errdefer allocator.free(source);
 
     var lex = minibaml.Lexer.init(source);
     var tokens = try lex.tokenize(allocator);
@@ -189,7 +197,12 @@ fn parseFile(allocator: std.mem.Allocator, filename: []const u8) !ParseResult {
         return error.ParseError;
     }
 
-    return ParseResult{ .tree = tree, .parser = parser };
+    return ParseResult{
+        .tree = tree,
+        .parser = parser,
+        .source = source, // Keep source alive for AST string pointers
+        .allocator = allocator,
+    };
 }
 
 fn tokenizeCommand(allocator: std.mem.Allocator, filename: []const u8) !void {
@@ -388,7 +401,7 @@ fn formatCommand(allocator: std.mem.Allocator, filename: []const u8) !void {
     try std.fs.File.stdout().writeAll(buffer.items);
 }
 
-fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescript: bool) !void {
+fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescript: bool, typebuilder_only: bool) !void {
     var buffer = std.ArrayList(u8){};
     defer buffer.deinit(allocator);
 
@@ -410,17 +423,34 @@ fn generateCommand(allocator: std.mem.Allocator, path: []const u8, use_typescrip
     } else {
         var gen = minibaml.PythonGenerator.init(allocator, &buffer);
 
-        if (isDirectory(path)) {
-            var project = minibaml.MultiFileProject.init(allocator);
-            defer project.deinit();
+        if (typebuilder_only) {
+            // Generate TypeBuilder only
+            if (isDirectory(path)) {
+                var project = minibaml.MultiFileProject.init(allocator);
+                defer project.deinit();
 
-            try project.loadDirectory(path);
-            const merged_ast = project.getMergedAst();
-            try gen.generate(merged_ast);
+                try project.loadDirectory(path);
+                const merged_ast = project.getMergedAst();
+                try gen.generateTypeBuilder(merged_ast);
+            } else {
+                var result = try parseFile(allocator, path);
+                defer result.deinit();
+                try gen.generateTypeBuilder(&result.tree);
+            }
         } else {
-            var result = try parseFile(allocator, path);
-            defer result.deinit();
-            try gen.generate(&result.tree);
+            // Generate normal Python code
+            if (isDirectory(path)) {
+                var project = minibaml.MultiFileProject.init(allocator);
+                defer project.deinit();
+
+                try project.loadDirectory(path);
+                const merged_ast = project.getMergedAst();
+                try gen.generate(merged_ast);
+            } else {
+                var result = try parseFile(allocator, path);
+                defer result.deinit();
+                try gen.generate(&result.tree);
+            }
         }
     }
 
