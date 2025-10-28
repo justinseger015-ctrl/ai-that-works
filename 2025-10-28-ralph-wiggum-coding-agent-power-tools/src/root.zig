@@ -15,6 +15,7 @@ pub const validator = @import("validator.zig");
 pub const formatter = @import("formatter.zig");
 pub const codegen = @import("codegen.zig");
 pub const multifile = @import("multifile.zig");
+pub const jinja = @import("jinja.zig");
 
 // Convenience exports for common types
 pub const Token = lexer.Token;
@@ -31,6 +32,9 @@ pub const Formatter = formatter.Formatter;
 pub const PythonGenerator = codegen.PythonGenerator;
 pub const TypeScriptGenerator = codegen.TypeScriptGenerator;
 pub const MultiFileProject = multifile.MultiFileProject;
+pub const JinjaLexer = jinja.JinjaLexer;
+pub const JinjaParser = jinja.JinjaParser;
+pub const JinjaNode = jinja.JinjaNode;
 
 pub fn getVersion() []const u8 {
     return version;

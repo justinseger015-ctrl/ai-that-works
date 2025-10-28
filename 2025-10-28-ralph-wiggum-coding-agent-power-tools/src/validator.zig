@@ -1,5 +1,6 @@
 const std = @import("std");
 const ast = @import("ast.zig");
+const jinja = @import("jinja.zig");
 
 /// Validation error types
 pub const ValidationError = error{
@@ -177,6 +178,9 @@ pub const Validator = struct {
 
         // Phase 4: Validate attribute usage
         try self.validateAttributes(tree);
+
+        // Phase 5: Validate Jinja templates in prompts
+        try self.validateTemplates(tree);
     }
 
     /// Register all declarations in the AST
@@ -595,6 +599,77 @@ pub const Validator = struct {
             } else {
                 try self.addWarning("Attribute @{s} on function may not be supported", .{attr.name}, attr.location);
             }
+        }
+    }
+
+    /// Validate Jinja templates in function prompts and template_strings
+    fn validateTemplates(self: *Validator, tree: *const ast.Ast) !void {
+        for (tree.declarations.items) |decl| {
+            switch (decl) {
+                .function_decl => |func| {
+                    if (func.prompt) |prompt| {
+                        try self.validateFunctionPrompt(func, prompt);
+                    }
+                },
+                .template_string_decl => |tmpl| {
+                    try self.validateTemplateString(tmpl);
+                },
+                else => {},
+            }
+        }
+    }
+
+    /// Validate a function's prompt template
+    fn validateFunctionPrompt(self: *Validator, func: ast.FunctionDecl, prompt: []const u8) !void {
+        // Collect parameter names
+        var param_names = std.ArrayList([]const u8){};
+        defer param_names.deinit(self.allocator);
+
+        for (func.parameters.items) |param| {
+            try param_names.append(self.allocator, param.name);
+        }
+
+        // Validate the prompt
+        const errors = try jinja.validateFunctionPrompt(
+            self.allocator,
+            prompt,
+            param_names.items,
+        );
+        defer self.allocator.free(errors);
+
+        // Add any Jinja validation errors as diagnostics
+        for (errors) |err| {
+            try self.addError("{s}", .{err.message}, ast.Location{
+                .line = err.line,
+                .column = err.column,
+            });
+        }
+    }
+
+    /// Validate a template_string's template
+    fn validateTemplateString(self: *Validator, tmpl: ast.TemplateStringDecl) !void {
+        // Collect parameter names
+        var param_names = std.ArrayList([]const u8){};
+        defer param_names.deinit(self.allocator);
+
+        for (tmpl.parameters.items) |param| {
+            try param_names.append(self.allocator, param.name);
+        }
+
+        // Validate the template
+        const errors = try jinja.validateFunctionPrompt(
+            self.allocator,
+            tmpl.template,
+            param_names.items,
+        );
+        defer self.allocator.free(errors);
+
+        // Add any Jinja validation errors as diagnostics
+        for (errors) |err| {
+            try self.addError("{s}", .{err.message}, ast.Location{
+                .line = err.line,
+                .column = err.column,
+            });
         }
     }
 
@@ -1243,6 +1318,132 @@ test "Validator: Valid @@alias on enum" {
     try enum_decl.attributes.append(allocator, alias_attr);
 
     try tree.declarations.append(allocator, ast.Declaration{ .enum_decl = enum_decl });
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+}
+
+test "Validator: Jinja validation - valid parameter reference" {
+    const allocator = std.testing.allocator;
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    var tree = ast.Ast.init(allocator);
+    defer tree.deinit();
+
+    // Create a function with a prompt that uses a valid parameter
+    var func = ast.FunctionDecl.init(allocator, "Greet", .{ .line = 1, .column = 1 });
+
+    // Add parameter
+    const string_type = try allocator.create(ast.TypeExpr);
+    string_type.* = ast.TypeExpr{ .primitive = "string" };
+
+    const param = ast.Parameter{
+        .name = "name",
+        .type_expr = string_type,
+        .location = .{ .line = 1, .column = 15 },
+    };
+    try func.parameters.append(allocator, param);
+
+    // Set return type
+    const return_type = try allocator.create(ast.TypeExpr);
+    return_type.* = ast.TypeExpr{ .primitive = "string" };
+    func.return_type = return_type;
+
+    // Set prompt with valid variable reference
+    func.prompt = "Hello {{ name }}!";
+
+    try tree.declarations.append(allocator, ast.Declaration{ .function_decl = func });
+
+    try validator.validate(&tree);
+    try std.testing.expect(!validator.hasErrors());
+}
+
+test "Validator: Jinja validation - undefined variable" {
+    const allocator = std.testing.allocator;
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    var tree = ast.Ast.init(allocator);
+    defer tree.deinit();
+
+    // Create a function with a prompt that uses an undefined variable
+    var func = ast.FunctionDecl.init(allocator, "Greet", .{ .line = 1, .column = 1 });
+
+    // Add parameter
+    const string_type = try allocator.create(ast.TypeExpr);
+    string_type.* = ast.TypeExpr{ .primitive = "string" };
+
+    const param = ast.Parameter{
+        .name = "name",
+        .type_expr = string_type,
+        .location = .{ .line = 1, .column = 15 },
+    };
+    try func.parameters.append(allocator, param);
+
+    // Set return type
+    const return_type = try allocator.create(ast.TypeExpr);
+    return_type.* = ast.TypeExpr{ .primitive = "string" };
+    func.return_type = return_type;
+
+    // Set prompt with INVALID variable reference (age is not a parameter)
+    func.prompt = "Person age: {{ age }}";
+
+    try tree.declarations.append(allocator, ast.Declaration{ .function_decl = func });
+
+    try validator.validate(&tree);
+
+    // Should have an error about undefined variable
+    try std.testing.expect(validator.hasErrors());
+    const diagnostics = validator.getDiagnostics();
+    try std.testing.expect(diagnostics.len > 0);
+
+    // Check that the error message mentions "Undefined variable"
+    var found_error = false;
+    for (diagnostics) |diag| {
+        if (std.mem.indexOf(u8, diag.message, "Undefined variable") != null) {
+            found_error = true;
+            break;
+        }
+    }
+    try std.testing.expect(found_error);
+}
+
+test "Validator: Jinja validation - BAML built-ins are valid" {
+    const allocator = std.testing.allocator;
+    var validator = Validator.init(allocator);
+    defer validator.deinit();
+
+    var tree = ast.Ast.init(allocator);
+    defer tree.deinit();
+
+    // Create a function with a prompt that uses BAML built-ins
+    var func = ast.FunctionDecl.init(allocator, "Extract", .{ .line = 1, .column = 1 });
+
+    // Add parameter
+    const string_type = try allocator.create(ast.TypeExpr);
+    string_type.* = ast.TypeExpr{ .primitive = "string" };
+
+    const param = ast.Parameter{
+        .name = "text",
+        .type_expr = string_type,
+        .location = .{ .line = 1, .column = 15 },
+    };
+    try func.parameters.append(allocator, param);
+
+    // Set return type
+    const return_type = try allocator.create(ast.TypeExpr);
+    return_type.* = ast.TypeExpr{ .primitive = "string" };
+    func.return_type = return_type;
+
+    // Set prompt with BAML built-ins (ctx and _)
+    func.prompt =
+        \\{{ _.role("user") }}
+        \\Extract from: {{ text }}
+        \\{{ ctx.output_format }}
+    ;
+
+    try tree.declarations.append(allocator, ast.Declaration{ .function_decl = func });
 
     try validator.validate(&tree);
     try std.testing.expect(!validator.hasErrors());

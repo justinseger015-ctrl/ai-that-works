@@ -697,7 +697,56 @@ Validating merged AST...
 
 ---
 
-## Current Milestone: PHASE 11 - COMPLETED ✅
+### ✅ PHASE 12.1: Jinja Template Parsing & Validation
+**Status**: ✅ COMPLETED
+**Goal**: Parse and validate Jinja templates in function prompts and template_strings
+
+#### Tasks Completed:
+- [x] 12.1.1: Create Jinja tokenizer/lexer for template constructs ({{ }}, {% %}, {# #})
+- [x] 12.1.2: Implement Jinja AST nodes (Variable, Expression, Statement, Comment)
+- [x] 12.1.3: Parse Jinja expressions (variables, filters, property access)
+- [x] 12.1.4: Validate variable references against function parameters
+- [x] 12.1.5: Add support for BAML built-ins (ctx, _, _.role(), ctx.output_format)
+- [x] 12.1.6: Validate balanced delimiters and syntax errors
+- [x] 12.1.7: Add comprehensive Jinja validation tests (7 tests)
+- [x] 12.1.8: Integrate Jinja validator into existing validation pipeline (Phase 5)
+- [x] 12.1.9: Add integration tests in validator.zig (3 tests)
+- [x] 12.1.10: Fix Zig 0.15.1 ArrayList API compatibility
+
+**Validation**: ✅ PASSED - Jinja validator detects undefined variables and validates templates.
+
+**Implementation Details**:
+- Created `src/jinja.zig` (818 lines) with complete Jinja parsing and validation
+- JinjaLexer with stateful tokenization (in_text, in_variable, in_statement, in_comment)
+- JinjaParser parses template constructs into AST nodes
+- JinjaValidator validates variable references against function parameters
+- Supports BAML built-ins: `ctx.output_format`, `_.role()`
+- Integrated into Phase 5 of validation pipeline
+- Added 10 new tests (7 in jinja.zig, 3 in validator.zig)
+- All tests pass (`zig build test`)
+
+**Sample Validation**:
+```baml
+// This produces a validation error
+function Greet(name: string) -> string {
+  prompt "Hello {{ invalid }}"  // ERROR: Undefined variable 'invalid'
+}
+
+// This is valid
+function Greet(name: string) -> string {
+  prompt #"
+    {{ _.role("user") }}
+    Hello {{ name }}!
+    {{ ctx.output_format }}
+  "#
+}
+```
+
+**Test Results**: ✅ All tests pass - Direct testing confirms validator detects undefined variables
+
+---
+
+## Current Milestone: PHASE 12.1 - COMPLETED ✅
 
 **Achievements**:
 - ✅ Complete lexer with 150+ test cases
@@ -724,8 +773,13 @@ Validating merged AST...
 - ✅ All tests passing
 - ✅ Generated Python code is syntactically valid
 - ✅ Memory-safe multi-file processing
+- ✅ Jinja template parsing and validation (Phase 12.1)
+  - Validates variable references in function prompts
+  - Supports BAML built-ins (ctx, _)
+  - Integrated into validation pipeline
+  - 10 comprehensive tests
 
 **Next Steps** (PHASE 12 - Optional):
-- Advanced Jinja template parsing and validation
 - Dynamic types support (@@dynamic attribute)
+- Advanced Jinja features (loops, conditionals validation)
 - Additional code generators (TypeScript, Go, Ruby)
