@@ -16,8 +16,30 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Thu, 30 Oct 2025 06:01:16 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Nov 2025 16:51:57 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Event-driven agentic loops]]></title>
+      <description><![CDATA[Key takeaway: treat agent interactions as an event log, not mutable state. Modeling user inputs, LLM chunks,
+tool calls, interrupts, and UI actions as a single event stream lets you project state for the UI, agent loop,
+and persistence without drift. We walk through effect-ts patterns for subscribing to the bus, deriving “current”
+state via pure projections, and deciding when to persist or replay events—plus trade-offs for queuing, cancelation,
+and tool orchestration in complex agent UX.
+
+
+Watch: https://www.youtube.com/watch?v=_VB9TT1Vus4
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-05-event-driven-agents
+Event: https://luma.com/event-driven-agents
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=_VB9TT1Vus4</link>
+      <guid isPermaLink="false">aitw-030</guid>
+      <pubDate>Tue, 04 Nov 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=_VB9TT1Vus4" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Ralph Wiggum under the hood: Coding Agent Power Tools]]></title>
       <description><![CDATA[We've talked a lot about how to use context engineering to get more out of coding agents. In this week's episode, we're going to dive deep on the Ralph Wiggum Technique and why this totally different approach to coding agents can change the way you code. We'll explore using ralph for Greenfield projects, Refactoring projects, Generating specifications. Surprise surprise, the answer is better context engineering.

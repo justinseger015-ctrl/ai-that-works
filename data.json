@@ -1,23 +1,44 @@
 {
   "episodes": [
     {
-      "folder": "2025-11-05-event-driven-agents",
-      "guid": "aitw-030",
-      "title": "Event-driven agentic loops",
-      "description": "How an event sourcing architecture enables clear type-safe behavior, interrupts, queueing, and more for complex interactive agents.\n\nIn this episode, we'll explore:\n\n1. Event sourcing fundamentals for agents\n2. Type-safe event handling patterns\n3. Implementing interrupts and queueing\n4. Building resilient agent workflows\n5. Real-world examples and best practices\n\nCome ready to dive deep into the architecture that powers complex interactive agents!\n",
-      "event_link": "https://luma.com/event-driven-agents",
-      "eventDate": "2025-11-05T18:00:00.000Z",
+      "folder": "2025-11-11-dates-and-times",
+      "guid": "aitw-031",
+      "title": "Dates, Times, and LLMs",
+      "description": "How do you make an LLM amazing at dates? Relative dates, absolute dates, timezones, all that madness.\nLet's talk dates, times, and all that goodness.\n",
+      "event_link": "https://luma.com/xqezrl4g",
+      "eventDate": "2025-11-11T18:00:00Z",
       "event_type": "episode",
       "media": {
         "url": null,
         "type": "video/youtube"
       },
       "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-11-dates-and-times"
+      },
+      "season": 2,
+      "episode": 31,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-11-05-event-driven-agents",
+      "guid": "aitw-030",
+      "title": "Event-driven agentic loops",
+      "description": "Key takeaway: treat agent interactions as an event log, not mutable state. Modeling user inputs, LLM chunks,\ntool calls, interrupts, and UI actions as a single event stream lets you project state for the UI, agent loop,\nand persistence without drift. We walk through effect-ts patterns for subscribing to the bus, deriving “current”\nstate via pure projections, and deciding when to persist or replay events—plus trade-offs for queuing, cancelation,\nand tool orchestration in complex agent UX.\n",
+      "event_link": "https://luma.com/event-driven-agents",
+      "eventDate": "2025-11-04T18:00:00.000Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=_VB9TT1Vus4",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=_VB9TT1Vus4",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-05-event-driven-agents"
       },
       "season": 2,
       "episode": 30,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -689,15 +710,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 33,
-    "completedEpisodes": 29,
-    "upcomingEpisodes": 1,
+    "totalEpisodes": 34,
+    "completedEpisodes": 30,
+    "upcomingEpisodes": 0,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-10-30T06:01:16.070Z",
+    "lastUpdated": "2025-11-13T16:51:57.333Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

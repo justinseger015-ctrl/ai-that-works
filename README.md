@@ -12,29 +12,15 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Event-driven agentic loops</strong></h3>
-<p><strong>Wednesday, November 5, 2025 at 10 AM PST</strong></p>
-<p><em>How an event sourcing architecture enables clear type-safe behavior, interrupts, queueing, and more for complex interactive agents.
+<h3><strong>Dates, Times, and LLMs</strong></h3>
+<p><strong>Tuesday, November 11, 2025 at 10 AM PST</strong></p>
+<p><em>How do you make an LLM amazing at dates—relative ranges, timezone juggling, and calendar math? Let's talk dates, times, and all that goodness.</em></p>
 
-In this episode, we'll explore:
-
-1. Event sourcing fundamentals for agents
-2. Type-safe event handling patterns
-3. Implementing interrupts and queueing
-4. Building resilient agent workflows
-5. Real-world examples and best practices
-
-Come ready to dive deep into the architecture that powers complex interactive agents!
-</em></p>
-
-<a href="https://luma.com/event-driven-agents" target="_blank">
+<a href="https://luma.com/xqezrl4g" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
 </div>
-
----
-
 
 ---
 
@@ -111,24 +97,25 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
-        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-05</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#30</strong>: Event-driven agentic loops</div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-11</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#31</strong>: Dates, Times, and LLMs</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-11-05-event-driven-agents">code</a> • <a href="https://luma.com/event-driven-agents">register</a>
+          <a href="./2025-11-11-dates-and-times">code</a> • <a href="https://luma.com/xqezrl4g">register</a>
         </div>
       </div>
-    </td><td><div style="padding: 8px 0; line-height: 1.5;">How an event sourcing architecture enables clear type-safe behavior, interrupts, queueing, and more for complex interactive agents.
-
-In this episode, we'll explore:
-
-1. Event sourcing fundamentals for agents
-2. Type-safe event handling patterns
-3. Implementing interrupts and queueing
-4. Building resilient agent workflows
-5. Real-world examples and best practices
-
-Come ready to dive deep into the architecture that powers complex interactive agents!
-</div></td></tr>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">How do you make an LLM amazing at dates—relative ranges, timezone juggling, and calendar math? We'll unpack date normalization pipelines, prompting tricks for temporal reasoning, and guardrails that keep scheduling agents grounded.</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-04</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#30</strong>: Event-driven agentic loops</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=_VB9TT1Vus4">watch</a> • <a href="./2025-11-05-event-driven-agents">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Treat agent interactions as an event log, not mutable state. Modeling user inputs, LLM chunks, tool calls, interrupts, and UI actions as a single event stream lets you project state for the UI, agent loop, and persistence without drift. We walk through effect-ts patterns for subscribing to the bus, deriving “current” state via pure projections, and deciding when to persist or replay events—plus trade-offs for queuing, cancelation, and tool orchestration in complex agent UX.</div></td></tr>
 <tr><td>
       <div style="padding: 8px 0;">
         <div style="margin-bottom: 2px;">
