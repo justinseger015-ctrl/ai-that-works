@@ -12,13 +12,12 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>No Vibes Allowed: Using CodeLayer to Build CodeLayer</strong></h3>
-<p><strong>Tuesday, November 25, 2025 at 10 AM PST</strong></p>
-<p><em>Live coding with CodeLayer, we'll use Research / Plan / Implement live
-to ship 3 new features to CodeLayer.
+<h3><strong>Constructing Taxonomy from Unstructured Data</strong></h3>
+<p><strong>Tuesday, December 16, 2025 at 10 AM PST</strong></p>
+<p><em>Building taxonomies and classification systems from unstructured data using AI.
 </em></p>
 
-<a href="https://luma.com/nva-codelayer" target="_blank">
+<a href="https://lu.ma/baml" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -102,10 +101,41 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-16</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#35</strong>: Constructing Taxonomy from Unstructured Data</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2025-12-16-taxonomy-from-unstructured-data">code</a> • <a href="https://lu.ma/baml">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Building taxonomies and classification systems from unstructured data using AI.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-09</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#34</strong>: Git Worktrees for AI Coding Agents</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2025-12-09-git-worktrees">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,
+and it's not stopping any time soon. On this episode we'll go deep on the tech that can help
+you push the limits of these tools, including:
+- Crash course on Git Worktrees
+- File and Spec Management, tradeoffs in hardlinks vs symlinks
+- tmux as a building block for collaborative agent workflows
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-25</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#33</strong>: No Vibes Allowed: Using CodeLayer to Build CodeLayer</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer">code</a> • <a href="https://luma.com/nva-codelayer">code</a>
+          <a href="./2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Live coding with CodeLayer, we'll use Research / Plan / Implement live

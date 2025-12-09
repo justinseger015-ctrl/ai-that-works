@@ -1,6 +1,46 @@
 {
   "episodes": [
     {
+      "folder": "2025-12-16-taxonomy-from-unstructured-data",
+      "guid": "aitw-035",
+      "title": "Constructing Taxonomy from Unstructured Data",
+      "description": "Building taxonomies and classification systems from unstructured data using AI.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-16T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": null,
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-16-taxonomy-from-unstructured-data"
+      },
+      "season": 2,
+      "episode": 35,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-12-09-git-worktrees",
+      "guid": "aitw-034",
+      "title": "Git Worktrees for AI Coding Agents",
+      "description": "Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,\nand it's not stopping any time soon. On this episode we'll go deep on the tech that can help\nyou push the limits of these tools, including:\n- Crash course on Git Worktrees\n- File and Spec Management, tradeoffs in hardlinks vs symlinks\n- tmux as a building block for collaborative agent workflows\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-09T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": null,
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees"
+      },
+      "season": 2,
+      "episode": 34,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
       "folder": "2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer",
       "guid": "aitw-033",
       "title": "No Vibes Allowed: Using CodeLayer to Build CodeLayer",
@@ -17,7 +57,7 @@
       },
       "season": 2,
       "episode": 33,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -750,7 +790,7 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 36,
+    "totalEpisodes": 38,
     "completedEpisodes": 30,
     "upcomingEpisodes": 1,
     "workshops": 3,
@@ -758,7 +798,7 @@
       1,
       2
     ],
-    "lastUpdated": "2025-11-25T03:09:47.595Z",
+    "lastUpdated": "2025-12-09T20:09:26.253Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
