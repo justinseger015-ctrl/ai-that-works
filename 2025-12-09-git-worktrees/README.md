@@ -1,7 +1,10 @@
-
-# ai that works: Git Worktrees for AI Coding Agents
+# Git Worktrees for AI Coding Agents
 
 > Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows, and it's not stopping any time soon. On this episode we'll go deep on the tech that can help you push the limits of these tools.
+
+[Video](https://www.youtube.com/watch?v=jzhVo0iAX_I)
+
+[![Git Worktrees for AI Coding Agents](https://img.youtube.com/vi/jzhVo0iAX_I/0.jpg)](https://www.youtube.com/watch?v=jzhVo0iAX_I)
 
 ## Topics Covered
 

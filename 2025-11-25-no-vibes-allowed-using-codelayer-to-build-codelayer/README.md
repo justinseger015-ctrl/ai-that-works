@@ -1,10 +1,19 @@
-# 🦄 ai that works: No Vibes Allowed - Using CodeLayer to Build CodeLayer
+# No Vibes Allowed: Using CodeLayer to Build CodeLayer
 
-> Live coding with CodeLayer, we'll use Research / Plan / Implement live to ship 3 new features to CodeLayer.
+> Live coding with CodeLayer, using Research / Plan / Implement to ship new features to CodeLayer itself.
 
-[Register on Luma](https://luma.com/nva-codelayer)
+[Video](https://www.youtube.com/watch?v=fF3GssyaTcc)
+
+[![No Vibes Allowed: Using CodeLayer to Build CodeLayer](https://img.youtube.com/vi/fF3GssyaTcc/0.jpg)](https://www.youtube.com/watch?v=fF3GssyaTcc)
+
+## Overview
+
+A live coding session demonstrating the Research / Plan / Implement workflow using CodeLayer to build features for CodeLayer itself - true dogfooding in action.
 
 ## Links
 
-- Register for this session: [Luma](https://luma.com/nva-codelayer)
-- Explore the code: [GitHub](https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer)
+- [Discord Community](https://boundaryml.com/discord)
+- Sign up for the next session on [Luma](https://lu.ma/baml)
+
+## Whiteboards
+

@@ -16,8 +16,169 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 09 Dec 2025 20:09:26 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Jan 2026 01:25:49 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Founding Boundary: Vaibhav's Journey]]></title>
+      <description><![CDATA[End of year special part 2: Vaibhav shares his journey from building card games in 7th grade
+to founding Boundary and creating BAML. From Microsoft to Google to 12 pivots as a YC founder,
+hear the story behind the programming language for AI pipelines.
+
+
+Watch: https://www.youtube.com/watch?v=4YTl9w_bESE
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-30-founding-boundary
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=4YTl9w_bESE</link>
+      <guid isPermaLink="false">aitw-038</guid>
+      <pubDate>Tue, 30 Dec 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=4YTl9w_bESE" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Founding HumanLayer: Dex's Journey]]></title>
+      <description><![CDATA[End of year special part 1: Dex shares his journey from physics undergrad with half a CS minor
+to founding HumanLayer. From Sprout Social to Replicated to building AI agents for data warehouses,
+hear how the path to founding a developer tools company is never a straight line.
+
+
+Watch: https://www.youtube.com/watch?v=LEOA19Ss9lc
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-23-founding-humanlayer
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=LEOA19Ss9lc</link>
+      <guid isPermaLink="false">aitw-037</guid>
+      <pubDate>Tue, 23 Dec 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=LEOA19Ss9lc" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Building a Prompt Optimizer]]></title>
+      <description><![CDATA[What happens when models can write really good prompts? We dive deep into prompt optimization,
+exploring JEPA (Genetic Pareto) algorithm, how it works under the hood, and whether you can
+build your own optimizer. Live demo of a prompt optimizer built with BAML.
+
+
+Watch: https://www.youtube.com/watch?v=IkSEXg6f4KY
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-16-prompt-optimizer
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=IkSEXg6f4KY</link>
+      <guid isPermaLink="false">aitw-036</guid>
+      <pubDate>Tue, 16 Dec 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=IkSEXg6f4KY" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Git Worktrees for AI Coding Agents]]></title>
+      <description><![CDATA[Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,
+and it's not stopping any time soon. On this episode we'll go deep on the tech that can help
+you push the limits of these tools, including:
+- Crash course on Git Worktrees
+- File and Spec Management, tradeoffs in hardlinks vs symlinks
+- tmux as a building block for collaborative agent workflows
+
+
+Watch: https://www.youtube.com/watch?v=jzhVo0iAX_I
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=jzhVo0iAX_I</link>
+      <guid isPermaLink="false">aitw-034</guid>
+      <pubDate>Tue, 09 Dec 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=jzhVo0iAX_I" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Multimodal Evals]]></title>
+      <description><![CDATA[Building evals for multimodal AI - testing vision models, document understanding,
+and image analysis with structured evaluation frameworks.
+
+
+Watch: https://www.youtube.com/watch?v=OpM-G3WNH4g
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-02-multimodal-evals
+Event: https://lu.ma/baml
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=OpM-G3WNH4g</link>
+      <guid isPermaLink="false">aitw-035</guid>
+      <pubDate>Tue, 02 Dec 2025 17:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=OpM-G3WNH4g" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[No Vibes Allowed: Using CodeLayer to Build CodeLayer]]></title>
+      <description><![CDATA[Live coding with CodeLayer, we'll use Research / Plan / Implement live
+to ship 3 new features to CodeLayer.
+
+
+Watch: https://www.youtube.com/watch?v=fF3GssyaTcc
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer
+Event: https://luma.com/nva-codelayer
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=fF3GssyaTcc</link>
+      <guid isPermaLink="false">aitw-033</guid>
+      <pubDate>Tue, 25 Nov 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=fF3GssyaTcc" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Building an Animation Pipeline]]></title>
+      <description><![CDATA[We do a lot of work with Excalidraw, and this session shows the AI-first workflow
+for turning any sketch into a finished animation.
+We'll blend Claude Code with custom TypeScript scripts, wire up interactive slash commands,
+and add browser automation to existing OSS tools to export polished WebM assets.
+
+
+Watch: https://www.youtube.com/watch?v=WhtT7K5Pkv0
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-18-building-an-animation-pipeline
+Event: https://luma.com/cc-animation-pipeline
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=WhtT7K5Pkv0</link>
+      <guid isPermaLink="false">aitw-032</guid>
+      <pubDate>Tue, 18 Nov 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=WhtT7K5Pkv0" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Dates, Times, and LLMs]]></title>
+      <description><![CDATA[How do you make an LLM amazing at dates? Relative dates, absolute dates, timezones, all that madness.
+Let's talk dates, times, and all that goodness.
+
+
+Watch: https://www.youtube.com/watch?v=l7txtbgCFGU
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-11-dates-and-times
+Event: https://luma.com/xqezrl4g
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=l7txtbgCFGU</link>
+      <guid isPermaLink="false">aitw-031</guid>
+      <pubDate>Tue, 11 Nov 2025 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=l7txtbgCFGU" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Event-driven agentic loops]]></title>
       <description><![CDATA[Key takeaway: treat agent interactions as an event log, not mutable state. Modeling user inputs, LLM chunks,

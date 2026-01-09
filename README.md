@@ -10,22 +10,6 @@
 
 </div>
 
-<div align="center">
-<h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Constructing Taxonomy from Unstructured Data</strong></h3>
-<p><strong>Tuesday, December 16, 2025 at 10 AM PST</strong></p>
-<p><em>Building taxonomies and classification systems from unstructured data using AI.
-</em></p>
-
-<a href="https://lu.ma/baml" target="_blank">
-<img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
-</a>
-
-</div>
-
----
-
-
 ---
 
 ## **What We're About**
@@ -99,15 +83,47 @@ Before joining, get familiar with our toolkit:
 <tr><td>
       <div style="padding: 8px 0;">
         <div style="margin-bottom: 2px;">
-          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
-        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-16</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#35</strong>: Constructing Taxonomy from Unstructured Data</div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-30</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#38</strong>: Founding Boundary: Vaibhav's Journey</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-12-16-taxonomy-from-unstructured-data">code</a> • <a href="https://lu.ma/baml">register</a>
+          <a href="https://www.youtube.com/watch?v=4YTl9w_bESE">watch</a> • <a href="./2025-12-30-founding-boundary">code</a>
         </div>
       </div>
-    </td><td><div style="padding: 8px 0; line-height: 1.5;">Building taxonomies and classification systems from unstructured data using AI.
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">End of year special part 2: Vaibhav shares his journey from building card games in 7th grade
+to founding Boundary and creating BAML. From Microsoft to Google to 12 pivots as a YC founder,
+hear the story behind the programming language for AI pipelines.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-23</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#37</strong>: Founding HumanLayer: Dex's Journey</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=LEOA19Ss9lc">watch</a> • <a href="./2025-12-23-founding-humanlayer">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">End of year special part 1: Dex shares his journey from physics undergrad with half a CS minor
+to founding HumanLayer. From Sprout Social to Replicated to building AI agents for data warehouses,
+hear how the path to founding a developer tools company is never a straight line.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-16</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#36</strong>: Building a Prompt Optimizer</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=IkSEXg6f4KY">watch</a> • <a href="./2025-12-16-prompt-optimizer">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">What happens when models can write really good prompts? We dive deep into prompt optimization,
+exploring JEPA (Genetic Pareto) algorithm, how it works under the hood, and whether you can
+build your own optimizer. Live demo of a prompt optimizer built with BAML.
 </div></td></tr>
 <tr><td>
       <div style="padding: 8px 0;">
@@ -115,9 +131,9 @@ Before joining, get familiar with our toolkit:
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-09</div>
-        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#34</strong>: Git Worktrees for AI Coding Agents</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#35</strong>: Git Worktrees for AI Coding Agents</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-12-09-git-worktrees">code</a>
+          <a href="https://www.youtube.com/watch?v=jzhVo0iAX_I">watch</a> • <a href="./2025-12-09-git-worktrees">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,
@@ -132,10 +148,24 @@ you push the limits of these tools, including:
         <div style="margin-bottom: 2px;">
           <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-02</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#34</strong>: Multimodal Evals</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=OpM-G3WNH4g">watch</a> • <a href="./2025-12-02-multimodal-evals">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Building evals for multimodal AI - testing vision models, document understanding,
+and image analysis with structured evaluation frameworks.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-25</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#33</strong>: No Vibes Allowed: Using CodeLayer to Build CodeLayer</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer">code</a>
+          <a href="https://www.youtube.com/watch?v=fF3GssyaTcc">watch</a> • <a href="./2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Live coding with CodeLayer, we'll use Research / Plan / Implement live
@@ -149,7 +179,7 @@ to ship 3 new features to CodeLayer.
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-18</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#32</strong>: Building an Animation Pipeline</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-11-18-building-an-animation-pipeline">code</a>
+          <a href="https://www.youtube.com/watch?v=WhtT7K5Pkv0">watch</a> • <a href="./2025-11-18-building-an-animation-pipeline">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We do a lot of work with Excalidraw, and this session shows the AI-first workflow
@@ -165,7 +195,7 @@ and add browser automation to existing OSS tools to export polished WebM assets.
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-11-11</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#31</strong>: Dates, Times, and LLMs</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2025-11-11-dates-and-times">code</a>
+          <a href="https://www.youtube.com/watch?v=l7txtbgCFGU">watch</a> • <a href="./2025-11-11-dates-and-times">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">How do you make an LLM amazing at dates? Relative dates, absolute dates, timezones, all that madness.
