@@ -9,22 +9,34 @@ Update the just-completed episode README with YouTube link, thumbnail, and summa
 
 1. **Check current date** - Use bash to verify today's date, run `bash(ls .)` to see the top level of folder structure here
 
-2. **Gather required information** - ASK THE USER FOR: 
-   - YouTube link to the just-completed recording
+2. **Get the Youtube Link for the just-completed recording**
+   - Run the script: 
+   ```bash
+   cd 2026-02-17-automating-aitw
+   uv run python src/youtube/get_videos.py
+   ```
+   - The script will print the unicorn video with the highest episode number (format: "title: url")
+   - Parse the output to extract the title and URL
+   - Display the video title and link to the user in a clear format
+   - Ask the user: "Is this the correct podcast recording video? (yes/no)"
+   - If yes: save that URL to use for the rest of the command
+   - If no: ask the user to provide the correct YouTube URL manually and use that instead
+
+3. **Gather remaining required information** - ASK THE USER FOR: 
    - Summary of the just-completed episode
    - Folder for the just-completed episode (dated today or yesterday, in the past) (use List() or Bash(ls) to check if it exists)
    - Next episode signup link (starting with lu.ma/...)
    - Summary/description of the next episode
 
-**STOP and ask the user if UNTIL YOU HAVE ALL OF THESE DATA POINTS**
+**STOP and ask the user UNTIL YOU HAVE ALL OF THESE DATA POINTS**
 
-3. **Update past episode meta.md**:
+4. **Update past episode meta.md**:
    - Read at least 3 other past episode meta.mds to understand the format
    - update the links and youtube url
 
 
 
-4. **Update episode-specific README**:
+5. **Update episode-specific README**:
    - Read 2025-07-08-context-engineering/README.md for example
    - **IMPORTANT**: Add YouTube thumbnail using this exact format (see ):
      ```markdown
@@ -35,7 +47,7 @@ Update the just-completed episode README with YouTube link, thumbnail, and summa
    - Navigate to the just-completed episode folder
    - Update the README with the provided summary
 
-4a. Create a new folder for the upcoming episode following the format
+5a. Create a new folder for the upcoming episode following the format
    - create a new folder for the upcoming episode
    - create a meta.md, omitting the youtube links, setting url to `null` for the media section
    
@@ -61,7 +73,7 @@ event_type: episode
 ```
 
 
-5. **Run the tools to regenerate the JSON manifest**
+6. **Run the tools to regenerate the JSON manifest**
    - cd tools && bun run readme
 
 ## Important Notes

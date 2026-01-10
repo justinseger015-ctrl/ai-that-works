@@ -20,5 +20,6 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "BF5700",
-    "cursorpyright.analysis.typeCheckingMode": "basic"
+    "cursorpyright.analysis.typeCheckingMode": "basic",
+    "makefile.configureOnOpen": false
 }
