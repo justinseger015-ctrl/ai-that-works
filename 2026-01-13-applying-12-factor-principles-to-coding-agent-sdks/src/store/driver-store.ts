@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { existsSync, writeFileSync, readFileSync, mkdirSync } from "node:fs";
 import {
   DeliveryDriver,
   DeliveryDriverSchema,
@@ -6,18 +7,30 @@ import {
 } from "../models/types";
 
 // ============================================================================
-// Driver Store - In-Memory Implementation
+// Driver Store - Persistent Implementation
 // ============================================================================
 
+const DATA_DIR = "data";
+const DEFAULT_DRIVERS_FILE = `${DATA_DIR}/drivers.json`;
+
+// Ensure data directory exists
+if (!existsSync(DATA_DIR)) {
+  mkdirSync(DATA_DIR, { recursive: true });
+}
+
 /**
- * In-memory driver store using Map for efficient CRUD operations.
+ * Persistent driver store using Map for efficient CRUD operations.
+ * Automatically saves to and loads from JSON files.
  * Follows 12-factor app principles with validation at boundaries.
  */
 export class DriverStore {
   private drivers: Map<string, DeliveryDriver>;
+  private filePath: string;
 
-  constructor() {
+  constructor(filePath: string = DEFAULT_DRIVERS_FILE) {
     this.drivers = new Map();
+    this.filePath = filePath;
+    this.load();
   }
 
   /**
@@ -33,6 +46,7 @@ export class DriverStore {
   ): DeliveryDriver {
     const driver = createDeliveryDriver(name, status);
     this.drivers.set(driver.id, driver);
+    this.save();
     return driver;
   }
 
@@ -72,6 +86,7 @@ export class DriverStore {
     // Validate the updated driver
     const validated = DeliveryDriverSchema.parse(updated);
     this.drivers.set(id, validated);
+    this.save();
     return validated;
   }
 
@@ -81,7 +96,11 @@ export class DriverStore {
    * @returns true if deleted, false if not found
    */
   delete(id: string): boolean {
-    return this.drivers.delete(id);
+    const result = this.drivers.delete(id);
+    if (result) {
+      this.save();
+    }
+    return result;
   }
 
   /**
@@ -115,6 +134,7 @@ export class DriverStore {
   clear(): number {
     const count = this.drivers.size;
     this.drivers.clear();
+    this.save();
     return count;
   }
 
@@ -135,6 +155,57 @@ export class DriverStore {
     return Array.from(this.drivers.values()).find(
       (d) => d.status === "available",
     );
+  }
+
+  /**
+   * Save current state to JSON file
+   * @returns true if saved successfully, false otherwise
+   */
+  save(): boolean {
+    try {
+      const drivers = Array.from(this.drivers.values());
+      const data = {
+        version: 1,
+        timestamp: new Date().toISOString(),
+        drivers,
+      };
+      writeFileSync(this.filePath, JSON.stringify(data, null, 2));
+      return true;
+    } catch (error) {
+      console.error(`Failed to save drivers to ${this.filePath}:`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Load state from JSON file
+   * If file doesn't exist or is invalid, starts with empty state
+   * @returns Number of drivers loaded
+   */
+  load(): number {
+    try {
+      if (!existsSync(this.filePath)) {
+        return 0;
+      }
+
+      const fileContent = readFileSync(this.filePath, "utf-8");
+      const data = JSON.parse(fileContent);
+
+      // Validate and load drivers
+      if (data.drivers && Array.isArray(data.drivers)) {
+        this.drivers.clear();
+        for (const driver of data.drivers) {
+          const validated = DeliveryDriverSchema.parse(driver);
+          this.drivers.set(validated.id, validated);
+        }
+        return this.drivers.size;
+      }
+
+      return 0;
+    } catch (error) {
+      console.error(`Failed to load drivers from ${this.filePath}:`, error);
+      return 0;
+    }
   }
 }
 

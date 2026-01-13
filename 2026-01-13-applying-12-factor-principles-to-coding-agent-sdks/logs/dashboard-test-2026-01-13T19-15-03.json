@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-01-13T19:15:03.404Z",
+  "orders": {
+    "total": 5,
+    "byStatus": {
+      "pending": 2,
+      "confirmed": 1,
+      "preparing": 1,
+      "delivered": 1
+    },
+    "totalRevenue": 149.87,
+    "averageOrderValue": 29.974
+  },
+  "drivers": {
+    "total": 4,
+    "available": 2,
+    "busy": 1,
+    "offline": 1
+  },
+  "metrics": {
+    "ordersPerDriver": 1.25,
+    "revenuePerDriver": 37.4675,
+    "utilizationRate": 33.33333333333333
+  }
+}

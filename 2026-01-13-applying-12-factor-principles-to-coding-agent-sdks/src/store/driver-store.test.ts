@@ -1,10 +1,23 @@
-import { test, expect, beforeEach } from "bun:test";
+import { test, expect, beforeEach, afterEach } from "bun:test";
+import { existsSync, unlinkSync } from "node:fs";
 import { DriverStore } from "./driver-store";
 
+const TEST_FILE = "data/drivers-test.json";
 let store: DriverStore;
 
 beforeEach(() => {
-  store = new DriverStore();
+  // Remove test file if it exists
+  if (existsSync(TEST_FILE)) {
+    unlinkSync(TEST_FILE);
+  }
+  store = new DriverStore(TEST_FILE);
+});
+
+afterEach(() => {
+  // Clean up test file
+  if (existsSync(TEST_FILE)) {
+    unlinkSync(TEST_FILE);
+  }
 });
 
 // ============================================================================
@@ -205,4 +218,36 @@ test("exists: should return true for existing driver", () => {
 
 test("exists: should return false for non-existent driver", () => {
   expect(store.exists("non-existent-id")).toBe(false);
+});
+
+// ============================================================================
+// Persistence Tests
+// ============================================================================
+
+test("persistence: should save and load driver data", () => {
+  // Create some drivers
+  const driver1 = store.create("Alice", "available");
+  const driver2 = store.create("Bob", "busy");
+  const driver3 = store.create("Charlie", "offline");
+
+  expect(store.count()).toBe(3);
+
+  // Create a new store instance with the same file path
+  // This will trigger load() in the constructor
+  const newStore = new DriverStore(TEST_FILE);
+
+  // Verify all data was loaded
+  expect(newStore.count()).toBe(3);
+  expect(newStore.exists(driver1.id)).toBe(true);
+  expect(newStore.exists(driver2.id)).toBe(true);
+  expect(newStore.exists(driver3.id)).toBe(true);
+
+  // Verify driver details
+  const loadedDriver1 = newStore.read(driver1.id);
+  expect(loadedDriver1?.name).toBe("Alice");
+  expect(loadedDriver1?.status).toBe("available");
+
+  const loadedDriver2 = newStore.read(driver2.id);
+  expect(loadedDriver2?.name).toBe("Bob");
+  expect(loadedDriver2?.status).toBe("busy");
 });

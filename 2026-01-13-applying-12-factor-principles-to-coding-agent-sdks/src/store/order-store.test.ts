@@ -1,9 +1,12 @@
+import { existsSync, unlinkSync } from "node:fs";
 import { OrderStore } from "./order-store";
 import { createCustomer, createMenuItem } from "../models/types";
 
 // ============================================================================
 // Order Store Tests
 // ============================================================================
+
+const TEST_FILE = "data/orders-test.json";
 
 function assert(condition: boolean, message: string) {
   if (!condition) {
@@ -14,7 +17,12 @@ function assert(condition: boolean, message: string) {
 function testOrderStore() {
   console.log("🧪 Testing Order Store...\n");
 
-  const store = new OrderStore();
+  // Clean up any existing test file
+  if (existsSync(TEST_FILE)) {
+    unlinkSync(TEST_FILE);
+  }
+
+  const store = new OrderStore(TEST_FILE);
 
   // Test data
   const customer = createCustomer("John Doe", "+1-555-0100", "123 Main St");
@@ -149,7 +157,39 @@ function testOrderStore() {
     console.log("✅ Error handling works correctly\n");
   }
 
+  // ============================================================================
+  // Test 10: Persistence
+  // ============================================================================
+  console.log("💾 Test 10: Persistence - Save and Load");
+
+  // Create some orders in the current store
+  const persistOrder1 = store.create(customer, [{ menuItem: menuItem1, quantity: 1 }]);
+  const persistOrder2 = store.create(customer, [{ menuItem: menuItem2, quantity: 2 }]);
+  store.update(persistOrder1.id, { status: "confirmed" });
+
+  assert(store.count() === 2, "Should have 2 orders before reload");
+
+  // Create a new store instance with the same file path
+  // This will trigger load() in the constructor
+  const newStore = new OrderStore(TEST_FILE);
+
+  assert(newStore.count() === 2, "Should have 2 orders after reload");
+  assert(newStore.exists(persistOrder1.id), "Order 1 should exist after reload");
+  assert(newStore.exists(persistOrder2.id), "Order 2 should exist after reload");
+
+  const loadedOrder1 = newStore.read(persistOrder1.id);
+  assert(loadedOrder1?.status === "confirmed", "Order 1 status should be confirmed");
+  assert(loadedOrder1?.customerId === customer.id, "Order 1 customer should match");
+
+  console.log("✅ Persistence works correctly");
+  console.log(`   Loaded ${newStore.count()} orders from disk\n`);
+
   console.log("🎉 All tests passed!\n");
+
+  // Clean up test file
+  if (existsSync(TEST_FILE)) {
+    unlinkSync(TEST_FILE);
+  }
 }
 
 // Run tests
@@ -159,6 +199,10 @@ if (import.meta.main) {
     process.exit(0);
   } catch (error) {
     console.error("❌ Test failed:", error);
+    // Clean up test file on error
+    if (existsSync(TEST_FILE)) {
+      unlinkSync(TEST_FILE);
+    }
     process.exit(1);
   }
 }
