@@ -141,15 +141,41 @@ BurritoOps is a SaaS platform for burrito delivery operators. This plan follows 
 ### Phase 3: Integration & Polish ✅ IN PROGRESS
 **Goal**: Connect everything and add finishing touches
 
-#### TASK 6: Create Dashboard Agent [NEXT]
+#### TASK 6: Create Dashboard Agent ✅ COMPLETED
 **Priority**: MEDIUM
-**Status**: Not Started
+**Status**: Completed (2026-01-13)
 **Depends On**: TASK 5 ✅
 
 **Requirements**:
 - Overview of all orders
 - Driver status
 - System metrics
+
+**Success Criteria**:
+- [x] Dashboard displays comprehensive system overview
+- [x] Shows order statistics (total, by status, revenue, average order value)
+- [x] Shows driver status (available, busy, offline counts)
+- [x] Calculates and displays key metrics (orders per driver, revenue per driver, utilization rate)
+- [x] Uses AI to generate insights and recommendations
+- [x] Identifies and highlights alerts/issues
+- [x] Logs dashboard snapshots to JSON files
+- [x] Follows structured output patterns with Zod schemas
+- [x] Added `bun run dashboard` npm script
+- [x] All existing tests pass
+
+**Completed**: Created dashboard-agent.ts that provides comprehensive system analytics:
+- Collects data from orderStore and driverStore
+- Calculates key performance metrics (orders per driver, revenue per driver, utilization rate)
+- Uses AI with structured outputs (DashboardOutputSchema) to generate insights
+- Provides conversational overview, order summary, driver summary, and metrics summary
+- Generates actionable recommendations based on current system state
+- Identifies and highlights alerts/issues (e.g., pending orders, low utilization)
+- Logs dashboard snapshots to JSON files with timestamps
+- Logs all AI events to JSONL files
+- Follows existing patterns from assignment-workflow.ts and delivery-tracking-agent.ts
+- Added `bun run dashboard` npm script to package.json
+- Tested with sample data showing accurate metrics and insights
+- All existing tests pass successfully
 
 #### TASK 7: Add Persistence Layer
 - Replace in-memory store with JSON file persistence
