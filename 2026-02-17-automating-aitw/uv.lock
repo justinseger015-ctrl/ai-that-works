@@ -33,6 +33,7 @@ dependencies = [
     { name = "google-genai" },
     { name = "pillow" },
     { name = "python-dotenv" },
+    { name = "requests" },
 ]
 
 [package.optional-dependencies]
@@ -49,6 +50,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.23.0" },
     { name = "python-dotenv", specifier = ">=0.9.9" },
+    { name = "requests", specifier = ">=2.32.5" },
 ]
 provides-extras = ["dev"]
 
