@@ -8,7 +8,8 @@
 		"plan:json": "bun run src/structured-planning-with-json.ts",
 		"ralph": "bun run src/ralph.ts",
 		"baml": "bun run src/baml-parsing.ts",
-		"baml:generate": "npx @boundaryml/baml generate"
+		"baml:generate": "npx @boundaryml/baml generate",
+		"orders": "bun run src/order-agent.ts"
 	},
 	"dependencies": {
 		"@anthropic-ai/claude-agent-sdk": "^0.1.75",
