@@ -85,12 +85,12 @@ BurritoOps is a SaaS platform for burrito delivery operators. This plan follows 
 
 ---
 
-### Phase 2: Agent Workflows (Not Started)
+### Phase 2: Agent Workflows ✅ IN PROGRESS
 **Goal**: Implement workflow automation
 
-#### TASK 4: Create Order Assignment Workflow [NEXT]
+#### TASK 4: Create Order Assignment Workflow ✅ COMPLETED
 **Priority**: HIGH
-**Status**: Not Started
+**Status**: Completed (2026-01-13)
 **Depends On**: TASK 3 ✅
 
 **Requirements**:
@@ -99,15 +99,30 @@ BurritoOps is a SaaS platform for burrito delivery operators. This plan follows 
 - Log state changes
 
 **Success Criteria**:
-- [ ] Workflow automatically assigns pending orders to available drivers
-- [ ] Driver status updates correctly (available -> busy)
-- [ ] State changes are logged
-- [ ] Follows structured output patterns
+- [x] Workflow automatically assigns pending orders to available drivers
+- [x] Driver status updates correctly (available -> busy)
+- [x] State changes are logged
+- [x] Follows structured output patterns
 
-#### TASK 5: Create Delivery Tracking Agent
+**Completed**: Created DriverStore with CRUD operations and comprehensive tests (21 test cases). Implemented assignment-workflow.ts that uses AI to intelligently assign pending orders to available drivers. The workflow logs all state changes to JSON files, updates driver status from available to busy when assigned, and follows structured output patterns with Zod schemas. Added `bun run assign` npm script. All tests pass successfully.
+
+---
+
+#### TASK 5: Create Delivery Tracking Agent [NEXT]
+**Priority**: MEDIUM
+**Status**: Not Started
+**Depends On**: TASK 4 ✅
+
+**Requirements**:
 - Track delivery status
 - Update order status automatically
 - Send notifications (simulated)
+
+**Success Criteria**:
+- [ ] Agent can track delivery progress
+- [ ] Order status updates automatically as delivery progresses
+- [ ] Simulated notifications are logged
+- [ ] Follows existing agent patterns
 
 ---
 

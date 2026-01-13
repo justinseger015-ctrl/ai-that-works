@@ -9,7 +9,8 @@
 		"ralph": "bun run src/ralph.ts",
 		"baml": "bun run src/baml-parsing.ts",
 		"baml:generate": "npx @boundaryml/baml generate",
-		"orders": "bun run src/order-agent.ts"
+		"orders": "bun run src/order-agent.ts",
+		"assign": "bun run src/assignment-workflow.ts"
 	},
 	"dependencies": {
 		"@anthropic-ai/claude-agent-sdk": "^0.1.75",
