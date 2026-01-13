@@ -65,9 +65,14 @@ export function printEvent(msg: SDKMessage) {
       }
       break;
     }
-    case "result":
+    case "result": {
       log(`${YELLOW}[Result]${RESET} ${msg.subtype || "done"}`);
+      const structured = (msg as any).structured_output;
+      if (structured) {
+        log(`${CYAN}[Output]${RESET} ${JSON.stringify(structured, null, 2)}`);
+      }
       break;
+    }
   }
 }
 
