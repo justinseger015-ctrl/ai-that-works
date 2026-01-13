@@ -12,7 +12,8 @@
 		"orders": "bun run src/order-agent.ts",
 		"assign": "bun run src/assignment-workflow.ts",
 		"track": "bun run src/delivery-tracking-agent.ts",
-		"dashboard": "bun run src/dashboard-agent.ts"
+		"dashboard": "bun run src/dashboard-agent.ts",
+		"demo": "bun run src/demo.ts"
 	},
 	"dependencies": {
 		"@anthropic-ai/claude-agent-sdk": "^0.1.75",

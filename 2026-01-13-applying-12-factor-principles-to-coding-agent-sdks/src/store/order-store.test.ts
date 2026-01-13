@@ -14,7 +14,7 @@ function assert(condition: boolean, message: string) {
   }
 }
 
-function testOrderStore() {
+async function testOrderStore() {
   console.log("🧪 Testing Order Store...\n");
 
   // Clean up any existing test file
@@ -67,6 +67,8 @@ function testOrderStore() {
   // Test 3: Update Order
   // ============================================================================
   console.log("🔄 Test 3: Update Order Status");
+  // Add small delay to ensure timestamp changes
+  await new Promise(resolve => setTimeout(resolve, 10));
   const updatedOrder = store.update(order.id, {
     status: "confirmed",
     notes: "Extra hot sauce - CONFIRMED",
@@ -195,7 +197,7 @@ function testOrderStore() {
 // Run tests
 if (import.meta.main) {
   try {
-    testOrderStore();
+    await testOrderStore();
     process.exit(0);
   } catch (error) {
     console.error("❌ Test failed:", error);
