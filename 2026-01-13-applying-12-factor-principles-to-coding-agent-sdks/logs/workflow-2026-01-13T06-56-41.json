@@ -1,0 +1,22 @@
+{
+  "workflowId": "2026-01-13T06-56-41",
+  "task": "lets make a dope readme",
+  "status": "in_progress",
+  "startedAt": "2026-01-13T06:56:47.971Z",
+  "step1": {
+    "output": {
+      "summary": "Explored codebase and identified project as a demo for \"AI That Works\" Episode 40 about 12-factor principles for agent SDKs. Project includes multiple TypeScript examples using Claude Agent SDK, Zod, and BAML. No README currently exists. Ready to gather requirements from user about tone, structure, target audience, and content preferences.",
+      "openDesignQuestions": [
+        "What tone/style should the README have? (e.g., technical & formal, beginner-friendly & casual, workshop-focused)",
+        "What's the target audience? (e.g., workshop attendees, developers exploring agent SDKs, AI/ML practitioners)",
+        "Should we include visual elements like badges, diagrams, or emojis to make it 'dope'?",
+        "How detailed should the examples/usage section be? Should each demo script get its own section with code snippets?",
+        "Should we include links to the AI That Works episode/event?",
+        "Should we explain the 12-factor principles being demonstrated, or keep it focused on usage?",
+        "Do you want a specific structure? (e.g., Quick Start first, or Architecture Overview first)",
+        "Should we include a section on the BurritoOps/RALPH concept or keep it brief?"
+      ]
+    },
+    "completedAt": "2026-01-13T06:57:53.919Z"
+  }
+}

@@ -60,7 +60,9 @@ async function getPrompt(): Promise<string> {
 }
 
 async function runOnce(prompt: string, iteration: number) {
-  log(`\n${CYAN}==================== LOOP ${iteration} ====================${RESET}\n`);
+  log(
+    `\n${CYAN}==================== LOOP ${iteration} ====================${RESET}\n`,
+  );
 
   const conversation = query({
     prompt,
@@ -78,7 +80,9 @@ async function main() {
   const prompt = await getPrompt();
 
   log(`${BLUE}[System]${RESET} Ralph Wiggum Loop`);
-  log(`${BLUE}[System]${RESET} Mode: ${SINGLE_RUN ? "single run" : "infinite loop"}`);
+  log(
+    `${BLUE}[System]${RESET} Mode: ${SINGLE_RUN ? "single run" : "infinite loop"}`,
+  );
   log(`${BLUE}[System]${RESET} Prompt: ${prompt.slice(0, 100)}...`);
 
   let iteration = 1;
