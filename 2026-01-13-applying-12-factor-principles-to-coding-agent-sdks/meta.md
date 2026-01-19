@@ -13,11 +13,11 @@ description: |
 event_link: https://luma.com/12-factors-to-coding-agents
 eventDate: 2026-01-13T18:00:00Z
 media:
-  url: null
+  url: https://www.youtube.com/watch?v=qgAny0sEdIk
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-13-applying-12-factor-principles-to-coding-agent-sdks
-  # no youtube link here yet
+  youtube: https://www.youtube.com/watch?v=qgAny0sEdIk
 season: 2
 episode: 40
 event_type: episode

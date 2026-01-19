@@ -12,19 +12,20 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Applying 12-Factor Principles to Coding Agent SDKs</strong></h3>
-<p><strong>Tuesday, January 13, 2026 at 10 AM PST</strong></p>
-<p><em>We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
+<h3><strong>Email is All You Need</strong></h3>
+<p><strong>Tuesday, January 20, 2026 at 10 AM PST</strong></p>
+<p><em>Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
 
-In this session we'll cover:
+This week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.
 
-- using the claude agent sdk to stitch together microagent workflows
-- accumulating user rules across context windows
-- json state and structured outputs with zod
-- session continuation and forking vs. direct compaction
+We'll cover:
+
+- Handling long-tail edge cases and weird inbox behavior
+- Validating and correcting extractions before they break downstream systems
+- Maintaining accuracy across thousands of formats and senders
 </em></p>
 
-<a href="https://luma.com/12-factors-to-coding-agents" target="_blank">
+<a href="https://luma.com/email-is-all-you-need" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -108,10 +109,31 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-20</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#41</strong>: Email is All You Need</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-01-20-email-is-all-you-need">code</a> • <a href="https://luma.com/email-is-all-you-need">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
+
+This week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.
+
+We'll cover:
+
+- Handling long-tail edge cases and weird inbox behavior
+- Validating and correcting extractions before they break downstream systems
+- Maintaining accuracy across thousands of formats and senders
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-13</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#40</strong>: Applying 12-Factor Principles to Coding Agent SDKs</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-01-13-applying-12-factor-principles-to-coding-agent-sdks">code</a> • <a href="https://luma.com/12-factors-to-coding-agents">register</a>
+          <a href="https://www.youtube.com/watch?v=qgAny0sEdIk">watch</a> • <a href="./2026-01-13-applying-12-factor-principles-to-coding-agent-sdks">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
@@ -191,7 +213,7 @@ build your own optimizer. Live demo of a prompt optimizer built with BAML.
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-09</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#35</strong>: Git Worktrees for AI Coding Agents</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://www.youtube.com/watch?v=jzhVo0iAX_I">watch</a> • <a href="./2025-12-09-git-worktrees">code</a>
+          <a href="https://www.youtube.com/watch?v=OpM-G3WNH4g">watch</a> • <a href="./2025-12-09-git-worktrees">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,
@@ -209,7 +231,7 @@ you push the limits of these tools, including:
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-02</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#34</strong>: Multimodal Evals</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://www.youtube.com/watch?v=OpM-G3WNH4g">watch</a> • <a href="./2025-12-02-multimodal-evals">code</a>
+          <a href="https://www.youtube.com/watch?v=jzhVo0iAX_I">watch</a> • <a href="./2025-12-02-multimodal-evals">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Building evals for multimodal AI - testing vision models, document understanding,

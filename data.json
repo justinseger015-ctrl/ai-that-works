@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-01-20-email-is-all-you-need",
+      "guid": "aitw-041",
+      "title": "Email is All You Need",
+      "description": "Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.\n\nThis week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.\n\nWe'll cover:\n\n- Handling long-tail edge cases and weird inbox behavior\n- Validating and correcting extractions before they break downstream systems\n- Maintaining accuracy across thousands of formats and senders\n",
+      "event_link": "https://luma.com/email-is-all-you-need",
+      "eventDate": "2026-01-20T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": null,
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-20-email-is-all-you-need"
+      },
+      "season": 2,
+      "episode": 41,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-01-13-applying-12-factor-principles-to-coding-agent-sdks",
       "guid": "aitw-040",
       "title": "Applying 12-Factor Principles to Coding Agent SDKs",
@@ -9,15 +29,16 @@
       "eventDate": "2026-01-13T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=qgAny0sEdIk",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=qgAny0sEdIk",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-13-applying-12-factor-principles-to-coding-agent-sdks"
       },
       "season": 2,
       "episode": 40,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -113,11 +134,11 @@
       "eventDate": "2025-12-09T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
+        "url": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
         "type": "video/youtube"
       },
       "links": {
-        "youtube": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
+        "youtube": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees"
       },
       "season": 2,
@@ -134,11 +155,11 @@
       "eventDate": "2025-12-02T17:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "url": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "type": "video/youtube"
       },
       "links": {
-        "youtube": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "youtube": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-02-multimodal-evals"
       },
       "season": 2,
@@ -899,15 +920,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 43,
-    "completedEpisodes": 39,
+    "totalEpisodes": 44,
+    "completedEpisodes": 40,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-01-09T01:39:01.858Z",
+    "lastUpdated": "2026-01-19T16:31:36.532Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

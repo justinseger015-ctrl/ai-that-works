@@ -1,6 +1,0 @@
-Update the following image with these requirements:
-1. Add a graphic between the two characters to represent {title}. The graphic should be white and should have no more than two words, if any.
-2. Replace the 'Main Title' with '{title}'
-3. Replace 'Subtitle' with '{subtitle}'
-4. Replace '#NN' with '#{episode_number}'
-
