@@ -1,7 +1,10 @@
-
-# ai that works: Git Worktrees for AI Coding Agents
+# Git Worktrees for AI Coding Agents
 
 > Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows, and it's not stopping any time soon. On this episode we'll go deep on the tech that can help you push the limits of these tools.
+
+[Video](https://www.youtube.com/watch?v=jzhVo0iAX_I)
+
+[![Git Worktrees for AI Coding Agents](https://img.youtube.com/vi/jzhVo0iAX_I/0.jpg)](https://www.youtube.com/watch?v=jzhVo0iAX_I)
 
 ## Topics Covered
 
@@ -30,3 +33,10 @@
 
 <img width="2020" height="1149" alt="Screenshot 2025-12-09 at 11 34 48 AM" src="https://github.com/user-attachments/assets/dd394f18-9d3c-46ad-b253-97d04b0a7cbd" />
 
+### Example Coding workflow
+
+This diagram shows how you can use multiple agents, each working in their own `git worktree` to brainstorm multiple solutions.  
+First use an AI agent to help you research the problem and generate relevant specs, then create a feature branch and kick off multiple agents.
+The key is that you then use your own judgement or another coding agent to synthesize the best answers and perform the update in your feature branch.
+
+<img width="1037" height="506" alt="image" src="https://github.com/user-attachments/assets/2a22bfd9-9e39-46ad-95f6-ef2153abd9ea" />

@@ -11,6 +11,7 @@ media:
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-11-dates-and-times
+  youtube: https://www.youtube.com/watch?v=l7txtbgCFGU
 season: 2
 episode: 31
 event_type: episode

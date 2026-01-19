@@ -9,10 +9,11 @@ description: |
 event_link: https://luma.com/cc-animation-pipeline
 eventDate: 2025-11-18T18:00:00Z
 media:
-  url: null
+  url: https://www.youtube.com/watch?v=WhtT7K5Pkv0
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-18-building-an-animation-pipeline
+  youtube: https://www.youtube.com/watch?v=WhtT7K5Pkv0
 season: 2
 episode: 32
 event_type: episode

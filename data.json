@@ -1,23 +1,107 @@
 {
   "episodes": [
     {
-      "folder": "2025-12-16-taxonomy-from-unstructured-data",
-      "guid": "aitw-035",
-      "title": "Constructing Taxonomy from Unstructured Data",
-      "description": "Building taxonomies and classification systems from unstructured data using AI.\n",
-      "event_link": "https://lu.ma/baml",
-      "eventDate": "2025-12-16T18:00:00Z",
+      "folder": "2026-01-13-applying-12-factor-principles-to-coding-agent-sdks",
+      "guid": "aitw-040",
+      "title": "Applying 12-Factor Principles to Coding Agent SDKs",
+      "description": "We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.\n\nIn this session we'll cover:\n\n- using the claude agent sdk to stitch together microagent workflows\n- accumulating user rules across context windows\n- json state and structured outputs with zod\n- session continuation and forking vs. direct compaction\n",
+      "event_link": "https://luma.com/12-factors-to-coding-agents",
+      "eventDate": "2026-01-13T18:00:00Z",
       "event_type": "episode",
       "media": {
         "url": null,
         "type": "video/youtube"
       },
       "links": {
-        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-16-taxonomy-from-unstructured-data"
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-13-applying-12-factor-principles-to-coding-agent-sdks"
       },
       "season": 2,
-      "episode": 35,
+      "episode": 40,
       "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-01-06-understanding-latency",
+      "guid": "aitw-039",
+      "title": "Understanding Latency in AI Applications",
+      "description": "A deep dive into performance engineering for AI applications. We explore all the bottlenecks\nin agent systems - from prompt caching and token optimization to semantic streaming and UI design.\nLearn how to make your agents feel faster through strategic latency reduction and smart UX choices.\n",
+      "event_link": "https://luma.com/12-factors-to-coding-agents",
+      "eventDate": "2026-01-06T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=wadVIkJnjQE",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=wadVIkJnjQE",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-06-understanding-latency"
+      },
+      "season": 2,
+      "episode": 39,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-12-30-founding-boundary",
+      "guid": "aitw-038",
+      "title": "Founding Boundary: Vaibhav's Journey",
+      "description": "End of year special part 2: Vaibhav shares his journey from building card games in 7th grade\nto founding Boundary and creating BAML. From Microsoft to Google to 12 pivots as a YC founder,\nhear the story behind the programming language for AI pipelines.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-30T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=4YTl9w_bESE",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=4YTl9w_bESE",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-30-founding-boundary"
+      },
+      "season": 2,
+      "episode": 38,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-12-23-founding-humanlayer",
+      "guid": "aitw-037",
+      "title": "Founding HumanLayer: Dex's Journey",
+      "description": "End of year special part 1: Dex shares his journey from physics undergrad with half a CS minor\nto founding HumanLayer. From Sprout Social to Replicated to building AI agents for data warehouses,\nhear how the path to founding a developer tools company is never a straight line.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-23T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=LEOA19Ss9lc",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=LEOA19Ss9lc",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-23-founding-humanlayer"
+      },
+      "season": 2,
+      "episode": 37,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-12-16-prompt-optimizer",
+      "guid": "aitw-036",
+      "title": "Building a Prompt Optimizer",
+      "description": "What happens when models can write really good prompts? We dive deep into prompt optimization,\nexploring JEPA (Genetic Pareto) algorithm, how it works under the hood, and whether you can\nbuild your own optimizer. Live demo of a prompt optimizer built with BAML.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-16T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=IkSEXg6f4KY",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=IkSEXg6f4KY",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-16-prompt-optimizer"
+      },
+      "season": 2,
+      "episode": 36,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -29,14 +113,36 @@
       "eventDate": "2025-12-09T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees"
       },
       "season": 2,
       "episode": 34,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2025-12-02-multimodal-evals",
+      "guid": "aitw-035",
+      "title": "Multimodal Evals",
+      "description": "Building evals for multimodal AI - testing vision models, document understanding,\nand image analysis with structured evaluation frameworks.\n",
+      "event_link": "https://lu.ma/baml",
+      "eventDate": "2025-12-02T17:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-02-multimodal-evals"
+      },
+      "season": 2,
+      "episode": 35,
       "isPast": true,
       "isWorkshop": false
     },
@@ -49,10 +155,11 @@
       "eventDate": "2025-11-25T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=fF3GssyaTcc",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=fF3GssyaTcc",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-25-no-vibes-allowed-using-codelayer-to-build-codelayer"
       },
       "season": 2,
@@ -69,10 +176,11 @@
       "eventDate": "2025-11-18T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=WhtT7K5Pkv0",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=WhtT7K5Pkv0",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-18-building-an-animation-pipeline"
       },
       "season": 2,
@@ -93,6 +201,7 @@
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=l7txtbgCFGU",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-11-11-dates-and-times"
       },
       "season": 2,
@@ -790,15 +899,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 38,
-    "completedEpisodes": 30,
+    "totalEpisodes": 43,
+    "completedEpisodes": 39,
     "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2025-12-09T20:09:26.253Z",
+    "lastUpdated": "2026-01-09T01:39:01.858Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
