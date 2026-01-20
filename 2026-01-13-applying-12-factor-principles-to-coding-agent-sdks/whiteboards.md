@@ -1,5 +1,3 @@
-(to be pulled into full readme eventually)
-
 <img width="3185" height="1538" alt="image" src="https://github.com/user-attachments/assets/8e250059-c921-4fb1-b3c0-72f768747eac" />
 
 
