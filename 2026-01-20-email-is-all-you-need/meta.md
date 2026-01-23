@@ -14,10 +14,11 @@ description: |
 event_link: https://luma.com/email-is-all-you-need
 eventDate: 2026-01-20T18:00:00Z
 media:
-  url: null
+  url: https://www.youtube.com/watch?v=zpfXzk-3Yxw
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-20-email-is-all-you-need
+  youtube: https://www.youtube.com/watch?v=zpfXzk-3Yxw
 season: 2
 episode: 41
 event_type: episode

@@ -16,8 +16,34 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 23 Jan 2026 04:53:01 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 18:27:15 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Email is All You Need]]></title>
+      <description><![CDATA[Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
+
+This week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.
+
+We'll cover:
+
+- Handling long-tail edge cases and weird inbox behavior
+- Validating and correcting extractions before they break downstream systems
+- Maintaining accuracy across thousands of formats and senders
+
+
+Watch: https://www.youtube.com/watch?v=zpfXzk-3Yxw
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-20-email-is-all-you-need
+Event: https://luma.com/email-is-all-you-need
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=zpfXzk-3Yxw</link>
+      <guid isPermaLink="false">aitw-041</guid>
+      <pubDate>Tue, 20 Jan 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=zpfXzk-3Yxw" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Applying 12-Factor Principles to Coding Agent SDKs]]></title>
       <description><![CDATA[We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
