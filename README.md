@@ -12,12 +12,16 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>No Vibes Allowed</strong></h3>
-<p><strong>Tuesday, January 27, 2026 at 10 AM PST</strong></p>
-<p><em>We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.
+<h3><strong>Prompting Is Becoming a Product Surface</strong></h3>
+<p><strong>Tuesday, February 3, 2026 at 10 AM PST</strong></p>
+<p><em>Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.
+
+That breaks the moment real users show up. Customers don't think in prompts — they think in goals. They want to explain what they're trying to accomplish, not debug a magic sentence.
+
+So prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.
 </em></p>
 
-<a href="https://luma.com/no-vibes-allowed-jan-26" target="_blank">
+<a href="https://luma.com/prompting-is-a-product-surface" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -101,10 +105,27 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-03</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#43</strong>: Prompting Is Becoming a Product Surface</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a> • <a href="https://luma.com/prompting-is-a-product-surface">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.
+
+That breaks the moment real users show up. Customers don't think in prompts — they think in goals. They want to explain what they're trying to accomplish, not debug a magic sentence.
+
+So prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-27</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#42</strong>: No Vibes Allowed</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-01-27-no-vibes-allowed">code</a> • <a href="https://luma.com/no-vibes-allowed-jan-26">register</a>
+          <a href="./2026-01-27-no-vibes-allowed">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.
