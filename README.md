@@ -105,6 +105,23 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-10</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#44</strong>: Agentic Backpressure Deep Dive</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-02-10-agentic-backpressure-deep-dive">code</a> • <a href="https://luma.com/agentic-backpressure-deep-dive">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
+
+In this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.
+
+This will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-03</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#43</strong>: Prompting Is Becoming a Product Surface</div>
         <div style="font-size: 13px; color: #666;">
