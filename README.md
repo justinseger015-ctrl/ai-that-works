@@ -142,7 +142,7 @@ So prompting is moving into the product. Interfaces matter. Structure matters. G
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-27</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#42</strong>: No Vibes Allowed</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-01-27-no-vibes-allowed">code</a>
+          <a href="https://www.youtube.com/watch?v=Xq8VxnGVStg">watch</a> • <a href="./2026-01-27-no-vibes-allowed">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.

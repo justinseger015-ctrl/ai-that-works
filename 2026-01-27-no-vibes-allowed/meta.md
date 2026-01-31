@@ -6,10 +6,11 @@ description: |
 event_link: https://luma.com/no-vibes-allowed-jan-26
 eventDate: 2026-01-27T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=Xq8VxnGVStg
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-27-no-vibes-allowed
+  youtube: https://www.youtube.com/watch?v=Xq8VxnGVStg
 season: 2
 episode: 42
 event_type: episode

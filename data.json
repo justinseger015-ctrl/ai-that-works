@@ -49,10 +49,11 @@
       "eventDate": "2026-01-27T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=Xq8VxnGVStg",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=Xq8VxnGVStg",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-27-no-vibes-allowed"
       },
       "season": 2,
@@ -982,14 +983,14 @@
   ],
   "meta": {
     "totalEpisodes": 47,
-    "completedEpisodes": 41,
+    "completedEpisodes": 42,
     "upcomingEpisodes": 2,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-01-30T22:10:22.167Z",
+    "lastUpdated": "2026-01-31T14:44:40.810Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

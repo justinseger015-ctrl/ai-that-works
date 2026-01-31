@@ -16,8 +16,26 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 30 Jan 2026 22:10:22 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 31 Jan 2026 14:44:40 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[No Vibes Allowed]]></title>
+      <description><![CDATA[We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.
+
+
+Watch: https://www.youtube.com/watch?v=Xq8VxnGVStg
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-27-no-vibes-allowed
+Event: https://luma.com/no-vibes-allowed-jan-26
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=Xq8VxnGVStg</link>
+      <guid isPermaLink="false">aitw-042</guid>
+      <pubDate>Tue, 27 Jan 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=Xq8VxnGVStg" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Email is All You Need]]></title>
       <description><![CDATA[Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
