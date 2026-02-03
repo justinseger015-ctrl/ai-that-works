@@ -20,7 +20,7 @@ client<llm> CustomGPT4oMini {
 client<llm> CustomSonnet {
   provider anthropic
   options {
-    model "claude-3-5-sonnet-20241022"
+    model "claude-sonnet-4-5-20250929"
     api_key env.ANTHROPIC_API_KEY
     default_role "system"
   }
@@ -31,7 +31,7 @@ client<llm> CustomHaiku {
   provider anthropic
   retry_policy Constant
   options {
-    model "claude-3-haiku-20240307"
+    model "claude-haiku-4-5"
     api_key env.ANTHROPIC_API_KEY
   }
 }

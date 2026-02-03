@@ -4,12 +4,14 @@ class Schema {
     Answer with ` to prevent needing escape characters.
 
     Example:
-    `
-    class Schema {
-      name string
-      age int
-    }
-    `
+    { 
+    interface_code: `
+      class Schema {
+        name string
+        age int
+      }
+      `,
+    ...
   "#)
   return_type string
   other_code string

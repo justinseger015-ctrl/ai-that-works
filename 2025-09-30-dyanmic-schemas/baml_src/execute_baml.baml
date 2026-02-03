@@ -4,7 +4,7 @@ class Response {
 }
 
 function ExecuteBAML(content: string | image | audio | image[]) -> Response {
-  client "openai/gpt-4o"
+  client CustomSonnet
   prompt #"
     Extract the data from the given content.
 
