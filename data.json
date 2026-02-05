@@ -1,6 +1,26 @@
 {
   "episodes": [
     {
+      "folder": "2026-02-17-automating-aitw",
+      "guid": "aitw-045",
+      "title": "AI Content Pipeline Revisited",
+      "description": "We have another meta episode this week! Several months ago, we did an episode back about automating the pipeline for generating the artifacts and content for this podcast. That pipeline became stale, and so we breathed some life back into it and we're going to discuss the different parts of that pipeline on the podcast.\n\nThis episode will discuss everything that goes into bringing you an episode. We'll discuss\n    -  Details of the entire pipeline and tools we use to bring you each episode\n    -  How to get AI to have the right tone in freeform generation and not sound like AI\n    -  Browser agents\n    -  Finding clippable content from the transcript\n    -  Image generation\n    -  How far should automation go?\n",
+      "event_link": "https://luma.com/ai-content-generation",
+      "eventDate": "2026-02-17T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-17-automating-aitw"
+      },
+      "season": 2,
+      "episode": 45,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-02-10-agentic-backpressure-deep-dive",
       "guid": "aitw-044",
       "title": "Agentic Backpressure Deep Dive",
@@ -37,7 +57,7 @@
       },
       "season": 2,
       "episode": 43,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -982,7 +1002,7 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 47,
+    "totalEpisodes": 48,
     "completedEpisodes": 42,
     "upcomingEpisodes": 2,
     "workshops": 3,
@@ -990,7 +1010,7 @@
       1,
       2
     ],
-    "lastUpdated": "2026-01-31T14:44:40.810Z",
+    "lastUpdated": "2026-02-05T21:49:15.677Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
