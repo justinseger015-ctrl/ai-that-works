@@ -10,10 +10,11 @@ description: |
 event_link: https://luma.com/prompting-is-a-product-surface
 eventDate: 2026-02-03T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=jUBDqWRGNps
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface
+  youtube: https://www.youtube.com/watch?v=jUBDqWRGNps
 season: 2
 episode: 43
 event_type: episode

@@ -146,7 +146,7 @@ This will extend our previous conversation about agentic backpressure and buildi
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-03</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#43</strong>: Prompting Is Becoming a Product Surface</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a>
+          <a href="https://www.youtube.com/watch?v=jUBDqWRGNps">watch</a> • <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.

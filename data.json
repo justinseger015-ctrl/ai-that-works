@@ -49,10 +49,11 @@
       "eventDate": "2026-02-03T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=jUBDqWRGNps",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=jUBDqWRGNps",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface"
       },
       "season": 2,
@@ -1003,14 +1004,14 @@
   ],
   "meta": {
     "totalEpisodes": 48,
-    "completedEpisodes": 42,
+    "completedEpisodes": 43,
     "upcomingEpisodes": 2,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-02-05T21:49:15.677Z",
+    "lastUpdated": "2026-02-06T19:25:49.698Z",
     "generatedBy": "validate-metadata.ts"
   }
 }
