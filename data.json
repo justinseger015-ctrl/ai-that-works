@@ -1,6 +1,109 @@
 {
   "episodes": [
     {
+      "folder": "2026-02-17-automating-aitw",
+      "guid": "aitw-045",
+      "title": "AI Content Pipeline Revisited",
+      "description": "We have another meta episode this week! Several months ago, we did an episode back about automating the pipeline for generating the artifacts and content for this podcast. That pipeline became stale, and so we breathed some life back into it and we're going to discuss the different parts of that pipeline on the podcast.\n\nThis episode will discuss everything that goes into bringing you an episode. We'll discuss\n    -  Details of the entire pipeline and tools we use to bring you each episode\n    -  How to get AI to have the right tone in freeform generation and not sound like AI\n    -  Browser agents\n    -  Finding clippable content from the transcript\n    -  Image generation\n    -  How far should automation go?\n",
+      "event_link": "https://luma.com/ai-content-generation",
+      "eventDate": "2026-02-17T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-17-automating-aitw"
+      },
+      "season": 2,
+      "episode": 45,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-02-10-agentic-backpressure-deep-dive",
+      "guid": "aitw-044",
+      "title": "Agentic Backpressure Deep Dive",
+      "description": "In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.\n\nIn this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.\n\nThis will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.\n",
+      "event_link": "https://luma.com/agentic-backpressure-deep-dive",
+      "eventDate": "2026-02-10T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "type": "video/youtube"
+      },
+      "links": {
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-10-agentic-backpressure-deep-dive"
+      },
+      "season": 2,
+      "episode": 44,
+      "isPast": false,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-02-03-prompting-is-becoming-a-product-surface",
+      "guid": "aitw-043",
+      "title": "Prompting Is Becoming a Product Surface",
+      "description": "Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.\n\nThat breaks the moment real users show up. Customers don't think in prompts — they think in goals. They want to explain what they're trying to accomplish, not debug a magic sentence.\n\nSo prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.\n",
+      "event_link": "https://luma.com/prompting-is-a-product-surface",
+      "eventDate": "2026-02-03T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=jUBDqWRGNps",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=jUBDqWRGNps",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface"
+      },
+      "season": 2,
+      "episode": 43,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-01-27-no-vibes-allowed",
+      "guid": "aitw-042",
+      "title": "No Vibes Allowed",
+      "description": "We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.\n",
+      "event_link": "https://luma.com/no-vibes-allowed-jan-26",
+      "eventDate": "2026-01-27T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=Xq8VxnGVStg",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=Xq8VxnGVStg",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-27-no-vibes-allowed"
+      },
+      "season": 2,
+      "episode": 42,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
+      "folder": "2026-01-20-email-is-all-you-need",
+      "guid": "aitw-041",
+      "title": "Email is All You Need",
+      "description": "Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.\n\nThis week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.\n\nWe'll cover:\n\n- Handling long-tail edge cases and weird inbox behavior\n- Validating and correcting extractions before they break downstream systems\n- Maintaining accuracy across thousands of formats and senders\n",
+      "event_link": "https://luma.com/email-is-all-you-need",
+      "eventDate": "2026-01-20T18:00:00Z",
+      "event_type": "episode",
+      "media": {
+        "url": "https://www.youtube.com/watch?v=zpfXzk-3Yxw",
+        "type": "video/youtube"
+      },
+      "links": {
+        "youtube": "https://www.youtube.com/watch?v=zpfXzk-3Yxw",
+        "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-20-email-is-all-you-need"
+      },
+      "season": 2,
+      "episode": 41,
+      "isPast": true,
+      "isWorkshop": false
+    },
+    {
       "folder": "2026-01-13-applying-12-factor-principles-to-coding-agent-sdks",
       "guid": "aitw-040",
       "title": "Applying 12-Factor Principles to Coding Agent SDKs",
@@ -9,15 +112,16 @@
       "eventDate": "2026-01-13T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": null,
+        "url": "https://www.youtube.com/watch?v=qgAny0sEdIk",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=qgAny0sEdIk",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-13-applying-12-factor-principles-to-coding-agent-sdks"
       },
       "season": 2,
       "episode": 40,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -113,11 +217,11 @@
       "eventDate": "2025-12-09T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
+        "url": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
         "type": "video/youtube"
       },
       "links": {
-        "youtube": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
+        "youtube": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees"
       },
       "season": 2,
@@ -134,11 +238,11 @@
       "eventDate": "2025-12-02T17:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "url": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "type": "video/youtube"
       },
       "links": {
-        "youtube": "https://www.youtube.com/watch?v=OpM-G3WNH4g",
+        "youtube": "https://www.youtube.com/watch?v=jzhVo0iAX_I",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-02-multimodal-evals"
       },
       "season": 2,
@@ -899,15 +1003,15 @@
     }
   ],
   "meta": {
-    "totalEpisodes": 43,
-    "completedEpisodes": 39,
-    "upcomingEpisodes": 1,
+    "totalEpisodes": 48,
+    "completedEpisodes": 43,
+    "upcomingEpisodes": 2,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-01-09T01:39:01.858Z",
+    "lastUpdated": "2026-02-06T19:25:49.698Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

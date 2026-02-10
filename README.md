@@ -12,19 +12,16 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Applying 12-Factor Principles to Coding Agent SDKs</strong></h3>
-<p><strong>Tuesday, January 13, 2026 at 10 AM PST</strong></p>
-<p><em>We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
+<h3><strong>Agentic Backpressure Deep Dive</strong></h3>
+<p><strong>Tuesday, February 10, 2026 at 10 AM PST</strong></p>
+<p><em>In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
 
-In this session we'll cover:
+In this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.
 
-- using the claude agent sdk to stitch together microagent workflows
-- accumulating user rules across context windows
-- json state and structured outputs with zod
-- session continuation and forking vs. direct compaction
+This will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.
 </em></p>
 
-<a href="https://luma.com/12-factors-to-coding-agents" target="_blank">
+<a href="https://luma.com/agentic-backpressure-deep-dive" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -108,10 +105,99 @@ Before joining, get familiar with our toolkit:
         <div style="margin-bottom: 2px;">
           <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
         </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-17</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#45</strong>: AI Content Pipeline Revisited</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-02-17-automating-aitw">code</a> • <a href="https://luma.com/ai-content-generation">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">We have another meta episode this week! Several months ago, we did an episode back about automating the pipeline for generating the artifacts and content for this podcast. That pipeline became stale, and so we breathed some life back into it and we're going to discuss the different parts of that pipeline on the podcast.
+
+This episode will discuss everything that goes into bringing you an episode. We'll discuss
+    -  Details of the entire pipeline and tools we use to bring you each episode
+    -  How to get AI to have the right tone in freeform generation and not sound like AI
+    -  Browser agents
+    -  Finding clippable content from the transcript
+    -  Image generation
+    -  How far should automation go?
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-10</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#44</strong>: Agentic Backpressure Deep Dive</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="./2026-02-10-agentic-backpressure-deep-dive">code</a> • <a href="https://luma.com/agentic-backpressure-deep-dive">register</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
+
+In this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.
+
+This will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-03</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#43</strong>: Prompting Is Becoming a Product Surface</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=jUBDqWRGNps">watch</a> • <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.
+
+That breaks the moment real users show up. Customers don't think in prompts — they think in goals. They want to explain what they're trying to accomplish, not debug a magic sentence.
+
+So prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-27</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#42</strong>: No Vibes Allowed</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=Xq8VxnGVStg">watch</a> • <a href="./2026-01-27-no-vibes-allowed">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
+        <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-20</div>
+        <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#41</strong>: Email is All You Need</div>
+        <div style="font-size: 13px; color: #666;">
+          <a href="https://www.youtube.com/watch?v=zpfXzk-3Yxw">watch</a> • <a href="./2026-01-20-email-is-all-you-need">code</a>
+        </div>
+      </div>
+    </td><td><div style="padding: 8px 0; line-height: 1.5;">Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
+
+This week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.
+
+We'll cover:
+
+- Handling long-tail edge cases and weird inbox behavior
+- Validating and correcting extractions before they break downstream systems
+- Maintaining accuracy across thousands of formats and senders
+</div></td></tr>
+<tr><td>
+      <div style="padding: 8px 0;">
+        <div style="margin-bottom: 2px;">
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
+        </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-01-13</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#40</strong>: Applying 12-Factor Principles to Coding Agent SDKs</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-01-13-applying-12-factor-principles-to-coding-agent-sdks">code</a> • <a href="https://luma.com/12-factors-to-coding-agents">register</a>
+          <a href="https://www.youtube.com/watch?v=qgAny0sEdIk">watch</a> • <a href="./2026-01-13-applying-12-factor-principles-to-coding-agent-sdks">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
@@ -191,7 +277,7 @@ build your own optimizer. Live demo of a prompt optimizer built with BAML.
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-09</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#35</strong>: Git Worktrees for AI Coding Agents</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://www.youtube.com/watch?v=jzhVo0iAX_I">watch</a> • <a href="./2025-12-09-git-worktrees">code</a>
+          <a href="https://www.youtube.com/watch?v=OpM-G3WNH4g">watch</a> • <a href="./2025-12-09-git-worktrees">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Since ~ May 2025, there's been a ton of buzz around AI coding agents, parallelizing workflows,
@@ -209,7 +295,7 @@ you push the limits of these tools, including:
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2025-12-02</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#34</strong>: Multimodal Evals</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://www.youtube.com/watch?v=OpM-G3WNH4g">watch</a> • <a href="./2025-12-02-multimodal-evals">code</a>
+          <a href="https://www.youtube.com/watch?v=jzhVo0iAX_I">watch</a> • <a href="./2025-12-02-multimodal-evals">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Building evals for multimodal AI - testing vision models, document understanding,

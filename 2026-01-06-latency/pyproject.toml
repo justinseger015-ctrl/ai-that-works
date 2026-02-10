@@ -1,0 +1,12 @@
+[project]
+name = "2026-01-06-latency"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "baml-py>=0.216.0",
+    "python-dotenv>=1.0.0",
+    "typing-extensions>=4.0.0",
+    "pydantic>=2.0.0",
+]

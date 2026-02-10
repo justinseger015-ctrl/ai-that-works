@@ -16,8 +16,99 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 09 Jan 2026 01:39:01 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Feb 2026 19:25:49 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Prompting Is Becoming a Product Surface]]></title>
+      <description><![CDATA[Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.
+
+That breaks the moment real users show up. Customers don't think in prompts — they think in goals. They want to explain what they're trying to accomplish, not debug a magic sentence.
+
+So prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.
+
+
+Watch: https://www.youtube.com/watch?v=jUBDqWRGNps
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface
+Event: https://luma.com/prompting-is-a-product-surface
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=jUBDqWRGNps</link>
+      <guid isPermaLink="false">aitw-043</guid>
+      <pubDate>Tue, 03 Feb 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=jUBDqWRGNps" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[No Vibes Allowed]]></title>
+      <description><![CDATA[We received great feedback from our previous live coding sessions, so this week we are bringing it back this week by live streaming while we add more features to BAML. We have discussed a lot of topics over the past several months, and we will be digging into the how to put many of these concepts into practice as we build out actual features in the product.
+
+
+Watch: https://www.youtube.com/watch?v=Xq8VxnGVStg
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-27-no-vibes-allowed
+Event: https://luma.com/no-vibes-allowed-jan-26
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=Xq8VxnGVStg</link>
+      <guid isPermaLink="false">aitw-042</guid>
+      <pubDate>Tue, 27 Jan 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=Xq8VxnGVStg" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Email is All You Need]]></title>
+      <description><![CDATA[Email is about as adversarial as inputs get: malformed HTML, inconsistent templates, human writing, forwarded junk, zero standards. And yet entire business workflows depend on it.
+
+This week we're digging into what it takes to build a real email workflow engine where LLMs aren't demos, but are part of production infrastructure.
+
+We'll cover:
+
+- Handling long-tail edge cases and weird inbox behavior
+- Validating and correcting extractions before they break downstream systems
+- Maintaining accuracy across thousands of formats and senders
+
+
+Watch: https://www.youtube.com/watch?v=zpfXzk-3Yxw
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-20-email-is-all-you-need
+Event: https://luma.com/email-is-all-you-need
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=zpfXzk-3Yxw</link>
+      <guid isPermaLink="false">aitw-041</guid>
+      <pubDate>Tue, 20 Jan 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=zpfXzk-3Yxw" type="video/youtube" />
+    </item>
+    <item>
+      <title><![CDATA[Applying 12-Factor Principles to Coding Agent SDKs]]></title>
+      <description><![CDATA[We've done a lot of talking in the last few months about prompting coding agents and context engineering w/ markdown files, but today we'll talk about how to squeeze even more out of agents by using agent loops as smaller elements of a deterministic workflow.
+
+In this session we'll cover:
+
+- using the claude agent sdk to stitch together microagent workflows
+- accumulating user rules across context windows
+- json state and structured outputs with zod
+- session continuation and forking vs. direct compaction
+
+
+Watch: https://www.youtube.com/watch?v=qgAny0sEdIk
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-01-13-applying-12-factor-principles-to-coding-agent-sdks
+Event: https://luma.com/12-factors-to-coding-agents
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=qgAny0sEdIk</link>
+      <guid isPermaLink="false">aitw-040</guid>
+      <pubDate>Tue, 13 Jan 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=qgAny0sEdIk" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Understanding Latency in AI Applications]]></title>
       <description><![CDATA[A deep dive into performance engineering for AI applications. We explore all the bottlenecks
@@ -108,18 +199,18 @@ you push the limits of these tools, including:
 - tmux as a building block for collaborative agent workflows
 
 
-Watch: https://www.youtube.com/watch?v=jzhVo0iAX_I
+Watch: https://www.youtube.com/watch?v=OpM-G3WNH4g
 Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-09-git-worktrees
 Event: https://lu.ma/baml
 
 AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
-      <link>https://www.youtube.com/watch?v=jzhVo0iAX_I</link>
+      <link>https://www.youtube.com/watch?v=OpM-G3WNH4g</link>
       <guid isPermaLink="false">aitw-034</guid>
       <pubDate>Tue, 09 Dec 2025 18:00:00 GMT</pubDate>
       <category>Technology</category>
       <category>Software Engineering</category>
       <category>Artificial Intelligence</category>
-      <enclosure url="https://www.youtube.com/watch?v=jzhVo0iAX_I" type="video/youtube" />
+      <enclosure url="https://www.youtube.com/watch?v=OpM-G3WNH4g" type="video/youtube" />
     </item>
     <item>
       <title><![CDATA[Multimodal Evals]]></title>
@@ -127,18 +218,18 @@ AI That Works - Weekly conversations about production-ready AI engineering with 
 and image analysis with structured evaluation frameworks.
 
 
-Watch: https://www.youtube.com/watch?v=OpM-G3WNH4g
+Watch: https://www.youtube.com/watch?v=jzhVo0iAX_I
 Code: https://github.com/ai-that-works/ai-that-works/tree/main/2025-12-02-multimodal-evals
 Event: https://lu.ma/baml
 
 AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
-      <link>https://www.youtube.com/watch?v=OpM-G3WNH4g</link>
+      <link>https://www.youtube.com/watch?v=jzhVo0iAX_I</link>
       <guid isPermaLink="false">aitw-035</guid>
       <pubDate>Tue, 02 Dec 2025 17:00:00 GMT</pubDate>
       <category>Technology</category>
       <category>Software Engineering</category>
       <category>Artificial Intelligence</category>
-      <enclosure url="https://www.youtube.com/watch?v=OpM-G3WNH4g" type="video/youtube" />
+      <enclosure url="https://www.youtube.com/watch?v=jzhVo0iAX_I" type="video/youtube" />
     </item>
     <item>
       <title><![CDATA[No Vibes Allowed: Using CodeLayer to Build CodeLayer]]></title>

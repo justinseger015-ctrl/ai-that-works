@@ -2,17 +2,17 @@ class Transaction {
   item_name string
   quantity int
   unit_price float
-  unit_discount float?
+  // unit_discount float?
   total_price float
 }
 
 class ReceiptData {
   transactions Transaction[]
   subtotal float?
-  service_charge float?
+  // service_charge float?
   tax float?
-  rounding float?
-  discount_on_total float?
+  // rounding float?
+  // discount_on_total float?
   grand_total float
 }
 

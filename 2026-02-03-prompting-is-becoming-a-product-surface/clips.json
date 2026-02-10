@@ -1,0 +1,26 @@
+[
+  {
+    "rationale": "This clip directly addresses the core 'one thing to remember' from the episode: that effective AI product development is not about generalizable solutions but about deep customer understanding. Vaibhav delivers a strong, quotable opinion that challenges common assumptions in the AI space, making it highly impactful for product builders and founders looking for a competitive edge in vertical SaaS. It resonates by offering a clear strategic direction.",
+    "start_timestamp": "34:52",
+    "end_timestamp": "35:50",
+    "speaker": "Vaibhav",
+    "transcript_excerpt": "Vaibhav (34:52.184)\nYeah. The other thing I think is really important is a lot of people are like, this is totally generalizable, but I actually strongly, strongly feel that this is not going to generalize. And the way, and the reason I think this doesn't generalize is see this, the types that you use here is really dependent on the customer that you're serving these specific things that are true for all doctors, the bulleted list, which is going to be a different thing than what you want as like a startup founder. When you're making a slide deck for a bulleted list. what like, what,\ndefaults that you provide, what UIs that you render off of. That hybrid of mixing all those systems together is what I think makes it powerful. And I think that's why people have an edge in building really great vertical SaaS businesses. Because if you deeply understand the customer, the customer will have to do less work to get the right output. And that, I think, is the value prop of what businesses have to be doing today.",
+    "hook": "Why AI product development isn't generalizable (and why that's a good thing)."
+  },
+  {
+    "rationale": "This clip offers a concrete, surprising insight about a crucial, often-overlooked aspect of building AI products: the separation of UI rendering logic from LLM instructions. It provides actionable advice by highlighting 'special fields' in the schema that only influence rendering, not the LLM's output. This directly relates to the 'Dynamic Schemas & Rendering' takeaway and would resonate with developers looking to build more robust and user-friendly AI applications.",
+    "start_timestamp": "21:00",
+    "end_timestamp": "21:48",
+    "speaker": "Vaibhav",
+    "transcript_excerpt": "Vaibhav (21:00.087)\nWhat's really nice about this, however, is something even better, which is I can have special fields in my schema. that are only related to rendering properties that never actually make it into my final output. It's like, for example, I could have a special thing in here that says like, that says over here, display unit CM never even makes it to my prompt, but only the description goes here. But in my UI, I read the whole scheme on it. Also read the display unit and I render it as a display unit right next to it in the UI.",
+    "hook": "The hidden schema fields that never reach your LLM (but make your UI shine)."
+  },
+  {
+    "rationale": "This clip provides a clear, practical example of the 'Translation Layer' and 'User Control & Guardrails' in action. It demonstrates how a user-friendly concept ('bullet point list' in a form builder) is translated into precise LLM instructions ('list of strings with this hard code description') while maintaining engineering control. This is a concrete illustration of making the AI do more work so the user does less, a key theme of the episode.",
+    "start_timestamp": "09:34",
+    "end_timestamp": "10:05",
+    "speaker": "Vaibhav",
+    "transcript_excerpt": "Vaibhav (09:34.884)\nAnd now I got at most five items. So now I've suddenly given the way for a user to help control what ends up happening while also persisting my engineering team's benefits of what ends up happening. So if the user says, Hey, I want a bullet point list. The user doesn't even have to know that I'm using a string array underneath the hood. And I've added in use short phrases from the user's perspective. When they build a form builder, they selected bullet point lists, but I translated that for them on their behalf to a list of strings with this hard code description. and then added in any additional description they gave me over here. Does that kind of make sense Dexter?",
+    "hook": "How to give users control over AI output without leaking technical details."
+  }
+]
