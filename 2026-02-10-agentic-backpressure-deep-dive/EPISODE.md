@@ -94,19 +94,142 @@ This makes version upgrades dramatically less scary. Instead of bumping the vers
 
 Think of them as living documentation that can verify itself. They sit in a `learning/` or `proofs/` directory, they run in seconds, and they answer the question: "does the external world still work the way I think it does?"
 
-## The Progression: Simple to Complex
+## The Live Demo
 
-We'll walk through six learning tests, building from "does this thing even work" to "I can build a production workflow on top of it." We're using the Claude Agent SDK as the concrete example, but swap in any external system and the structure is the same.
+We'll walk through two learning test sequences, then pick something new and write one live.
 
 ---
 
-### Code Sample 1: "Hello World" --- Does This Thing Even Work?
+### Demo 1: Hello World --- Does This Thing Even Work? (`00` → `00b` → `00c` → `01`)
 
-**Title:** The Minimum Viable Learning Test
+The simplest possible interaction with the external system. For any API, this is: call one endpoint, print what comes back, assert on the shape. No business logic, no configuration, no error handling. Just: "Can I call this thing, and what does the response look like?"
 
-**Description:** The simplest possible interaction with the external system. For any API, this is: call one endpoint, print what comes back, assert on the shape. No business logic, no configuration, no error handling. Just: "Can I call this thing, and what does the response look like?"
+We build up to the first real learning test in four incremental steps. Each step adds one concept.
 
-For the Claude SDK, this means: call `query()` with a trivial prompt, no tools, one turn. Iterate the async event stream. Log every event type. You'll discover that the stream emits `system:init` (with a session ID), then `assistant` (the model's response), then `result:success` (the final output). That sequence is your Rosetta Stone for everything that follows.
+**Step 1: Just call it (`00-sdk-basics.ts`)**
+
+The absolute minimum. One import, one function call, `console.log` the raw output. You'll get a wall of JSON, but you'll know it works.
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+for await (const message of query({
+  prompt: "Say hello",
+  options: { allowedTools: [] },
+})) {
+  console.log(message);
+}
+```
+
+**Step 2: Filter the noise (`00b-filter-events.ts`)**
+
+OK, raw JSON is unreadable. Let's just print event types and pull out the interesting fields.
+
+```diff
+ for await (const message of query({
+   prompt: "Say hello",
+-  options: { allowedTools: [] },
++  options: {
++    permissionMode: "bypassPermissions",
++    allowedTools: [],
++    maxTurns: 1,
++    model: "haiku",
++  },
+ })) {
+-  console.log(message);
++  const subtype = "subtype" in message ? message.subtype : undefined;
++  console.log(`[${message.type}${subtype ? `:${subtype}` : ""}]`);
++
++  if (message.type === "system" && message.subtype === "init") {
++    console.log(`  session_id: ${message.session_id}`);
++    console.log(`  tools: ${message.tools.join(", ")}`);
++  }
++
++  if (message.type === "assistant") {
++    const text = message.message.content
++      .filter((b: any) => b.type === "text")
++      .map((b: any) => b.text)
++      .join("");
++    console.log(`  ${text.substring(0, 120)}`);
++  }
++
++  if (message.type === "result" && message.subtype === "success") {
++    console.log(`  result: ${message.result.substring(0, 120)}`);
++  }
+ }
+```
+
+Now you can see the shape: `system:init` → `assistant` → `result:success`. That's the Rosetta Stone.
+
+**Step 3: Collect and check (`00c-collect-and-check.ts`)**
+
+Instead of just printing, accumulate data and verify it at the end. This is the bridge to a real test---we're making assertions, just not with a test framework yet.
+
+```diff
++const events: Array<{ type: string; subtype?: string }> = [];
++let sessionId: string | undefined;
++let availableTools: string[] = [];
++let finalResult = "";
++
+ for await (const message of query({ ... })) {
+   const subtype = "subtype" in message ? (message.subtype as string) : undefined;
+-  console.log(`[${message.type}${subtype ? `:${subtype}` : ""}]`);
++  events.push({ type: message.type, subtype });
+
+   if (message.type === "system" && message.subtype === "init") {
+-    console.log(`  session_id: ${message.session_id}`);
+-    console.log(`  tools: ${message.tools.join(", ")}`);
++    sessionId = message.session_id;
++    availableTools = message.tools;
+   }
+-  // ... (remove inline printing)
++
++  if (message.type === "result" && message.subtype === "success") {
++    finalResult = message.result;
++  }
+ }
++
++// Manual checks -- these become assertions in 01
++console.log(`first event is system:init? ${events[0]?.type === "system"}`);
++console.log(`has assistant event? ${events.some((e) => e.type === "assistant")}`);
++console.log(`last event is result:success? ${events.at(-1)?.type === "result"}`);
++console.log(`got a session_id? ${sessionId !== undefined}`);
++console.log(`got a result? ${finalResult.length > 0}`);
+```
+
+**Step 4: Real test (`01-hello-world.test.ts`)**
+
+Now swap the manual checks for real assertions. Add `bun:test`, a temp directory, and `expect()`. The logic is identical---we just wrapped it in a test harness.
+
+```diff
++import { describe, expect, test, beforeAll, afterAll } from "bun:test";
++import { mkdtemp, rm } from "node:fs/promises";
++
++describe("01: Hello World", () => {
++  let tempDir: string;
++  beforeAll(async () => { tempDir = await mkdtemp(...); });
++  afterAll(async () => { await rm(tempDir, { recursive: true }); });
++
++  test("what events does query() emit?", async () => {
+     const events = [];
+     let sessionId, finalResult;
+
+     for await (const message of query({ ... })) {
+       // ... same collection logic ...
+     }
+
+-    console.log(`first event is system:init? ${events[0]?.type === "system"}`);
+-    console.log(`got a session_id? ${sessionId !== undefined}`);
+-    console.log(`got a result? ${finalResult.length > 0}`);
++    expect(events[0]).toEqual({ type: "system", subtype: "init" });
++    expect(sessionId).toBeDefined();
++    expect(events.at(-1)).toEqual({ type: "result", subtype: "success" });
++    expect(finalResult.length).toBeGreaterThan(0);
++  });
++});
+```
+
+That's it. Four files, each one a small step. The final test is a real learning test with documented findings, and every intermediate step is runnable on its own. For the Claude SDK, this means: call `query()` with a trivial prompt, no tools, one turn. Iterate the async event stream. The stream emits `system:init` (with a session ID), then `assistant` (the model's response), then `result:success` (the final output).
 
 The equivalent for other systems:
 - **Stripe:** Create a test charge. What fields come back on the charge object? Is `status` a string or an enum?
@@ -136,51 +259,58 @@ Not every integration needs a learning test. If you've used `fetch()` a thousand
 
 ---
 
-### Code Sample 2: "That's Not What I Expected" --- Catching Wrong Assumptions
+### Demo 2: The Wrong Assumption Arc (`02 -> 02b -> 02c`)
 
-**Title:** Testing Assumptions That Turn Out to Be Wrong
+This is the core of the episode. Three files that tell the story of catching a wrong assumption:
 
-**Description:** This is where learning tests really earn their keep. Write a test based on what you *think* the API does, and discover it does something different. In the Claude SDK, there's an option called `allowedTools` that looks like a whitelist---you'd naturally assume passing `['Read', 'Glob', 'Grep']` means only those tools are available. Write a test. Check what tools actually show up. Discover that **`allowedTools` is silently ignored.** You need `disallowedTools` to actually restrict tools.
+**02-wrong-assumptions.test.ts --- The Naive Test**
 
-This pattern generalizes everywhere:
-- **Auth libraries:** You assume `session.isValid()` checks expiration. It actually only checks the signature.
-- **ORMs:** You assume `.save()` is an upsert. It actually throws on duplicate keys.
-- **Queue systems:** You assume `ack()` removes the message. It actually just makes it invisible for a timeout.
+"I want a read-only research agent. The SDK has `allowedTools`. I'll pass `['Read', 'Glob', 'Grep']` and that should whitelist just those tools." Write the test. Run it. **Write is still available.** `allowedTools` is silently ignored. The assumption was wrong.
 
-The test that fails is more valuable than the test that passes. A failing test means you caught a wrong assumption *before* you built on top of it.
+This is the moment. The test you wrote in 30 seconds just saved you 2 hours of debugging a multi-phase workflow where the "research-only" agent was secretly able to modify your codebase.
+
+**02b-the-fix.test.ts --- Dig Deeper**
+
+OK, so `allowedTools` doesn't work. We look at the SDK types, find `disallowedTools`. Write a new test. Pass `disallowedTools: ['Write', 'Edit', 'NotebookEdit', 'Bash']`. Check the init event. Write is gone. Edit is gone. Bash is gone. Read, Glob, Grep are still there. *Now* we have a read-only agent.
+
+**02c-plan-mode.test.ts --- The Broader Picture**
+
+While we're in here, we find `permissionMode: 'plan'` and the `canUseTool` callback. Test them both. `plan` mode is a blanket read-only switch. `canUseTool` gives per-call programmatic control. End with a summary: three valid ways to restrict an agent, and `allowedTools` is not one of them.
 
 ```mermaid
 flowchart TD
     subgraph "Without Learning Tests"
-        A1[Read API docs] --> A2[Assume Option X = whitelist]
-        A2 --> A3[Build feature on that assumption]
-        A3 --> A4[Feature breaks in production]
+        A1[Read API docs] --> A2[Assume allowedTools = whitelist]
+        A2 --> A3[Build multi-phase workflow]
+        A3 --> A4[Research agent writes files]
         A4 --> A5[Debug for hours]
-        A5 --> A6["Discover Option X is ignored"]
+        A5 --> A6["Discover allowedTools is ignored"]
     end
 
     subgraph "With Learning Tests"
-        B1[Read API docs] --> B2[Write test for Option X]
-        B2 --> B3[Test fails: not a whitelist]
-        B3 --> B4[Find the real mechanism]
-        B4 --> B5[Build correctly from the start]
+        B1[Read API docs] --> B2["Write test (02)"]
+        B2 --> B3["Test surprise: not a whitelist"]
+        B3 --> B4["Find real mechanism (02b)"]
+        B4 --> B5["Map all options (02c)"]
+        B5 --> B6[Build correctly from the start]
     end
 ```
 
 ---
 
-### Code Sample 3: State and Continuity --- How Does This System Remember?
+### Demo 3: HMAC Verification --- A Different Kind of API (`02-hmac-verification.test.ts`)
 
-**Title:** Proving State Management Semantics
+Same technique, completely different domain. We're testing `node:crypto`---not an SDK, just a standard library. The question: how does `timingSafeEqual` actually behave?
 
-**Description:** Most external systems have some notion of state: sessions, connections, transactions, cursors. The docs describe them, but the edge cases live in the runtime. For the Claude SDK, there are three ways to continue a conversation: `resume` (same session, appends to context), `forkSession` (new session, copies context), and `continue: true` (finds the most recent session by directory). Store a secret value in round 1, retrieve it in round 2 using each method. Assert on whether the session ID changes, whether the value is preserved, and whether the directory matters.
+The naive assumption is that `timingSafeEqual(a, b)` returns `false` when signatures don't match. But what if the inputs have different lengths? It **throws**. Not `false`, a full `ERR_CRYPTO_TIMING_SAFE_EQUAL_LENGTH` exception. If you're writing webhook verification and an attacker sends a truncated signature, your naive code crashes instead of rejecting.
 
-This pattern applies broadly:
-- **Database transactions:** Does a rolled-back transaction release locks immediately or after a timeout?
-- **WebSocket connections:** If you reconnect, does the server remember your subscriptions?
-- **OAuth flows:** If you refresh a token, is the old one immediately invalid?
+The learning test catches this, and the fix is simple: check lengths before calling `timingSafeEqual`. But you'd never know to do that from the docs.
 
-The goal is to build a precise mental model of the state lifecycle, backed by assertions, not assumptions.
+---
+
+### Demo 4: Pick Something Live
+
+We pick an API or behavior we haven't tested yet and write a learning test from scratch on stream. No prep, no script. Just the question -> setup -> assertion -> finding loop in real time.
 
 ---
 
@@ -214,77 +344,6 @@ In the 12-factor episode, we talked about using structured outputs as phase tran
 
 ---
 
-### Code Sample 4: Structured Interactions --- Typed Input and Output
-
-**Title:** Proving the Shape of Data In and Out
-
-**Description:** Most APIs accept structured input and return structured output. Learning tests should verify the actual schema, not just what the types say. For the Claude SDK, use Zod to define an output schema, convert it to JSON Schema, pass it via `outputFormat`, and verify that the result event contains a `structured_output` field that parses correctly. Then chain it: structured output in turn 1, plaintext in turn 2, verify the model retains the structured data across turns.
-
-More broadly:
-- **GraphQL APIs:** Does the response actually match the schema, or does the server return extra fields? What happens with nullable fields?
-- **gRPC services:** What does the default value look like for an unset field? Is it `0` or `undefined`?
-- **Webhook payloads:** What's the actual shape of the event body? Does it match the docs, or are there undocumented fields?
-
-Type definitions tell you what the system *should* return. Learning tests tell you what it *actually* returns.
-
----
-
-### Code Sample 5: Lifecycle Hooks and Side Effects --- What Really Happens at Runtime?
-
-**Title:** Testing Behavioral Injection and Side Effects
-
-**Description:** Many systems have hook or middleware patterns that let you inject behavior at specific lifecycle points. Learning tests should verify: when do hooks fire, what data do they receive, and what happens to the data you return? For the Claude SDK, set up a PostToolUse hook on the Write tool, have the agent write a file, and verify your hook receives the `tool_input` (with `file_path`) and `tool_response`. Then return a `systemMessage` from the hook and discover that it's injected into the model's context but is NOT emitted as a separate event in the query stream. That's the kind of finding you'd never get from docs.
-
-The general pattern:
-- **Express middleware:** Does `next()` run synchronously or on the next tick? What happens if you call it twice?
-- **Database triggers:** Does a trigger fire inside or outside the transaction? Can it see uncommitted rows?
-- **Event emitters:** Are listeners called synchronously in order, or is there batching?
-
-Side effects and lifecycle timing are the hardest things to get right from docs alone. Learning tests make them concrete.
-
----
-
-### Code Sample 6: Advanced Control Flow --- Pushing the Boundaries
-
-**Title:** Testing Non-Obvious Control Patterns
-
-**Description:** The most valuable learning tests explore the edges of the API---patterns that are possible but not well-documented. For the Claude SDK, instead of passing a string prompt, pass an `AsyncIterable<SDKUserMessage>` that yields messages over time. The generator controls when messages arrive and when the session ends (by returning). Test that multiple yields produce multiple result events, and that ending the generator cleanly stops the session. This is the foundation for event-driven agent architectures.
-
-More broadly, these are the tests for:
-- **Streaming APIs:** What happens if you close the stream mid-chunk? Does the server get notified?
-- **Cursor-based pagination:** What happens if you mutate data between cursor pages?
-- **Long-polling:** What's the actual timeout behavior? Does the server close the connection or does the client?
-
-These tests are where you discover whether the system can actually support the architecture you're planning, before you invest in building it.
-
----
-
-### The Full Picture
-
-When you put these together, you get a curriculum that builds from "does this API exist" all the way up to "can I build a production workflow on top of it." Each test answers a specific question, and the findings accumulate into a concrete understanding you can trust.
-
-```mermaid
-flowchart TD
-    L1["1. Hello World\n(Can I call it? What comes back?)"] --> L2["2. Wrong Assumptions\n(What did I get wrong?)"]
-    L2 --> L3["3. State & Continuity\n(How does it remember?)"]
-    L3 --> L4["4. Structured I/O\n(What's the real data shape?)"]
-    L4 --> L5["5. Hooks & Side Effects\n(What happens at runtime?)"]
-    L5 --> L6["6. Advanced Control\n(Can it support my architecture?)"]
-    L6 --> W["Production Integration:\nBuilt on evidence,\nnot assumptions"]
-
-    style L1 fill:#e1f5fe
-    style L2 fill:#e1f5fe
-    style L3 fill:#e8f5e9
-    style L4 fill:#e8f5e9
-    style L5 fill:#fff3e0
-    style L6 fill:#fff3e0
-    style W fill:#f3e5f5
-```
-
-Blue: foundational understanding (does it work, what did I get wrong). Green: data and state semantics (how does it remember, what's the real shape). Orange: runtime behavior (hooks, side effects, control flow). Purple: what you actually ship---built on proof, not vibes.
-
----
-
 ## Using Learning Tests in Agentic Workflows
 
 The power move is making learning tests part of your agent's workflow, not just yours. When you're building a multi-phase agentic pipeline:
@@ -298,6 +357,18 @@ The power move is making learning tests part of your agent's workflow, not just 
 **Phase 3: Implementation** --- The agent builds on top of concrete findings. When it writes the integration code, it can reference the learning tests as proof of correct behavior.
 
 This is "specs before code" from the Ralph Wiggum episode, extended one step earlier: *proofs before specs before code.*
+
+---
+
+## More Examples to Explore
+
+The code samples below aren't part of the live demo, but they show how the same technique extends to more complex API behaviors. Check them out in the repo:
+
+- **03-state-and-continuity.test.ts** --- How does the SDK handle session continuity? Tests `resume` (same session ID, preserves context), `forkSession` (new session ID, copies context), and `continue: true` (finds most recent session by directory). The same questions apply to database transactions, WebSocket reconnections, and OAuth token refresh.
+
+- **04-structured-output.test.ts** --- How does structured output actually work? Uses Zod to define a schema, passes it via `outputFormat`, and verifies the result event contains a parsed `structured_output` object. Then chains structured and plaintext output across session turns. Applies to any API with typed responses: GraphQL, gRPC, webhook payloads.
+
+- **05-hooks-and-side-effects.test.ts** --- When do hooks fire, what data do they get, and what happens to the data you return? Discovers that `systemMessage` returned from a hook is injected into the model's context but is NOT emitted as a separate event in the query stream. The same questions apply to Express middleware, database triggers, and event emitters.
 
 ---
 

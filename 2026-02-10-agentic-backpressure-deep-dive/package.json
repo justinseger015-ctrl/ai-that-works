@@ -1,0 +1,16 @@
+{
+  "name": "2026-02-10-agentic-backpressure-deep-dive",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.38",
+    "zod": "^4.3.6"
+  }
+}
