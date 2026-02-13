@@ -18,9 +18,9 @@ We've talked before about agentic backpressure—building feedback loops that he
 
 The fastest way to improve coding agent results is to give them concrete feedback loops. Learning tests let your agent check its assumptions against reality and self-correct before it writes production code—which means you spend less time debugging and more time shipping.
 
-**Next session: AI Content Pipeline Revisited (Feb 17)**
+**Tomorrow's session: AI Content Pipeline Revisited**
 
-We're going meta again! This time we're walking through the entire pipeline we use to create each episode of this podcast. We'll show you the tools, the workflows, and the specific techniques we use to make AI-generated content not sound like AI slop. Expect browser agents, clip extraction, image generation, and a discussion about how far automation should actually go.
+Tomorrow, we're going meta again! This time we're walking through the entire pipeline we use to create each episode of this podcast. We'll show you the tools, the workflows, and the specific techniques we use to make AI-generated content not sound like AI slop. Expect browser agents, clip extraction, image generation, and a discussion about how far automation should actually go.
 
 Sign up here: https://luma.com/ai-content-generation
 
