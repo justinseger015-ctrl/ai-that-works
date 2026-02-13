@@ -12,16 +12,20 @@
 
 <div align="center">
 <h2>🦄 <strong>Next Episode</strong></h2>
-<h3><strong>Agentic Backpressure Deep Dive</strong></h3>
-<p><strong>Tuesday, February 10, 2026 at 10 AM PST</strong></p>
-<p><em>In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
+<h3><strong>AI Content Pipeline Revisited</strong></h3>
+<p><strong>Tuesday, February 17, 2026 at 10 AM PST</strong></p>
+<p><em>We have another meta episode this week! Several months ago, we did an episode back about automating the pipeline for generating the artifacts and content for this podcast. That pipeline became stale, and so we breathed some life back into it and we're going to discuss the different parts of that pipeline on the podcast.
 
-In this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.
-
-This will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.
+This episode will discuss everything that goes into bringing you an episode. We'll discuss
+    -  Details of the entire pipeline and tools we use to bring you each episode
+    -  How to get AI to have the right tone in freeform generation and not sound like AI
+    -  Browser agents
+    -  Finding clippable content from the transcript
+    -  Image generation
+    -  How far should automation go?
 </em></p>
 
-<a href="https://luma.com/agentic-backpressure-deep-dive" target="_blank">
+<a href="https://luma.com/ai-content-generation" target="_blank">
 <img src="https://img.shields.io/badge/🦄_REGISTER_NOW-Join_Live_Session-ff4444?style=for-the-badge&logo=calendar" alt="Register Now">
 </a>
 
@@ -124,12 +128,12 @@ This episode will discuss everything that goes into bringing you an episode. We'
 <tr><td>
       <div style="padding: 8px 0;">
         <div style="margin-bottom: 2px;">
-          <span style="background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">UPCOMING</span>
+          <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">PAST</span>
         </div>
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-10</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#44</strong>: Agentic Backpressure Deep Dive</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="./2026-02-10-agentic-backpressure-deep-dive">code</a> • <a href="https://luma.com/agentic-backpressure-deep-dive">register</a>
+          <a href="https://www.youtube.com/watch?v=Zx_GOhGik0o">watch</a> • <a href="./2026-02-10-agentic-backpressure-deep-dive">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
@@ -146,7 +150,7 @@ This will extend our previous conversation about agentic backpressure and buildi
         <div style="color: #666; font-size: 13px; margin-bottom: 4px;">2026-02-03</div>
         <div style="font-size: 16px; line-height: 1.3; margin-bottom: 6px;"><strong>#43</strong>: Prompting Is Becoming a Product Surface</div>
         <div style="font-size: 13px; color: #666;">
-          <a href="https://www.youtube.com/watch?v=jUBDqWRGNps">watch</a> • <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a>
+          <a href="https://www.youtube.com/watch?v=qdfwmYTO0Aw">watch</a> • <a href="./2026-02-03-prompting-is-becoming-a-product-surface">code</a>
         </div>
       </div>
     </td><td><div style="padding: 8px 0; line-height: 1.5;">Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.

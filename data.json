@@ -29,15 +29,16 @@
       "eventDate": "2026-02-10T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt",
+        "url": "https://www.youtube.com/watch?v=Zx_GOhGik0o",
         "type": "video/youtube"
       },
       "links": {
+        "youtube": "https://www.youtube.com/watch?v=Zx_GOhGik0o",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-10-agentic-backpressure-deep-dive"
       },
       "season": 2,
       "episode": 44,
-      "isPast": false,
+      "isPast": true,
       "isWorkshop": false
     },
     {
@@ -49,11 +50,11 @@
       "eventDate": "2026-02-03T18:00:00Z",
       "event_type": "episode",
       "media": {
-        "url": "https://www.youtube.com/watch?v=jUBDqWRGNps",
+        "url": "https://www.youtube.com/watch?v=qdfwmYTO0Aw",
         "type": "video/youtube"
       },
       "links": {
-        "youtube": "https://www.youtube.com/watch?v=jUBDqWRGNps",
+        "youtube": "https://www.youtube.com/watch?v=qdfwmYTO0Aw",
         "code": "https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface"
       },
       "season": 2,
@@ -1004,14 +1005,14 @@
   ],
   "meta": {
     "totalEpisodes": 48,
-    "completedEpisodes": 43,
-    "upcomingEpisodes": 2,
+    "completedEpisodes": 44,
+    "upcomingEpisodes": 1,
     "workshops": 3,
     "seasons": [
       1,
       2
     ],
-    "lastUpdated": "2026-02-06T19:25:49.698Z",
+    "lastUpdated": "2026-02-13T20:30:36.801Z",
     "generatedBy": "validate-metadata.ts"
   }
 }

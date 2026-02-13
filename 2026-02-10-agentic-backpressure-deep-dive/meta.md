@@ -10,10 +10,11 @@ description: |
 event_link: https://luma.com/agentic-backpressure-deep-dive
 eventDate: 2026-02-10T18:00:00Z
 media:
-  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
+  url: https://www.youtube.com/watch?v=Zx_GOhGik0o
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-10-agentic-backpressure-deep-dive
+  youtube: https://www.youtube.com/watch?v=Zx_GOhGik0o
 season: 2
 episode: 44
 event_type: episode

@@ -16,8 +16,30 @@
       <link>https://github.com/ai-that-works/ai-that-works</link>
     </image>
     <atom:link href="https://github.com/ai-that-works/ai-that-works/raw/main/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 06 Feb 2026 19:25:49 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Feb 2026 20:30:36 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title><![CDATA[Agentic Backpressure Deep Dive]]></title>
+      <description><![CDATA[In our next installment of advanced coding agent workflows, we'll explore some alternatives to research for improving results from coding agents. Code and web research is great for understanding the current codebase and finding documentation, but neither of these things is as concrete, and can still lead to hallucinations or incorrect assumptions.
+
+In this episode, we'll talk about learning tests and proof-driven-dev - writing small PoC programs and tests that lay the groundwork to confirm understanding of external systems, *before* you get deep into implementation.
+
+This will extend our previous conversation about agentic backpressure and building deterministic feedback loops to help coding agents work more autonomously.
+
+
+Watch: https://www.youtube.com/watch?v=Zx_GOhGik0o
+Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-10-agentic-backpressure-deep-dive
+Event: https://luma.com/agentic-backpressure-deep-dive
+
+AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
+      <link>https://www.youtube.com/watch?v=Zx_GOhGik0o</link>
+      <guid isPermaLink="false">aitw-044</guid>
+      <pubDate>Tue, 10 Feb 2026 18:00:00 GMT</pubDate>
+      <category>Technology</category>
+      <category>Software Engineering</category>
+      <category>Artificial Intelligence</category>
+      <enclosure url="https://www.youtube.com/watch?v=Zx_GOhGik0o" type="video/youtube" />
+    </item>
     <item>
       <title><![CDATA[Prompting Is Becoming a Product Surface]]></title>
       <description><![CDATA[Prompting used to be an engineering problem. Write the right string, tweak it until the model behaves, ship it behind the scenes.
@@ -27,18 +49,18 @@ That breaks the moment real users show up. Customers don't think in prompts — 
 So prompting is moving into the product. Interfaces matter. Structure matters. Guardrails and feedback matter. The real work now isn't prompt cleverness — it's building systems that let people express intent in a way software can actually understand and trust.
 
 
-Watch: https://www.youtube.com/watch?v=jUBDqWRGNps
+Watch: https://www.youtube.com/watch?v=qdfwmYTO0Aw
 Code: https://github.com/ai-that-works/ai-that-works/tree/main/2026-02-03-prompting-is-becoming-a-product-surface
 Event: https://luma.com/prompting-is-a-product-surface
 
 AI That Works - Weekly conversations about production-ready AI engineering with live coding and Q&A.]]></description>
-      <link>https://www.youtube.com/watch?v=jUBDqWRGNps</link>
+      <link>https://www.youtube.com/watch?v=qdfwmYTO0Aw</link>
       <guid isPermaLink="false">aitw-043</guid>
       <pubDate>Tue, 03 Feb 2026 18:00:00 GMT</pubDate>
       <category>Technology</category>
       <category>Software Engineering</category>
       <category>Artificial Intelligence</category>
-      <enclosure url="https://www.youtube.com/watch?v=jUBDqWRGNps" type="video/youtube" />
+      <enclosure url="https://www.youtube.com/watch?v=qdfwmYTO0Aw" type="video/youtube" />
     </item>
     <item>
       <title><![CDATA[No Vibes Allowed]]></title>
