@@ -1,0 +1,26 @@
+[
+  {
+    "rationale": "This clip provides a highly actionable and counterintuitive technique for improving AI-generated content: using an LLM as a 'judge' to identify and fix 'AI slop' patterns. It directly addresses the key takeaway of 'Crafting Authentic AI Content' and avoiding generic AI output. Viewers will resonate with the challenge of making AI sound authentic and appreciate a concrete method for achieving it, highlighting the multi-pass generation technique.",
+    "start_timestamp": "52:57",
+    "end_timestamp": "54:10",
+    "speaker": "Kevin Gregory",
+    "transcript_excerpt": "Kevin Gregory (52:57.538)\nYeah, so it's so funny, right? We haven't identified AI patterns, right? Which basically all that is is, hey, this looks like the following email sounds like AI slop. You always tell it because it always does. It always does. It always has repeated sentence patterns every time. So you just tell it. It sounds like AI slop. Tell me why it sounds like AI slop.\nDex (53:09.293)\nYou just always tell it sounds like slop. Okay.\nDex (53:18.667)\nYep.\nKevin Gregory (53:24.034)\nRight? So there's a subject, the body, and the call to action. And then we say, analyze the email, identify specific patterns that make it sound AI generated. So name the pattern, give me an example, and explain why this sounds artificial. And so all.\nDex (53:39.628)\nCool. This is the LMS judge. Like, just throw more tokens at the problem and make it think more and then you just keep turning the crank, basically. Okay.\nKevin Gregory (53:48.806)\nYeah, but all this is doing is this isn't rewriting the email. This is just saying what the AI patterns are. This is just, hey, here's an email. Why does this sound like AI? And then the final part fixes that. It says the following email or the, yeah, it was written by AI. It sounds like AI slop. Fix these patterns to make it not sound like AI slop.",
+    "hook": "Tired of AI slop? Learn our secret: an LLM judge that identifies and fixes artificial patterns in your AI-generated content, making it sound authentically human."
+  },
+  {
+    "rationale": "This clip offers crucial actionable advice on the philosophy of automation, directly addressing the 'Human-in-the-Loop Advantage' and 'Automation doesn't have to be all-or-nothing' takeaways. It challenges the common 'all-or-nothing' mindset, providing a practical perspective that even 90-95% automation is a significant win, especially when human oversight is maintained for high-impact public communications. This resonates with anyone struggling to fully automate complex processes.",
+    "start_timestamp": "16:04",
+    "end_timestamp": "16:39",
+    "speaker": "Kevin Gregory",
+    "transcript_excerpt": "Kevin Gregory (16:04.939)\nExactly, but I think something else to keep in mind is even if you automate 95 or 90 % of something That's still a huge win, right? So we're at the point now where the emails that it generates are good Typically only need one round of comments, but we still have to review them right you and you'll see in here. I don't have it come create the Riverside event create the description and post a vibe of LinkedIn, right? I am a human in the loop there to make sure that everything is buttoned up and correct before it posts a vibe of LinkedIn. And same with the emails.",
+    "hook": "Don't aim for 100% automation! Discover why automating 90-95% is a massive win, and why human-in-the-loop review is critical for high-impact tasks like emails and social posts."
+  },
+  {
+    "rationale": "This clip highlights a practical application of 'Browser Agents in Action,' demonstrating how to overcome API limitations (expensive or non-existent) by using an agent to automate complex web interactions. The insight into how the agent 'learns' by clicking and the challenge of getting the time right provides a concrete example of real-world agentic behavior and problem-solving, which is highly relevant to the 'AI That Works' theme.",
+    "start_timestamp": "29:22",
+    "end_timestamp": "30:29",
+    "speaker": "Kevin Gregory",
+    "transcript_excerpt": "Kevin Gregory (29:22.601)\nThat's right. So the next thing it's going to do is create the Riverside event. Riverside, this was a fun one. This had, Riverside has an API, but it's very expensive to get to the account level where you have the API. So now you can see it is, shoot, shoot, shoot. It is doing, it is a browse, it's doing this live. It's opening a browser and it's creating the event in Riverside with kind of all the elements that we've created or told it to and it's doing this live.\nDex (30:00.459)\nHello?\nKevin Gregory (30:00.989)\nYou see, it's gonna add, this is all the stuff that goes into it, right? It's gonna add decks. It doesn't do great at the time. So it created the event. But the next step is I could have it automatically post that to ViBub's LinkedIn, but that's not a great idea because you saw it just got the time wrong. It struggles to figure out how to get the time exactly where it wants.",
+    "hook": "No API? No problem! See how we use a browser agent to automate complex event creation in Riverside, even when a direct API is too expensive or unavailable."
+  }
+]

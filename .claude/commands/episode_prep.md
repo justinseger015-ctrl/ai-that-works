@@ -1,43 +1,71 @@
 # Episode Prep Command
 
-This command updates episode documentation after completing a live session.
+This command prepares the documentation for an upcoming episode.
 
 ## Overview
-Update the just-completed episode README with YouTube link, thumbnail, and summary, update the main README with episode details, and add next episode info to the table.
+Add next episode info to the table in the main README.md.
 
 ## Steps
 
 1. **Check current date** - Use bash to verify today's date, run `bash(ls .)` to see the top level of folder structure here
 
-2. **Gather required information** - Ensure you have:
-   - YouTube link to the just-completed recording
-   - Summary of the just-completed episode
-   - Folder for the just-completed episode (dated today or yesterday, in the past) (use List() or Bash(ls) to check if it exists)
-   - Next episode signup link (starting with lu.ma/...)
-   - Summary/description of the next episode
+2. **Get needed information from the user**
+Ask the user for the following:
+* Episode title
+* Episode description
+* Episode number
+* Episode date
+* Luma URL suffix
+* Any additional guests to invite to the Riverside event
+**STOP and ask the user UNTIL YOU HAVE ALL OF THESE DATA POINTS**
 
-   **STOP and ask the user if ANY of these are missing**
+3. **Generate the image for the event**
+Use the provided information to run the cli:
+```bash
+   cd 2026-02-17-automating-aitw
+   uv run python src/thumbnail_creation/cli.py --title <provided episode title> --description <provided description> --episode-number <provided episode number>
+```
+This will generate an outputted image and subtitle. Give the user:
+- The generated subtitle
+- The path to the outputted `.png`
 
-3. **Update past episode meta.md**:
+Ask the user if they are satisfied with the result. If not, ask them what they don't like about it. Then run:
+```bash
+   cd 2026-02-17-automating-aitw
+   uv run python src/thumbnail_creation/cli.py --title <provided episode title> --description <provided description> --episode-number <provided episode number> --current-subtitle <the subtitle that was just generated> --feedback <the user's feedback>
+```
+The system will automatically categorize the feedback as relating to the subtitle, the image, or both, and regenerate accordingly. Keep repeating this feedback loop until the user is satisfied with the image.
+
+4. **Update the provided description** 
+   - If the provided episode description does not end with "Meet the Speakers🧑‍💻​
+   
+   ​​Meet Vaibhav Gupta, one of the creators of BAML and YC alum. He spent 10 years in AI performance optimization at places like Google, Microsoft, and D. E. Shaw. He loves diving deep and chatting about anything related to Gen AI and Computer Vision! 
+   
+   ​Meet Dex Horthy, founder at HumanLayer and coiner of the term Context Engineering. He spent 10+ years building devops tools at Replicated, Sprout Social and JPL. DevOps junkie turned AI Engineer.", append that to the description and use that as the new episode description going forward
+
+5. **Create  the event in Riverside**
+Run this script:
+```bash
+   cd 2026-02-17-automating-aitw
+   uv run python src/riverside/cli.py --title <provided episode title> --description <provided description> --episode-number <provided episode number> --date <provided date> --guests <additional guests if any. if none, do not add this argument>
+```
+This will create the riverside event. 
+
+6. **STOP. Tell the user to finish the Riverside Event**
+Tell the user to go turn on the livestreams and upload the generated image in Riverside. STOP AND WAIT until the user has indicated that they have done this. Once they say they have, continue.
+
+7. **Create the Luma Event**
+   - If the provided episode title does not start with "🦄 ai that works: ", prepend that to the episode title and use that as the new episode title going forward.
+   - Navigate to the `2026-02-17-automating-aitw` directory and run the script
+   ```bash
+   uv run python src/luma/cli.py --name <episode title prepended by 🦄 ai that works:> --description <provided episode description appended with the Meet the Speakers...> --date <episode date> --cover-image-path <absolute path to outputted image from step 3> --luma-url-suffix <provided luma url suffix>
+   ```
+
+8. **Create new episode meta.md**
    - Read at least 3 other past episode meta.mds to understand the format
-   - update the links and youtube url
-
-
-
-4. **Update episode-specific README**:
-   - Read 2025-07-08-context-engineering/README.md for example
-   - **IMPORTANT**: Add YouTube thumbnail using this exact format (see ):
-     ```markdown
-     [![Episode Title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-     ```
-     Extract the VIDEO_ID from the YouTube URL (the part after v= or youtu.be/)
-   - Leave whiteboards and links sections blank for manual addition
-   - Navigate to the just-completed episode folder
-   - Update the README with the provided summary
-
-4a. Create a new folder for the upcoming episode following the format
-   - create a new folder for the upcoming episode
-   - create a meta.md, omitting the youtube links, setting url to `null` for the media section
+   - Create a new folder for the upcoming episode following the format
+   - Create a meta.md, set the youtube link to `https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt`, set the code url to `https://github.com/ai-that-works/ai-that-works`
+   - Update the luma links
    
 
 ```example initial meta.md
@@ -49,7 +77,7 @@ description: |
 event_link: https://luma.com/<something>
 eventDate: YYYY-MM-DDT18:00:00Z
 media:
-  url: null
+  url: https://www.youtube.com/playlist?list=PLi60mUelRAbFqfgymVfZttlkIyt0XHZjt
   type: video/youtube
 links:
   code: https://github.com/ai-that-works/ai-that-works/tree/main/YYYY-MM-DD-<folder-name>
@@ -60,8 +88,7 @@ event_type: episode
 ---
 ```
 
-
-5. **Run the tools to regenerate the JSON manifest**
+9. **Run the tools to regenerate the JSON manifest**
    - cd tools && bun run readme
 
 ## Important Notes
